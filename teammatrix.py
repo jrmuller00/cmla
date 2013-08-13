@@ -1,6 +1,7 @@
 import sys
 import getopt
 import cmlaTeam as cmla
+import random
 
 def getScheduleTable(numTeams):
 #
@@ -118,6 +119,61 @@ def makeTeamDict(teamFilename):
         teamDict["BYE"] = newTeam
 
     return teamDict
+
+def makeSchedule(teamDict, teamsNotPlayed):
+
+    #
+    # get a list of teams and the number of teams
+    teamList = teamDict.keys()
+    numTeams = len(teamlist)
+
+    #
+    # now make a random list of the teams to use for scheduling
+    scheduleList = []
+    for i in range(numTeams):
+        scheduleList.append("empty")
+    currentIndex = 0
+
+    makeList = True
+    
+    while (makeList == True):
+        team = random.choice(teamList)
+        # 
+        # add the team to the schedule list
+        while scheduleList[currentindex] != "empty":
+            currentIndex = currentIndex + 1
+        scheduleList[currentindex] = team
+        teamDict[team].setListIndex(currentIndex)
+        teamList.remove(team)
+        #
+        # now need to find any other teams from that parish
+        # and add them to the schedule list
+
+        for otherTeam in teamList:
+            if team[:2] == otherTeam[:2]:
+                #
+                # need to pull them from the team list
+                # and add them to the schedule list in a slot that 
+                # does not play "team"
+                emptySpot = False
+                while emptySpot == False:
+                    addIndex = random.choice(teamsNotPlayed[currentIndex]) - 1 
+                    if scheduleList[addIndex] == 'empty':
+                        emptySpot = True
+                    else:
+                        teamsNotPlayed[currentIndex].remove(addIndex + 1)
+                
+                scheduleList[addIndex] = otherTeam
+                teamDict[otherTeam].setListIndex(addIndex)
+                teamList.remove(otherTeam)
+
+
+
+
+
+
+
+
 
 
 def main():
