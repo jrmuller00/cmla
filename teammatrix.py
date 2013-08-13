@@ -71,6 +71,7 @@ def getTeamsNotPlayed(numTeams, teamsPlayed):
             teamsNotPlayed[i].append(j+1)
 
     for i in range(numTeams):
+        teamsNotPlayed[i].remove(i+1)
         for j in range(len(teamsPlayed[i])):
             teamsNotPlayed[i].remove(teamsPlayed[i][j])
 
