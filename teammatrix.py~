@@ -163,12 +163,7 @@ def makeSchedule(teamDict, teamsNotPlayed):
                 while emptySpot == False:
                     #
                     # get a set of viable teams to play
-                    viableTeams = []
                     for k in range(len(noPlayIndicies)):
-                        if k == 0:
-                            viableTeams = teamsNotPlayed[noPlayIndicies[j]]
-                        else:
-                            viableTeams = set(viableTeams).intersection(teamsNotPlayed[j])
                         
                     addIndex = random.choice(teamsNotPlayed[currentIndex]) - 1 
                     if scheduleList[addIndex] == 'empty':
