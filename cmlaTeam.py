@@ -55,16 +55,16 @@ class cmlaTeam(object):
         self.listLocation.clear()
         return
 
-    def getNumHomeGames():
+    def getNumHomeGames(self):
         numHome = 0
-        for game in listLocations:
+        for game in self.listLocation:
             if game == 'h':
                 numHome = numHome + 1
         return numHome
 
-    def getNumAwayGames():
+    def getNumAwayGames(self):
         numAway = 0
-        for game in listLocations:
+        for game in self.listLocation:
             if game == 'a':
                 numAway = numAway + 1
         return numAway

@@ -149,12 +149,12 @@ def makeSchedule(teamDict, teamsNotPlayed):
         # now need to find any other teams from that parish
         # and add them to the schedule list
 
-        noPlayListIndicies = []
+        noPlayIndicies = []
         noPlayIndicies.append(currentIndex)
 
         for otherTeam in teamList:
             if team[:2] == otherTeam[:2]:
-                print ('Found same parish ',team, otherTeam)
+#                print ('Found same parish ',team, otherTeam)
                 #
                 # need to pull them from the team list
                 # and add them to the schedule list in a slot that 
@@ -166,11 +166,11 @@ def makeSchedule(teamDict, teamsNotPlayed):
                     viableTeams = []
                     for k in range(len(noPlayIndicies)):
                         if k == 0:
-                            viableTeams = teamsNotPlayed[noPlayIndicies[j]]
+                            viableTeams = teamsNotPlayed[noPlayIndicies[k]]
                         else:
-                            viableTeams = set(viableTeams).intersection(teamsNotPlayed[j])
+                            viableTeams = set(viableTeams).intersection(teamsNotPlayed[k])
                         
-                    addIndex = random.choice(teamsNotPlayed[currentIndex]) - 1 
+                    addIndex = random.choice(viableTeams) - 1 
                     if scheduleList[addIndex] == 'empty':
                         emptySpot = True
                     else:
@@ -184,6 +184,16 @@ def makeSchedule(teamDict, teamsNotPlayed):
             makeList = False
 
     return scheduleList
+
+def updateCMLADict(cmlaDict, scheduleTable, teamList):
+    
+    for pair in scheduleTable:
+        (away, home) = pair
+        awayTeam = teamList[away - 1]
+        homeTeam = teamList[home - 1]
+        cmlaDict[awayTeam].addGame(homeTeam,'a')
+        cmlaDict[homeTeam].addGame(awayTeam,'h')
+    return
 
 
 def main():
@@ -215,10 +225,10 @@ def main():
     teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
 #    print scheduleTable
     scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed)
-    for i in range(len(scheduleList)):
-        print ('team ',scheduleList[i], ' plays ')
-        for j in range(len(teamsPlayed[i])):
-            print ('     ',scheduleList[teamsPlayed[i][j]-1])
+    updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
+
+    for key in cmlaTeamDict.keys():
+        print 'Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),' and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents
 
 
 if __name__ == "__main__":
