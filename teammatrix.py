@@ -195,6 +195,42 @@ def updateCMLADict(cmlaDict, scheduleTable, teamList):
         cmlaDict[homeTeam].addGame(awayTeam,'h')
     return
 
+def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
+    """
+    This function will load balance the schedule so that each team 
+    has 5 home and 5 away games
+    """
+
+    homeGamesList = []
+    for i in range(10):
+        homeGamesList.append([])
+
+    for key in cmlaDict.keys():
+        numHomeGames = cmlaDict[key].getNumHomeGames()
+        homeGamesList[numHomeGames - 1].append(key)
+
+    
+    balanced = False
+    currentIndex = 9
+    while (currentIndex > 5):
+        if len(homeGamesList[currentIndex]) == 0:
+            currentIndex = currentIndex - 1
+        else:
+#           
+#           get the team to switch
+            
+            switchTeam = homeGamesList[0]
+#
+#           now get the list of teams played
+            teamsPlayed = cmlaDict[switchTeam].listOpponents
+                        
+
+            
+        
+
+
+    return
+
 
 def main():
     try:
@@ -226,6 +262,7 @@ def main():
 #    print scheduleTable
     scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed)
     updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
+    loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
 
     for key in cmlaTeamDict.keys():
         print 'Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),' and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents
