@@ -195,6 +195,26 @@ def updateCMLADict(cmlaDict, scheduleTable, teamList):
         cmlaDict[homeTeam].addGame(awayTeam,'h')
     return
 
+def switchBookkeeping(switchHome, switchAway, cmlaDict, scheduleTable):
+    switchHomeIndex = cmlaDict[switchHome]
+    switchAwayIndex = cmlaDict[switchAway]
+    
+    switchIndex = 0
+    #
+    # find the pair in the scedule table
+    for pair in scheduleTable:
+        (away, home) = pair
+        if (away == switchAwayIndex) and (home == switchHomeIndex):
+            scheduleTable[switchIndex] = (home, away)
+        else:
+            switchIndex = switchIndex + 1
+            
+    cmlaDict[switchHome].flipHomeAway(switchAway)
+    cmlaDict[switchAway].flipHomeAway(switchHome)
+    return 
+
+    
+
 def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
     """
     This function will load balance the schedule so that each team 
@@ -219,23 +239,37 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
 #           
 #           get the team to switch
             
-            switchTeam = homeGamesList[currentIndex][0]
+            switchHomeTeam = homeGamesList[currentIndex][0]
 #
 #           now get the list of teams played
-            teamsPlayed = cmlaDict[switchTeam].listOpponents
+            teamsPlayed = cmlaDict[switchHomeTeam].listOpponents
             switchFound = False
             while switchFound == False:
-                searchIndex = 0 
-                while (searchIndex < 5):
+                switchBucket = 0 
+                while (switchBucket < 5):
                     if len(homeGamesList[searchIndex]) == 0:
                         searchIndex = searchIndex + 1
                     else:
-                        switchList = homeGamesList[searchIndex]
+                        switchList = homeGamesList[switchBucket]
                         intersectList = set(teamsPlayed).intersection(switchList)
                         if len(intersectList) == 0:
-                            searchIndex = searchIndex + 1
+                            switchBucket = switchBucket + 1
                         else:
-                            searchindex = 6
+                            switchBucket = 6
+                if switchBucket > 5:
+                    print ('No team found to switch home/away')
+                else:
+                    print ('Found these teams to switch with',intersectList)
+                    #
+                    # pick the first team and do the book keeping
+                    
+                    switchAwayTeam = intersectList[0]
+                    switchBookkeeping(switchHomeTeam, switchAwayTeam, cmlaDict, scheduleTable)
+                    
+                    
+                    
+
+
 
 
 

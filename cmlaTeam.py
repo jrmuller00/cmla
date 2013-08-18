@@ -68,6 +68,17 @@ class cmlaTeam(object):
             if game == 'a':
                 numAway = numAway + 1
         return numAway
+        
+    def flipHomeAway(self,opponent):
+        index = 0
+        for team in self.listOpponents:
+            if team == opponent:
+                if self.listLocation[index] == 'a':
+                    self.listLocation[index] = 'h'
+                else:
+                    self.listLocation[index] = 'a'
+            else:
+                index = index + 1
 
 
 
