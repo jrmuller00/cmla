@@ -124,7 +124,7 @@ def makeSchedule(teamDict, teamsNotPlayed):
 
     #
     # get a list of teams and the number of teams
-    teamList = teamDict.keys()
+    teamList = list(teamDict.keys())
     numTeams = len(teamList)
 
     #
@@ -219,10 +219,26 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
 #           
 #           get the team to switch
             
-            switchTeam = homeGamesList[0]
+            switchTeam = homeGamesList[currentIndex][0]
 #
 #           now get the list of teams played
             teamsPlayed = cmlaDict[switchTeam].listOpponents
+            switchFound = False
+            while switchFound == False:
+                searchIndex = 0 
+                while (searchIndex < 5):
+                    if len(homeGamesList[searchIndex]) == 0:
+                        searchIndex = searchIndex + 1
+                    else:
+                        switchList = homeGamesList[searchIndex]
+                        intersectList = set(teamsPlayed).intersection(switchList)
+                        if len(intersectList) == 0:
+                            searchIndex = searchIndex + 1
+                        else:
+                            searchindex = 6
+
+
+
                         
 
             
@@ -265,7 +281,7 @@ def main():
     loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
 
     for key in cmlaTeamDict.keys():
-        print 'Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),' and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents
+        print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),' and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents)
 
 
 if __name__ == "__main__":
