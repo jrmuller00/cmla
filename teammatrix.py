@@ -187,10 +187,19 @@ def makeSchedule(teamDict, teamsNotPlayed):
 
 def updateCMLADict(cmlaDict, scheduleTable, teamList):
     
+    index = 0
     for pair in scheduleTable:
         (away, home) = pair
         awayTeam = teamList[away - 1]
         homeTeam = teamList[home - 1]
+
+        if awayTeam == "BYE":
+            #
+            # need to switch bye from being away to home team
+            awayTeam = homeTeam
+            homeTeam = "BYE"
+            scheduleTable[index] = (home,away)
+
         cmlaDict[awayTeam].addGame(homeTeam,'a')
         cmlaDict[homeTeam].addGame(awayTeam,'h')
     return
@@ -226,20 +235,21 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
         homeGamesList.append([])
 
     for key in cmlaDict.keys():
-        numHomeGames = cmlaDict[key].getNumHomeGames()
-        homeGamesList[numHomeGames - 1].append(key)
+        if key != "BYE":
+            numHomeGames = cmlaDict[key].getNumHomeGames()
+            homeGamesList[numHomeGames - 1].append(key)
 
     
     balanced = False
     currentIndex = 9
-    while (currentIndex > 5):
+    while (currentIndex >= 5):
         if len(homeGamesList[currentIndex]) == 0:
             currentIndex = currentIndex - 1
         else:
 #           
 #           get the team to switch
             
-            switchHomeTeam = homeGamesList[currentIndex][0]
+            switchHomeTeam = random.choice(homeGamesList[currentIndex])
 #
 #           now get the list of teams played
             teamsPlayed = cmlaDict[switchHomeTeam].getHomeGamesList()
@@ -247,30 +257,32 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
             searchIndex = 0
             while switchFound == False:
                 switchBucket = 0 
-                while (switchBucket < 5):
-                    if len(homeGamesList[searchIndex]) == 0:
-                        searchIndex = searchIndex + 1
+                gotList = False
+                switchbucket = 0
+                while (gotList == False):
+                    if len(homeGamesList[switchBucket]) == 0:
+                        switchBucket = switchBucket + 1
                     else:
                         switchList = homeGamesList[switchBucket]
-                        intersectList = set(teamsPlayed).intersection(switchList)
+                        intersectList = list(set(teamsPlayed).intersection(switchList))
                         if len(intersectList) == 0:
                             switchBucket = switchBucket + 1
                         else:
-                            switchBucket = 6
-                if switchBucket > 5:
-                    print ('No team found to switch home/away', currentIndex, searchIndex)
+                            gotList = True
+                if len(intersectList) == 0:
+                    #print ('No team found to switch home/away', currentIndex, searchIndex)
                     switchFound = True
                 else:
-                    print ('Found these teams to switch with',intersectList)
+                    #print ('Found these teams to switch with',intersectList)
                     #
                     # pick the first team and do the book keeping
                     
-                    switchAwayTeam = intersectList[0]
+                    switchAwayTeam = random.choice(intersectList)
                     switchBookkeeping(switchHomeTeam, switchAwayTeam, cmlaDict, scheduleTable)
                     homeGamesList[currentIndex].remove(switchHomeTeam)
                     homeGamesList[currentIndex - 1].append(switchHomeTeam)
-                    homeGamesList[searchIndex].remove(switchAwayTeam)
-                    homeGamesList[searchIndex + 1].append(switchAwayTeam)
+                    homeGamesList[switchBucket].remove(switchAwayTeam)
+                    homeGamesList[switchBucket + 1].append(switchAwayTeam)
                     switchFound = True
 #            currentIndex = currentIndex - 1
                     
@@ -311,7 +323,7 @@ def main():
     loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
 
     for key in cmlaTeamDict.keys():
-        print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),' and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents)
+        print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents)
 
 
 if __name__ == "__main__":

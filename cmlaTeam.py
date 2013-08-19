@@ -87,7 +87,7 @@ class cmlaTeam(object):
         index = 0
         for loc in self.listLocation:
             if loc == 'h':
-                homeList.append(self.listOpponent[index])
+                homeList.append(self.listOpponents[index])
             index = index + 1
                 
         return homeList
@@ -98,7 +98,7 @@ class cmlaTeam(object):
         index = 0
         for loc in self.listLocation:
             if loc == 'a':
-                awayList.append(self.listOpponent[index])
+                awayList.append(self.listOpponents[index])
             index = index + 1
                 
         return awayList
