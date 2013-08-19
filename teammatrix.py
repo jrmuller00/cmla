@@ -242,8 +242,9 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
             switchHomeTeam = homeGamesList[currentIndex][0]
 #
 #           now get the list of teams played
-            teamsPlayed = cmlaDict[switchHomeTeam].listOpponents
+            teamsPlayed = cmlaDict[switchHomeTeam].getHomeGamesList()
             switchFound = False
+            searchIndex = 0
             while switchFound == False:
                 switchBucket = 0 
                 while (switchBucket < 5):
@@ -257,7 +258,8 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
                         else:
                             switchBucket = 6
                 if switchBucket > 5:
-                    print ('No team found to switch home/away')
+                    print ('No team found to switch home/away', currentIndex, searchIndex)
+                    switchFound = True
                 else:
                     print ('Found these teams to switch with',intersectList)
                     #
@@ -265,19 +267,13 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
                     
                     switchAwayTeam = intersectList[0]
                     switchBookkeeping(switchHomeTeam, switchAwayTeam, cmlaDict, scheduleTable)
+                    homeGamesList[currentIndex].remove(switchHomeTeam)
+                    homeGamesList[currentIndex - 1].append(switchHomeTeam)
+                    homeGamesList[searchIndex].remove(switchAwayTeam)
+                    homeGamesList[searchIndex + 1].append(switchAwayTeam)
+                    switchFound = True
+#            currentIndex = currentIndex - 1
                     
-                    
-                    
-
-
-
-
-
-                        
-
-            
-        
-
 
     return
 

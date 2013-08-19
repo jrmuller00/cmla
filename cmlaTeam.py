@@ -79,6 +79,31 @@ class cmlaTeam(object):
                     self.listLocation[index] = 'a'
             else:
                 index = index + 1
+        return
+        
+        
+    def getHomeGamesList(self):
+        homeList = []
+        index = 0
+        for loc in self.listLocation:
+            if loc == 'h':
+                homeList.append(self.listOpponent[index])
+            index = index + 1
+                
+        return homeList
+        
+        
+    def getAwayGamesList(self):
+        awayList = []
+        index = 0
+        for loc in self.listLocation:
+            if loc == 'a':
+                awayList.append(self.listOpponent[index])
+            index = index + 1
+                
+        return awayList
+        
+                        
 
 
 
