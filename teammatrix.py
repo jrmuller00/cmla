@@ -2,6 +2,12 @@ import sys
 import getopt
 import cmlaTeam as cmla
 import random
+import tkinter
+from tkinter import messagebox
+from tkinter import filedialog
+from pandas.io.parsers import ExcelFile
+
+
 
 def getScheduleTable(numTeams):
 #
@@ -78,6 +84,36 @@ def getTeamsNotPlayed(numTeams, teamsPlayed):
 
     return teamsNotPlayed
             
+def makeRegistrationDict(filename):
+    regDict = {}
+
+    linenum = 0
+    for line in open(filename,"r"):
+        # print (line)
+        tokens = line.split()
+        linenum = linenum + 1
+#        print (tokens)
+        if len(tokens) > 1:
+            if tokens[0] == "#":
+                # comment line ignore
+                print ('Comment ',line)
+                pass
+            else:
+#                print (tokens)
+                if len(tokens) == 3:
+                    gradeGender = tokens[0]
+                    parish = tokens[1]
+                    numTeams = int(tokens[2])
+
+                    if gradeGender in regDict.keys():
+                        regDict[gradeGender].append((parish,numTeams))
+                    else:
+                        regDict[gradeGender] = []
+                        regDict[gradeGender].append((parish,numTeams))
+
+
+    return regDict
+
 
 def makeTeamDict(teamFilename):
 #
@@ -132,56 +168,99 @@ def makeSchedule(teamDict, teamsNotPlayed):
     scheduleList = []
     for i in range(numTeams):
         scheduleList.append("empty")
-    currentIndex = 0
 
+    
+    #
+    # make a list of parishes
+
+    parishDict = {}
+
+    for team in teamList:
+        if team in parishDict:
+            parishDict[team] = parishDict[team] + 1
+        else:
+            parishDict[team] = 1
+        
+        
+    trialNumber = 1
+    currentIndex = 0
     makeList = True
     
     while (makeList == True):
-        team = random.choice(teamList)
-        # 
-        # add the team to the schedule list
-        while scheduleList[currentIndex] != "empty":
-            currentIndex = currentIndex + 1
-        scheduleList[currentIndex] = team
-        teamDict[team].setListIndex(currentIndex)
-        teamList.remove(team)
-        #
-        # now need to find any other teams from that parish
-        # and add them to the schedule list
-
-        noPlayIndicies = []
-        noPlayIndicies.append(currentIndex)
-
-        for otherTeam in teamList:
-            if team[:2] == otherTeam[:2]:
-#                print ('Found same parish ',team, otherTeam)
+        try:
+            if trialNumber > 5:
                 #
-                # need to pull them from the team list
-                # and add them to the schedule list in a slot that 
-                # does not play "team"
-                emptySpot = False
-                while emptySpot == False:
+                # sort teams into buckets according to how many each parish submitted
+                maxParish = teamList[0][0:2]
+                maxTeams = parishDict[maxParish]
+                for teamCount in teamList:
+                    parish = teamCount[0:2]
+                    if parishDict[parish] > maxTeams:
+                        maxParish = parish
+                        maxTeams = parishDict[parish]
+
+
+                #
+                # now with the maxTeams parish add these teams to a list and choose one
+
+                maxTeamsList = []
+                for teams in teamList:
+                    if teams[0:2] == maxParish:
+                        maxTeamsList.append(teams)
+
+                team = random.choice(maxTeamsList)
+            elif trialNumber > 15:
+                print ("Couldn't find solution")
+                makeList = True
+                return
+            else:
+                team = random.choice(teamList)
+            # 
+            # add the team to the schedule list
+            while scheduleList[currentIndex] != "empty":
+                currentIndex = currentIndex + 1
+            scheduleList[currentIndex] = team
+            teamDict[team].setListIndex(currentIndex)
+            teamList.remove(team)
+            #
+            # now need to find any other teams from that parish
+            # and add them to the schedule list
+
+            noPlayIndicies = []
+            noPlayIndicies.append(currentIndex)
+
+            for otherTeam in teamList:
+                if team[:2] == otherTeam[:2]:
+    #                print ('Found same parish ',team, otherTeam)
                     #
-                    # get a set of viable teams to play
-                    viableTeams = []
-                    for k in range(len(noPlayIndicies)):
-                        if k == 0:
-                            viableTeams = teamsNotPlayed[noPlayIndicies[k]]
-                        else:
-                            viableTeams = set(viableTeams).intersection(teamsNotPlayed[k])
+                    # need to pull them from the team list
+                    # and add them to the schedule list in a slot that 
+                    # does not play "team"
+                    emptySpot = False
+                    while emptySpot == False:
+                        #
+                        # get a set of viable teams to play
+                        viableTeams = []
+                        for k in range(len(noPlayIndicies)):
+                            if k == 0:
+                                viableTeams = teamsNotPlayed[noPlayIndicies[k]]
+                            else:
+                                viableTeams = set(viableTeams).intersection(teamsNotPlayed[k])
                         
-                    addIndex = random.choice(viableTeams) - 1 
-                    if scheduleList[addIndex] == 'empty':
-                        emptySpot = True
-                    else:
-                        teamsNotPlayed[currentIndex].remove(addIndex + 1)
+                        addIndex = random.choice(viableTeams) - 1 
+                        if scheduleList[addIndex] == 'empty':
+                            emptySpot = True
+                        else:
+                            teamsNotPlayed[currentIndex].remove(addIndex + 1)
                 
-                scheduleList[addIndex] = otherTeam
-                teamDict[otherTeam].setListIndex(addIndex)
-                teamList.remove(otherTeam)
+                    scheduleList[addIndex] = otherTeam
+                    teamDict[otherTeam].setListIndex(addIndex)
+                    teamList.remove(otherTeam)
         
-        if len(teamList) == 0:
-            makeList = False
+            if len(teamList) == 0:
+                makeList = False
+        except:
+            trialNumber = trialNumber + 1
 
     return scheduleList
 
@@ -291,8 +370,10 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
 
 
 def main():
+    teamListFilename = ""
+    registrationFilename = ""
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hf:n:t:",["help","filename="])
+        opts, args = getopt.getopt(sys.argv[1:], "hf:n:t:r:",["help","filename="])
     except getopt.error as msg:
         print (msg)
         print ("for help use --help")
@@ -308,8 +389,21 @@ def main():
             numTeams = int(arg,10)
         if o == "-t":
             teamListFilename = arg
+        if o == "-r":
+            registrationFilename = arg
 
-#    print ("Team list is ", teamListFilename)
+    if registrationFilename == "":
+        registrationFilename = tkinter.filedialog.askopenfilename()
+
+    tokens = registrationFilename.split('.')
+    numTokens = len(tokens)
+    extension = tokens[numTokens-1]
+
+    if extension in ('xls','xlsx'):
+        readExcelFile(registrationFileName)
+    else:
+        regDict = makeRegistrationDict(registrationFilename)
+#       print ("Team list is ", teamListFilename)
     cmlaTeamDict = makeTeamDict(teamListFilename)
 #    print ("Num teams = ",len(cmlaTeamDict))
     numTeams = len(cmlaTeamDict)
