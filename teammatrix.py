@@ -6,6 +6,7 @@ import tkinter
 from tkinter import messagebox
 from tkinter import filedialog
 from pandas.io.parsers import ExcelFile
+import pandas as pd
 
 
 
@@ -35,6 +36,24 @@ def getScheduleTable(numTeams):
                     team2 = int(tokens[2])
                     scheduleTable.append((team1, team2))
     return scheduleTable
+
+def readExcelFile(filename):
+    xd = pd.ExcelFile(filename)
+    df = xd.parse('Sheet1')
+    df.fillna(0,inplace=True)
+    parishList = list(df.columns[2:])
+    gradeList = list(df.iloc[0:,0])
+    genderList = list(df.iloc[0:,1])
+    regDict = {}
+    for index in range(len(gradeList)):
+        tag = str(int(gradeList[index])) + genderList[index][0]
+        regDict[tag] = []
+        numTeamsList = list(df.iloc[index,2:])
+        for pIndex in range(0,len(parishList)):
+            regDict[tag].append((parishList[pIndex],int(numTeamsList[pIndex])))
+
+    return regDict
+
 
 def getTeamMatrix(scheduleTable):
 #
@@ -155,6 +174,35 @@ def makeTeamDict(teamFilename):
         teamDict["BYE"] = newTeam
 
     return teamDict
+
+def makeGradeGenderTeamList(parishList):
+#
+#   make a dictionary of all the teams
+#   and initialize the object variables
+
+    teamDict = {}
+    hasBye = False
+
+    for pairs in parishList:
+        (parish, numTeams) = pairs
+        for i in range(numTeams):
+            newTeam = cmla.cmlaTeam()
+            teamName = parish +str(i+1)
+            newTeam.setName(teamName)
+            newTeam.setParish(parish)
+            teamDict[teamName] = newTeam
+#    print ('In makeTeamDict',len(teamDict))
+    if len(teamDict) % 2 == 1:
+#
+#       odd number of teams add BYE
+        print ('Odd number of teams; Add BYE')
+        newTeam = cmla.cmlaTeam()
+        newTeam.setName("BYE")
+        newTeam.setParish("BYE")
+        teamDict["BYE"] = newTeam
+        hasBye = True
+
+    return teamDict, hasBye
 
 def makeSchedule(teamDict, teamsNotPlayed):
 
@@ -400,26 +448,38 @@ def main():
     extension = tokens[numTokens-1]
 
     if extension in ('xls','xlsx'):
-        readExcelFile(registrationFileName)
+        regDict = readExcelFile(registrationFilename)
     else:
         regDict = makeRegistrationDict(registrationFilename)
 #       print ("Team list is ", teamListFilename)
-    cmlaTeamDict = makeTeamDict(teamListFilename)
-#    print ("Num teams = ",len(cmlaTeamDict))
-    numTeams = len(cmlaTeamDict)
-#    print (cmlaTeamDict)
-    scheduleTable = getScheduleTable(len(cmlaTeamDict))
-    teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
-    teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
-#    print scheduleTable
-    scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed)
-    updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
-    loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
 
-    for key in cmlaTeamDict.keys():
-        print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents)
+    #
+    # Now loop over all grade/genders to make the schedule
+    rKeys = list(regDict.keys())
+    rKeys.sort()
+    masterSchedule = {}
+    for rKey in rKeys:
+        parishList = regDict[rKey]
+        cmlaTeamDict, hasBye = makeGradeGenderTeamList(parishList)
+        numTeams = len(cmlaTeamDict)
+        scheduleTable = getScheduleTable(len(cmlaTeamDict))
+        teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
+        teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
 
+        scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed)
+        updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
+        loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
+        print('##########################')
+        print('      ',rKey,' Schedule   ')
+        print('##########################')
+        tKeys = list(cmlaTeamDict.keys())
+        tKeys.sort()
+        for key in tKeys:
+            print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents)
 
+        print()
+        print()
+        masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye)
 if __name__ == "__main__":
     main()
 
