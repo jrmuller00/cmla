@@ -7,7 +7,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 from pandas.io.parsers import ExcelFile
 import pandas as pd
-
+from openpyxl import Workbook
 
 
 def getScheduleTable(numTeams):
@@ -16,7 +16,11 @@ def getScheduleTable(numTeams):
 #   initialized to all zeroes
 
     Filename = str(numTeams) + "teams"
-    scheduleTable = []
+    try:
+        if len(scheduleTable) > 0:
+            scheduleTable.clear()
+    except Exception:
+        scheduleTable = []
 
     linenum = 0
     for line in open(Filename,"r"):
@@ -329,6 +333,7 @@ def updateCMLADict(cmlaDict, scheduleTable, teamList):
 
         cmlaDict[awayTeam].addGame(homeTeam,'a')
         cmlaDict[homeTeam].addGame(awayTeam,'h')
+        index = index + 1
     return
 
 def switchBookkeeping(switchHome, switchAway, cmlaDict, scheduleTable):
@@ -416,6 +421,68 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
 
     return
 
+def writeExcelInterimFile(masterSchedule):
+
+    excelFilename = tkinter.filedialog.asksaveasfilename()
+    
+    keyList = list(masterSchedule.keys())
+    keyList.sort()
+    #
+    # create new workbook
+    wb = Workbook()
+
+    for key in keyList:
+        #
+        # create sheet in file for key
+        ws = wb.create_sheet()
+        ws.title = key
+        (scheduleTable, scheduleList, hasBye) = masterSchedule[key]
+        sortedList = []
+        for team in scheduleList:
+            if team != "BYE":
+                sortedList.append(team)
+        sortedList.sort()
+        if hasBye == True:
+            sortedList.append("BYE")
+        
+        ws.cell(row=0,column=0).value =  key + 'Team List'
+        cellrow = 1
+        cellcol = 0
+        for team in sortedList:
+            ws.cell(row=cellrow,column=cellcol).value = team
+            cellrow = cellrow + 1
+
+        teamSchedule = []
+
+        cellrow = 0
+        cellcol = 3
+        ws.cell(row=cellrow,column=cellcol).value = 'Vis'
+        ws.cell(row=cellrow,column=cellcol+1).value = 'Hm'
+        cellrow = 2
+        for game in scheduleTable:
+            (away,home) = game
+            ws.cell(row=cellrow,column=cellcol).value = scheduleList[away-1]
+            ws.cell(row=cellrow,column=cellcol+1).value = scheduleList[home-1]
+            cellrow = cellrow + 1
+
+        ws.cell(row=0,column=10).value = 'NOTE:'
+        ws.cell(row=1,column=10).value = 'COPY TEAM LIST [COL A] TO [COL M] ON SHEET ' + key
+        ws.cell(row=2,column=10).value = "AND COPY SCHEDULE TABLE [COL'S D & E] TO [COL'S D & E] ON SHEET " + key
+
+    wb.save(excelFilename)
+
+
+
+
+    return
+
+
+
+        
+
+
+
+
 
 def main():
     teamListFilename = ""
@@ -480,6 +547,7 @@ def main():
         print()
         print()
         masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye)
+    writeExcelInterimFile(masterSchedule)
 if __name__ == "__main__":
     main()
 
