@@ -41,6 +41,8 @@ class cmlaTeam(object):
     def setListIndex(self,index):
         self.listIndex = index
         return
+    def getListIndex(self):
+        return self.listIndex
 
     def addGame(self,opp,loc):
         if len(self.listOpponents) == len(self.listLocation):

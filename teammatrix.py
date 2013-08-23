@@ -281,6 +281,7 @@ def makeSchedule(teamDict, teamsNotPlayed):
             noPlayIndicies = []
             noPlayIndicies.append(currentIndex)
 
+            sameParish = []
             for otherTeam in teamList:
                 if team[:2] == otherTeam[:2]:
     #                print ('Found same parish ',team, otherTeam)
@@ -288,26 +289,44 @@ def makeSchedule(teamDict, teamsNotPlayed):
                     # need to pull them from the team list
                     # and add them to the schedule list in a slot that 
                     # does not play "team"
-                    emptySpot = False
-                    while emptySpot == False:
-                        #
-                        # get a set of viable teams to play
-                        viableTeams = []
-                        for k in range(len(noPlayIndicies)):
-                            if k == 0:
-                                viableTeams = teamsNotPlayed[noPlayIndicies[k]]
-                            else:
-                                viableTeams = set(viableTeams).intersection(teamsNotPlayed[k])
-                        
-                        addIndex = random.choice(viableTeams) - 1 
-                        if scheduleList[addIndex] == 'empty':
-                            emptySpot = True
+                    sameParish.append(otherTeam)
+
+            notPlayed = teamsNotPlayed[currentIndex]
+            sameParishIndex = []
+            for j in range(len(sameParish)):
+                if len(notPlayed) == 0: 
+                    print ("Error can't find solution to multiple parish teams")
+                    raise Exception("Error can't find solution to multiple parish teams")
+                else:
+                    emptySlot = False
+                    k = 0
+                    while emptySlot == False:
+                        spi = notPlayed[k] - 1
+                        if scheduleList[spi] == 'empty':
+                            sameParishIndex.append(spi)
+                            intersectNotPlayed = []
+                            try:
+                                intersectNotPlayed = set(notPlayed).intersection(teamsNotPlayed[spi])
+                                notPlayed = list(intersectNotPlayed)
+                            except:
+                                print ('Error on intersection')
+                                raise Exception('Error on intersection')
+                                notPlayed = []
+                            emptySlot = True
                         else:
-                            teamsNotPlayed[currentIndex].remove(addIndex + 1)
-                
-                    scheduleList[addIndex] = otherTeam
-                    teamDict[otherTeam].setListIndex(addIndex)
-                    teamList.remove(otherTeam)
+                            if k >= len(notPlayed):
+                                print ("Error not solution for multiple parish teams")
+                                raise Exception("Error not solution for multiple parish teams")
+                            else:
+                                k = k + 1
+
+            for j in range(len(sameParish)):
+                otherTeam = sameParish[j]
+                spi = random.choice(sameParishIndex)
+                scheduleList[spi] = otherTeam
+                teamDict[otherTeam].setListIndex(spi)
+                teamList.remove(otherTeam)
+                sameParishIndex.remove(spi)
         
             if len(teamList) == 0:
                 makeList = False
@@ -337,15 +356,15 @@ def updateCMLADict(cmlaDict, scheduleTable, teamList):
     return
 
 def switchBookkeeping(switchHome, switchAway, cmlaDict, scheduleTable):
-    switchHomeIndex = cmlaDict[switchHome]
-    switchAwayIndex = cmlaDict[switchAway]
+    switchHomeIndex = cmlaDict[switchHome].getListIndex()
+    switchAwayIndex = cmlaDict[switchAway].getListIndex()
     
     switchIndex = 0
     #
     # find the pair in the scedule table
     for pair in scheduleTable:
         (away, home) = pair
-        if (away == switchAwayIndex) and (home == switchHomeIndex):
+        if (away == switchAwayIndex+1) and (home == switchHomeIndex+1):
             scheduleTable[switchIndex] = (home, away)
         else:
             switchIndex = switchIndex + 1
@@ -419,7 +438,7 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
 #            currentIndex = currentIndex - 1
                     
 
-    return
+    return scheduleTable
 
 def writeExcelInterimFile(masterSchedule):
 
@@ -436,7 +455,7 @@ def writeExcelInterimFile(masterSchedule):
         # create sheet in file for key
         ws = wb.create_sheet()
         ws.title = key
-        (scheduleTable, scheduleList, hasBye) = masterSchedule[key]
+        (scheduleTable, scheduleList, hasBye, numTeams) = masterSchedule[key]
         sortedList = []
         for team in scheduleList:
             if team != "BYE":
@@ -445,7 +464,7 @@ def writeExcelInterimFile(masterSchedule):
         if hasBye == True:
             sortedList.append("BYE")
         
-        ws.cell(row=0,column=0).value =  key + 'Team List'
+        ws.cell(row=0,column=0).value =  key
         cellrow = 1
         cellcol = 0
         for team in sortedList:
@@ -458,16 +477,17 @@ def writeExcelInterimFile(masterSchedule):
         cellcol = 3
         ws.cell(row=cellrow,column=cellcol).value = 'Vis'
         ws.cell(row=cellrow,column=cellcol+1).value = 'Hm'
-        cellrow = 2
+        cellrow = 1
         for game in scheduleTable:
             (away,home) = game
             ws.cell(row=cellrow,column=cellcol).value = scheduleList[away-1]
             ws.cell(row=cellrow,column=cellcol+1).value = scheduleList[home-1]
             cellrow = cellrow + 1
 
-        ws.cell(row=0,column=10).value = 'NOTE:'
-        ws.cell(row=1,column=10).value = 'COPY TEAM LIST [COL A] TO [COL M] ON SHEET ' + key
-        ws.cell(row=2,column=10).value = "AND COPY SCHEDULE TABLE [COL'S D & E] TO [COL'S D & E] ON SHEET " + key
+        ws.cell(row=0,column=10).value = 'NOTES:'
+        ws.cell(row=1,column=10).value = '1) COPY A WORKSHEET WITH '+ str(numTeams) + ' TEAMS AND RENAME TO ' + key
+        ws.cell(row=2,column=10).value = '2) COPY TEAM LIST [COL A] TO [COL M] ON SHEET ' + key
+        ws.cell(row=3,column=10).value = "3) COPY SCHEDULE TABLE [COL'S D & E] TO [COL'S D & E] ON SHEET " + key
 
     wb.save(excelFilename)
 
@@ -542,11 +562,14 @@ def main():
         tKeys = list(cmlaTeamDict.keys())
         tKeys.sort()
         for key in tKeys:
-            print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games and ',cmlaTeamDict[key].getNumAwayGames(), ' away games',cmlaTeamDict[key].listOpponents)
+            print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games')
+            print ('     ',cmlaTeamDict[key].getHomeGamesList())
+            print ('  and ',cmlaTeamDict[key].getNumAwayGames(),'away games')
+            print ('     ',cmlaTeamDict[key].getAwayGamesList())
 
         print()
         print()
-        masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye)
+        masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye, len(scheduleList))
     writeExcelInterimFile(masterSchedule)
 if __name__ == "__main__":
     main()
