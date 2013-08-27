@@ -261,8 +261,8 @@ def makeSchedule(teamDict, teamsNotPlayed):
                         maxTeamsList.append(teams)
 
                 team = random.choice(maxTeamsList)
-            elif trialNumber > 15:
-                print ("Couldn't find solution")
+            elif trialNumber > 25:
+                print ("Couldn't find solution --- Stopping  --- Schedule not Correct")
                 makeList = True
                 return
             else:
@@ -315,8 +315,8 @@ def makeSchedule(teamDict, teamsNotPlayed):
                             emptySlot = True
                         else:
                             if k >= len(notPlayed):
-                                print ("Error not solution for multiple parish teams")
-                                raise Exception("Error not solution for multiple parish teams")
+                                print ("Error no solution for multiple parish teams")
+                                raise Exception("Error no solution for multiple parish teams")
                             else:
                                 k = k + 1
 
@@ -332,6 +332,7 @@ def makeSchedule(teamDict, teamsNotPlayed):
                 makeList = False
         except:
             trialNumber = trialNumber + 1
+            print ("    Raised exception --- trial # ",trialNumber)
 
     return scheduleList
 
