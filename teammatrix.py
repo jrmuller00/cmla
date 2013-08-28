@@ -228,10 +228,10 @@ def makeSchedule(teamDict, teamsNotPlayed):
     parishDict = {}
 
     for team in teamList:
-        if team in parishDict:
-            parishDict[team] = parishDict[team] + 1
+        if team[:3] in parishDict:
+            parishDict[team[:3]] = parishDict[team[:3]] + 1
         else:
-            parishDict[team] = 1
+            parishDict[team[:3]] = 1
         
         
     trialNumber = 1
@@ -242,11 +242,20 @@ def makeSchedule(teamDict, teamsNotPlayed):
         try:
             if trialNumber > 5:
                 #
+                # reset the schedule list and team list
+                scheduleList = []
+                for i in range(numTeams):
+                    scheduleList.append("empty")
+                teamList.clear()
+                teamList = list(teamDict.keys())
+                currentIndex = 0
+
+                #
                 # sort teams into buckets according to how many each parish submitted
-                maxParish = teamList[0][0:2]
+                maxParish = teamList[0][:3]
                 maxTeams = parishDict[maxParish]
                 for teamCount in teamList:
-                    parish = teamCount[0:2]
+                    parish = teamCount[:3]
                     if parishDict[parish] > maxTeams:
                         maxParish = parish
                         maxTeams = parishDict[parish]
@@ -257,7 +266,7 @@ def makeSchedule(teamDict, teamsNotPlayed):
 
                 maxTeamsList = []
                 for teams in teamList:
-                    if teams[0:2] == maxParish:
+                    if teams[:3] == maxParish:
                         maxTeamsList.append(teams)
 
                 team = random.choice(maxTeamsList)
@@ -283,7 +292,7 @@ def makeSchedule(teamDict, teamsNotPlayed):
 
             sameParish = []
             for otherTeam in teamList:
-                if team[:2] == otherTeam[:2]:
+                if team[:3] == otherTeam[:3]:
     #                print ('Found same parish ',team, otherTeam)
                     #
                     # need to pull them from the team list
@@ -294,44 +303,48 @@ def makeSchedule(teamDict, teamsNotPlayed):
             notPlayed = teamsNotPlayed[currentIndex]
             sameParishIndex = []
             for j in range(len(sameParish)):
-                if len(notPlayed) == 0: 
-                    print ("Error can't find solution to multiple parish teams")
-                    raise Exception("Error can't find solution to multiple parish teams")
-                else:
-                    emptySlot = False
-                    k = 0
-                    while emptySlot == False:
-                        spi = notPlayed[k] - 1
-                        if scheduleList[spi] == 'empty':
-                            sameParishIndex.append(spi)
-                            intersectNotPlayed = []
-                            try:
+                undoTeam = False
+                try:
+                    if len(notPlayed) == 0: 
+                        print ("Error can't find solution to multiple parish teams")
+                    else:
+                        emptySlot = False
+                        k = 0
+                        intersectNotPlayed = []
+                        while emptySlot == False:
+                            spi = notPlayed[k] - 1
+                            if scheduleList[spi] == 'empty':
+                                sameParishIndex.append(spi)
                                 intersectNotPlayed = set(notPlayed).intersection(teamsNotPlayed[spi])
                                 notPlayed = list(intersectNotPlayed)
-                            except:
-                                print ('Error on intersection')
-                                raise Exception('Error on intersection')
-                                notPlayed = []
-                            emptySlot = True
-                        else:
-                            if k >= len(notPlayed):
-                                print ("Error no solution for multiple parish teams")
-                                raise Exception("Error no solution for multiple parish teams")
+                                emptySlot = True
                             else:
                                 k = k + 1
+                except Exception:
+                    undoTeam = True
 
-            for j in range(len(sameParish)):
-                otherTeam = sameParish[j]
-                spi = random.choice(sameParishIndex)
-                scheduleList[spi] = otherTeam
-                teamDict[otherTeam].setListIndex(spi)
-                teamList.remove(otherTeam)
-                sameParishIndex.remove(spi)
+            if (len(sameParish) == len(sameParishIndex)):
+                for j in range(len(sameParish)):
+                    otherTeam = sameParish[j]
+                    spi = random.choice(sameParishIndex)
+                    scheduleList[spi] = otherTeam
+                    teamDict[otherTeam].setListIndex(spi)
+                    teamList.remove(otherTeam)
+                    sameParishIndex.remove(spi)
+            else:
+                undoTeam = True
+                raise Exception("Error not enough indicies for same parish teams")
         
             if len(teamList) == 0:
                 makeList = False
-        except:
+
+        except Exception:
             trialNumber = trialNumber + 1
+            #
+            if undoTeam == True:
+                scheduleList[currentIndex] = 'empty'
+                teamDict[team].setListIndex(-1)
+                teamList.append(team)
             print ("    Raised exception --- trial # ",trialNumber)
 
     return scheduleList
@@ -492,17 +505,7 @@ def writeExcelInterimFile(masterSchedule):
 
     wb.save(excelFilename)
 
-
-
-
     return
-
-
-
-        
-
-
-
 
 
 def main():
@@ -547,6 +550,8 @@ def main():
     rKeys.sort()
     masterSchedule = {}
     for rKey in rKeys:
+        if rKey[0] == "8":
+            print (" Starting 8's")
         parishList = regDict[rKey]
         cmlaTeamDict, hasBye = makeGradeGenderTeamList(parishList)
         numTeams = len(cmlaTeamDict)
