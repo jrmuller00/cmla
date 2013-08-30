@@ -208,7 +208,7 @@ def makeGradeGenderTeamList(parishList):
 
     return teamDict, hasBye
 
-def makeSchedule(teamDict, teamsNotPlayed):
+def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
 
     #
     # get a list of teams and the number of teams
@@ -507,6 +507,83 @@ def writeExcelInterimFile(masterSchedule):
 
     return
 
+def buildNotPlayedDict(notPlayed, depth):
+    """
+    Function to build dictionary for multiple parish teams not played list 
+
+    Format will be 
+
+    key = T[#]T[#] *** T[#]
+    value = list of possible teams not played
+
+    ex,
+
+    T1T5 = [3,7,9,10]
+
+    means that team 1 and team 5 don't play teams 3,7,9 or team 10
+
+    OR
+
+    T1T5T9 = [16]
+
+    means teams 1, 5, and 9 don't play team 16
+
+    """
+
+    notPlayedDict = {}
+    numTeams = len(notPlayed)
+
+    if depth >= 3:
+        for i in range(numTeams):
+            for j in range(len(notPlayed[i])):
+                try:
+                    teamIndex = notPlayed[i][j]-1
+                    if teamIndex != i:
+                        intersectList = list(set(notPlayed[i]).intersection(notPlayed[teamIndex]))
+                        if len(intersectList) > 0:
+                            #
+                            # first check if key exists from symmetry
+                            try:
+                                keyexists = "T" + str(teamIndex+1) + "T" + str(i+1)
+                                if keyexists in notPlayedDict.keys():
+                                    pass
+                                else:
+                                    key = "T" + str(i+1) + "T" + str(teamIndex+1)
+                                    notPlayedDict[key] = intersectList
+                            except:
+                                pass
+                except:
+                    pass
+
+    tokens = []
+    if depth >= 4:
+        tempDict = {}
+        for key in notPlayedDict:
+            teamList = notPlayedDict[key]
+            for j in range(len(teamList)):
+                try:
+                    tokens = str(key).split("T")
+                    tokens = list(filter(None, tokens))
+                    teamIndex = teamList[j]-1
+                    intersectList = list(set(teamList).intersection(notPlayed[teamIndex]))
+                    if len(intersectList) > 0:
+                        if (teamIndex+1) < int(tokens[0],10):
+                            newKey = "T" + str(teamIndex+1) + key
+                        elif teamIndex < int(tokens[1],10):
+                            newKey = "T" + str(tokens[0]) + "T" + str(teamIndex+1) + "T" + str(tokens[1])
+                        else:
+                            newKey = key + "T" + str(teamIndex+1)
+                        if newKey in tempDict:
+                            pass
+                        else:
+                            tempDict[newKey] = intersectList
+                except:
+                    pass
+        for key in tempDict:
+            notPlayedDict[key] = tempDict[key]
+
+    return notPlayedDict
+
 
 def main():
     teamListFilename = ""
@@ -549,7 +626,9 @@ def main():
     rKeys = list(regDict.keys())
     rKeys.sort()
     masterSchedule = {}
+    notPlayedDict = {}
     for rKey in rKeys:
+        notPlayedDict.clear()
         if rKey[0] == "8":
             print (" Starting 8's")
         parishList = regDict[rKey]
@@ -558,8 +637,9 @@ def main():
         scheduleTable = getScheduleTable(len(cmlaTeamDict))
         teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
         teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
+        notPlayedDict = buildNotPlayedDict(teamsNotPlayed, 4)
 
-        scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed)
+        scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
         updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
         loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
         print('##########################')
