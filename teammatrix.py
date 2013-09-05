@@ -14,6 +14,8 @@ def getScheduleTable(numTeams):
 #
 #   make a table of teams
 #   initialized to all zeroes
+#   Note that team numbers are indexed
+#   to zero 
 
     Filename = str(numTeams) + "teams"
     try:
@@ -36,8 +38,8 @@ def getScheduleTable(numTeams):
             else:
 #                print (tokens)
                 if len(tokens) == 3:
-                    team1 = int(tokens[0])
-                    team2 = int(tokens[2])
+                    team1 = int(tokens[0]) - 1
+                    team2 = int(tokens[2]) - 1
                     scheduleTable.append((team1, team2))
     return scheduleTable
 
@@ -88,22 +90,22 @@ def getTeamsPlayed(numTeams, scheduleTable):
 
     for pair in (scheduleTable):
         (team1, team2) = pair
-        teamsPlayed[team1-1].append(team2)
-        teamsPlayed[team2-1].append(team1)
+        teamsPlayed[team1].append(team2)
+        teamsPlayed[team2].append(team1)
 
     return teamsPlayed
 
 def getTeamsNotPlayed(numTeams, teamsPlayed):
     teamsNotPlayed = []
+    allTeams = []
     for i in range(numTeams):
         teamsNotPlayed.append([])
-        for j in range(numTeams):
-            teamsNotPlayed[i].append(j+1)
+        allTeams.append(i)
 
     for i in range(numTeams):
-        teamsNotPlayed[i].remove(i+1)
-        for j in range(len(teamsPlayed[i])):
-            teamsNotPlayed[i].remove(teamsPlayed[i][j])
+        teamsNotPlayed[i] = list(set(allTeams).difference(teamsPlayed[i]))
+        teamsNotPlayed[i].remove(i)
+        teamsNotPlayed[i].sort()
 
     return teamsNotPlayed
             
@@ -208,149 +210,149 @@ def makeGradeGenderTeamList(parishList):
 
     return teamDict, hasBye
 
+#def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
+
+#    #
+#    # get a list of teams and the number of teams
+#    teamList = list(teamDict.keys())
+#    numTeams = len(teamList)
+
+#    #
+#    # now make a random list of the teams to use for scheduling
+#    scheduleList = []
+#    for i in range(numTeams):
+#        scheduleList.append("empty")
+
+    
+#    #
+#    # make a list of parishes
+
+#    parishDict = {}
+
+#    for team in teamList:
+#        if team[:3] in parishDict:
+#            parishDict[team[:3]] = parishDict[team[:3]] + 1
+#        else:
+#            parishDict[team[:3]] = 1
+        
+        
+#    trialNumber = 1
+#    currentIndex = 0
+#    makeList = True
+    
+#    while (makeList == True):
+#        try:
+#            if trialNumber > 15:
+#                #
+#                # reset the schedule list and team list
+#                scheduleList = []
+#                for i in range(numTeams):
+#                    scheduleList.append("empty")
+#                teamList.clear()
+#                teamList = list(teamDict.keys())
+#                currentIndex = 0
+
+#                #
+#                # sort teams into buckets according to how many each parish submitted
+#                maxParish = teamList[0][:3]
+#                maxTeams = parishDict[maxParish]
+#                for teamCount in teamList:
+#                    parish = teamCount[:3]
+#                    if parishDict[parish] > maxTeams:
+#                        maxParish = parish
+#                        maxTeams = parishDict[parish]
+
+
+#                #
+#                # now with the maxTeams parish add these teams to a list and choose one
+
+#                maxTeamsList = []
+#                for teams in teamList:
+#                    if teams[:3] == maxParish:
+#                        maxTeamsList.append(teams)
+
+#                team = random.choice(maxTeamsList)
+#            elif trialNumber > 25:
+#                print ("Couldn't find solution --- Stopping  --- Schedule not Correct")
+#                makeList = True
+#                return
+#            else:
+#                team = random.choice(teamList)
+#            # 
+#            # add the team to the schedule list
+#            while scheduleList[currentIndex] != "empty":
+#                currentIndex = currentIndex + 1
+#            scheduleList[currentIndex] = team
+#            teamDict[team].setListIndex(currentIndex)
+#            teamList.remove(team)
+#            #
+#            # now need to find any other teams from that parish
+#            # and add them to the schedule list
+
+#            noPlayIndicies = []
+#            noPlayIndicies.append(currentIndex)
+
+#            sameParish = []
+#            for otherTeam in teamList:
+#                if team[:3] == otherTeam[:3]:
+#    #                print ('Found same parish ',team, otherTeam)
+#                    #
+#                    # need to pull them from the team list
+#                    # and add them to the schedule list in a slot that 
+#                    # does not play "team"
+#                    sameParish.append(otherTeam)
+
+#            notPlayed = teamsNotPlayed[currentIndex]
+#            sameParishIndex = []
+#            for j in range(len(sameParish)):
+#                undoTeam = False
+#                try:
+#                    if len(notPlayed) == 0: 
+#                        print ("Error can't find solution to multiple parish teams")
+#                    else:
+#                        emptySlot = False
+#                        k = 0
+#                        intersectNotPlayed = []
+#                        while emptySlot == False:
+#                            spi = notPlayed[k] - 1
+#                            if scheduleList[spi] == 'empty':
+#                                sameParishIndex.append(spi)
+#                                intersectNotPlayed = set(notPlayed).intersection(teamsNotPlayed[spi])
+#                                notPlayed = list(intersectNotPlayed)
+#                                emptySlot = True
+#                            else:
+#                                k = k + 1
+#                except Exception:
+#                    undoTeam = True
+
+#            if (len(sameParish) == len(sameParishIndex)):
+#                for j in range(len(sameParish)):
+#                    otherTeam = sameParish[j]
+#                    spi = random.choice(sameParishIndex)
+#                    scheduleList[spi] = otherTeam
+#                    teamDict[otherTeam].setListIndex(spi)
+#                    teamList.remove(otherTeam)
+#                    sameParishIndex.remove(spi)
+#            else:
+#                undoTeam = True
+#                raise Exception("Error not enough indicies for same parish teams")
+        
+#            if len(teamList) == 0:
+#                makeList = False
+
+#        except Exception:
+#            trialNumber = trialNumber + 1
+#            #
+#            if undoTeam == True:
+#                scheduleList[currentIndex] = 'empty'
+#                teamDict[team].setListIndex(-1)
+#                teamList.append(team)
+#            print ("    Raised exception --- trial # ",trialNumber)
+
+#    return scheduleList
+
+
 def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
-
-    #
-    # get a list of teams and the number of teams
-    teamList = list(teamDict.keys())
-    numTeams = len(teamList)
-
-    #
-    # now make a random list of the teams to use for scheduling
-    scheduleList = []
-    for i in range(numTeams):
-        scheduleList.append("empty")
-
-    
-    #
-    # make a list of parishes
-
-    parishDict = {}
-
-    for team in teamList:
-        if team[:3] in parishDict:
-            parishDict[team[:3]] = parishDict[team[:3]] + 1
-        else:
-            parishDict[team[:3]] = 1
-        
-        
-    trialNumber = 1
-    currentIndex = 0
-    makeList = True
-    
-    while (makeList == True):
-        try:
-            if trialNumber > 5:
-                #
-                # reset the schedule list and team list
-                scheduleList = []
-                for i in range(numTeams):
-                    scheduleList.append("empty")
-                teamList.clear()
-                teamList = list(teamDict.keys())
-                currentIndex = 0
-
-                #
-                # sort teams into buckets according to how many each parish submitted
-                maxParish = teamList[0][:3]
-                maxTeams = parishDict[maxParish]
-                for teamCount in teamList:
-                    parish = teamCount[:3]
-                    if parishDict[parish] > maxTeams:
-                        maxParish = parish
-                        maxTeams = parishDict[parish]
-
-
-                #
-                # now with the maxTeams parish add these teams to a list and choose one
-
-                maxTeamsList = []
-                for teams in teamList:
-                    if teams[:3] == maxParish:
-                        maxTeamsList.append(teams)
-
-                team = random.choice(maxTeamsList)
-            elif trialNumber > 25:
-                print ("Couldn't find solution --- Stopping  --- Schedule not Correct")
-                makeList = True
-                return
-            else:
-                team = random.choice(teamList)
-            # 
-            # add the team to the schedule list
-            while scheduleList[currentIndex] != "empty":
-                currentIndex = currentIndex + 1
-            scheduleList[currentIndex] = team
-            teamDict[team].setListIndex(currentIndex)
-            teamList.remove(team)
-            #
-            # now need to find any other teams from that parish
-            # and add them to the schedule list
-
-            noPlayIndicies = []
-            noPlayIndicies.append(currentIndex)
-
-            sameParish = []
-            for otherTeam in teamList:
-                if team[:3] == otherTeam[:3]:
-    #                print ('Found same parish ',team, otherTeam)
-                    #
-                    # need to pull them from the team list
-                    # and add them to the schedule list in a slot that 
-                    # does not play "team"
-                    sameParish.append(otherTeam)
-
-            notPlayed = teamsNotPlayed[currentIndex]
-            sameParishIndex = []
-            for j in range(len(sameParish)):
-                undoTeam = False
-                try:
-                    if len(notPlayed) == 0: 
-                        print ("Error can't find solution to multiple parish teams")
-                    else:
-                        emptySlot = False
-                        k = 0
-                        intersectNotPlayed = []
-                        while emptySlot == False:
-                            spi = notPlayed[k] - 1
-                            if scheduleList[spi] == 'empty':
-                                sameParishIndex.append(spi)
-                                intersectNotPlayed = set(notPlayed).intersection(teamsNotPlayed[spi])
-                                notPlayed = list(intersectNotPlayed)
-                                emptySlot = True
-                            else:
-                                k = k + 1
-                except Exception:
-                    undoTeam = True
-
-            if (len(sameParish) == len(sameParishIndex)):
-                for j in range(len(sameParish)):
-                    otherTeam = sameParish[j]
-                    spi = random.choice(sameParishIndex)
-                    scheduleList[spi] = otherTeam
-                    teamDict[otherTeam].setListIndex(spi)
-                    teamList.remove(otherTeam)
-                    sameParishIndex.remove(spi)
-            else:
-                undoTeam = True
-                raise Exception("Error not enough indicies for same parish teams")
-        
-            if len(teamList) == 0:
-                makeList = False
-
-        except Exception:
-            trialNumber = trialNumber + 1
-            #
-            if undoTeam == True:
-                scheduleList[currentIndex] = 'empty'
-                teamDict[team].setListIndex(-1)
-                teamList.append(team)
-            print ("    Raised exception --- trial # ",trialNumber)
-
-    return scheduleList
-
-
-def makeSchedule2(teamDict, teamsNotPlayed, teamsNotPlayedDict):
 
     #
     # get a list of teams and the number of teams
@@ -381,143 +383,131 @@ def makeSchedule2(teamDict, teamsNotPlayed, teamsNotPlayedDict):
     trialNumber = 1
     currentIndex = 0
     makeList = True
+    maxTeamsList = []
     
     while (len(teamList) > 0):
         try:
-            if trialNumber > 5:
+            if trialNumber > 5 and trialNumber < 10:
                 #
-                # reset the schedule list and team list
-                scheduleList = []
-                for i in range(numTeams):
-                    scheduleList.append("empty")
-                teamList.clear()
-                teamList = list(teamDict.keys())
-                currentIndex = 0
-
-                #
-                # sort teams into buckets according to how many each parish submitted
-                maxParish = teamList[0][:3]
-                maxTeams = parishDict[maxParish]
-                for teamCount in teamList:
-                    parish = teamCount[:3]
-                    if parishDict[parish] > maxTeams:
-                        maxParish = parish
-                        maxTeams = parishDict[parish]
+                # choose bucket
+                bucket = len(maxTeamsList) - 1
+                parish = random.choice(maxTeamsList[bucket])
+                maxTeamsList[bucket].remove(parish)
+                if len(maxTeamsList[bucket]) == 0:
+                    maxTeamsList.remove(maxTeamsList[bucket])
+                team = parish + random.randint(1,bucket+1)
 
 
-                #
-                # now with the maxTeams parish add these teams to a list and choose one
-
-                maxTeamsList = []
-                for teams in teamList:
-                    if teams[:3] == maxParish:
-                        maxTeamsList.append(teams)
-
-                team = random.choice(maxTeamsList)
-            elif trialNumber > 25:
+            elif trialNumber > 10:
                 print ("Couldn't find solution --- Stopping  --- Schedule not Correct")
                 makeList = True
                 return
             else:
                 #
-                # get a list of empty slots
-                emptySlots.clear()
-                for i in range(len(scheduleList)):
-                    if scheduleList[i] == 'empty':
-                        emptySlots.append(i)
-
-                #
                 # pick a random team from teamList
                 team = random.choice(teamList)
 
+            #
+            # get a list of empty slots
+            emptySlots.clear()
+            for i in range(len(scheduleList)):
+                if scheduleList[i] == 'empty':
+                    emptySlots.append(i)
+
+
+
+            #
+            # get number of teams submitted from parish
+
+            numTeamsSubmitted = parishDict[team[:3]]
+
+            #
+            # if number of teams submitted = 1, pick 1st empty slot
+            # if number of teams submitted = 2, use regular notPlayed list to find slots
+            # if number of teams submitted > 2, use dictionary to try to find solution
+
+            if numTeamsSubmitted == 1:
                 #
-                # get number of teams submitted from parish
-
-                numTeamsSubmitted = parishDict[team[:3]]
-
-                #
-                # if number of teams submitted = 1, pick 1st empty slot
-                # if number of teams submitted = 2, use regular notPlayed list to find slots
-                # if number of teams submitted > 2, use dictionary to try to find solution
-
-                if numTeamsSubmitted == 1:
-                    #
-                    # add team to list in first available slot
-                    teamIndex = emptySlots[0]
-                    scheduleList[teamIndex] = team
-                    teamDict[team].setListIndex(teamIndex)
-                    teamList.remove(team)
-                elif numTeamsSubmitted == 2:
-                    parish = team[:3]
-                    if team == parish + "1":
-                        team2 = parish + "2"
-                    else:
-                        team2 = parish + "1"
-                    #
-                    # use the notPlayed list
-                    teamSlots.clear()
-
-                    #
-                    # have to map team indicies to internal indicies
-                    for i in range(len(emptySlots)):
-                        teamSlots.append(emptySlots[i]+1)
-
-                    #
-                    # loop thru indicies in emptySlots to find a solution
-
-                    for index in teamSlots:
-                        intersect = list(set(teamSlots).intersection(teamsNotPlayed[index-1]))
-
-                        if len(intersect) > 2:
-                            #
-                            # pull first slot for team1
-                            teamIndex = index - 1
-                            scheduleList[teamIndex] = team
-                            teamDict[team].setListIndex(teamIndex)
-                            teamList.remove(team)
-                            teamIndex = random.choice(intersect) - 1
-                            scheduleList[teamIndex] = team2
-                            teamDict[team2].setListIndex(teamIndex)
-                            teamList.remove(team2)
-                            break
+                # add team to list in first available slot
+                teamIndex = emptySlots[0]
+                scheduleList[teamIndex] = team
+                teamDict[team].setListIndex(teamIndex)
+                teamList.remove(team)
+            elif numTeamsSubmitted == 2:
+                parish = team[:3]
+                if team == parish + "1":
+                    team2 = parish + "2"
                 else:
-                    #
-                    # use the notPlayed list
-                    teamSlots.clear()
+                    team2 = parish + "1"
 
-                    #
-                    # have to map team indicies to internal indicies
-                    for i in range(len(emptySlots)):
-                        teamSlots.append(emptySlots[i]+1)
-                    #
-                    # more than 2 teams
-                    # create a local "notPlayed" from teh dictionary
+                #
+                # loop thru indicies in emptySlots to find a solution
 
-                    localNotPlayed = []
-                    for key in teamsNotPlayedDict:
-                        tokens = key.split("T")
-                        if len(tokens) == numTeamsSubmitted:
-                            teamListing = []
-                            for token in tokens:
-                                if token != "":
-                                    teamListing.append(int(token,10))
-                            for index in teamsNotPlayedDict[key]:
-                                teamListing.append(index)
-                            localNotPlayed.append(teamListing)
+                for index in emptySlots:
+                    intersect = list(set(emptySlots).intersection(teamsNotPlayed[index]))
 
+                    if len(intersect) >= 1:
                         #
-                        # if len of localnotplayed == 0, can't move on
+                        # pull first slot for team1
+                        teamIndex = index
+                        scheduleList[teamIndex] = team
+                        teamDict[team].setListIndex(teamIndex)
+                        teamList.remove(team)
+                        teamIndex = random.choice(intersect)
+                        scheduleList[teamIndex] = team2
+                        teamDict[team2].setListIndex(teamIndex)
+                        teamList.remove(team2)
+                        break
+                    else:
+                        raise Exception
+            else:
+                #
+                # use the notPlayed list
+                teamSlots.clear()
 
-                    if len(localNotPlayed) > 0:
-                        #
-                        # now find a solution where the 
-                        # teams overlap empty slots
+                ##
+                ## have to map team indicies to internal indicies
+                #for i in range(len(emptySlots)):
+                #    teamSlots.append(emptySlots[i])
+                #
+                # more than 2 teams
+                # create a local "notPlayed" from teh dictionary
 
-                        for tlist in localNotPlayed:
-                            solution = list(set(tlist).intersection(teamSlots))
+                localNotPlayed = []
+                teamIndexes = []
+                for key in teamsNotPlayedDict:
+                    tokens = key.split("T")
+                    if len(tokens) == numTeamsSubmitted:
+                        teamListing = []
+                        for token in tokens:
+                            if token != "":
+                                teamListing.append(int(token,10))
+                        for index in teamsNotPlayedDict[key]:
+                            teamListing.append(index)
+                        localNotPlayed.append(teamListing)
 
-                            if len(solution) >= numTeamsSubmitted:
-                                #solution!
+                    #
+                    # if len of localnotplayed == 0, can't move on
+
+                if len(localNotPlayed) > 0:
+                    #
+                    # now find a solution where the 
+                    # teams overlap empty slots
+
+                    solutionFound = False
+                    for tlist in localNotPlayed:
+                        solution = list(set(tlist).intersection(emptySlots))
+                        
+
+                        if len(solution) >= numTeamsSubmitted:
+                            # possible solution!
+                            # now check to see if 1st numTeamsSubmitted - 1 indexes (main ones for solution) are empty
+
+                            mainIndexes = []
+                            for i in range(numTeamsSubmitted-1):
+                                mainIndexes.append(tlist[i])
+
+                            if len(list(set(solution).intersection(mainIndexes))) == (numTeamsSubmitted - 1):
                                 parish = team[:3]
                                 pTeams = []
                                 for i in range(1,numTeamsSubmitted+1):
@@ -526,8 +516,8 @@ def makeSchedule2(teamDict, teamsNotPlayed, teamsNotPlayedDict):
                                 for i in range(numTeamsSubmitted-1):
                                     pTeam = random.choice(pTeams)
                                     index = tlist[i]
-                                    scheduleList[index-1] = pTeam
-                                    teamDict[pTeam].setListIndex(index-1)
+                                    scheduleList[index] = pTeam
+                                    teamDict[pTeam].setListIndex(index)
                                     teamList.remove(pTeam)
                                     pTeams.remove(pTeam)
                                     solution.remove(index)
@@ -535,21 +525,52 @@ def makeSchedule2(teamDict, teamsNotPlayed, teamsNotPlayedDict):
 
                                 for pTeam in pTeams:
                                     index = random.choice(solution)
-                                    scheduleList[index-1] = pTeam
-                                    teamDict[pTeam].setListIndex(index-1)
+                                    scheduleList[index] = pTeam
+                                    teamDict[pTeam].setListIndex(index)
                                     teamList.remove(pTeam)
                                     pTeams.remove(pTeam)
                                     solution.remove(index)
+                                solutionFound = True
                                 break
+                    if solutionFound == False:
+                        raise Exception
+
+                else:
+                    raise Exception
 
         except Exception:
             trialNumber = trialNumber + 1
+
             #
-            if undoTeam == True:
-                scheduleList[currentIndex] = 'empty'
-                teamDict[team].setListIndex(-1)
-                teamList.append(team)
+            # reset the schedule list and team list
+            scheduleList = []
+            for i in range(numTeams):
+                scheduleList.append("empty")
+            teamList.clear()
+            teamList = list(teamDict.keys())
+            currentIndex = 0
+            if trialNumber > 5 and trialNumber < 20:
+
+                #
+                # Haven't found a solution
+                # try to choose the parishes with largest amount of 
+                # teams submitted
+                maxTeams = 0
+                for key in parishDict:
+                    if parishDict[key] > maxTeams:
+                        maxTeams = parishDict[key]
+
+                maxTeamsList = []
+                for i in range (maxTeams):
+                    maxTeamsList.append([])
+
+                for key in parishDict:
+                    maxTeamsList[parishDict[key] - 1].append(key)
+
             print ("    Raised exception --- trial # ",trialNumber)
+            print ("    Resetting lists")
+
+
 
     return scheduleList
 
@@ -558,8 +579,8 @@ def updateCMLADict(cmlaDict, scheduleTable, teamList):
     index = 0
     for pair in scheduleTable:
         (away, home) = pair
-        awayTeam = teamList[away - 1]
-        homeTeam = teamList[home - 1]
+        awayTeam = teamList[away]
+        homeTeam = teamList[home]
 
         if awayTeam == "BYE":
             #
@@ -582,7 +603,7 @@ def switchBookkeeping(switchHome, switchAway, cmlaDict, scheduleTable):
     # find the pair in the scedule table
     for pair in scheduleTable:
         (away, home) = pair
-        if (away == switchAwayIndex+1) and (home == switchHomeIndex+1):
+        if (away == switchAwayIndex) and (home == switchHomeIndex):
             scheduleTable[switchIndex] = (home, away)
         else:
             switchIndex = switchIndex + 1
@@ -698,8 +719,8 @@ def writeExcelInterimFile(masterSchedule):
         cellrow = 1
         for game in scheduleTable:
             (away,home) = game
-            ws.cell(row=cellrow,column=cellcol).value = scheduleList[away-1]
-            ws.cell(row=cellrow,column=cellcol+1).value = scheduleList[home-1]
+            ws.cell(row=cellrow,column=cellcol).value = scheduleList[away]
+            ws.cell(row=cellrow,column=cellcol+1).value = scheduleList[home]
             cellrow = cellrow + 1
 
         ws.cell(row=0,column=10).value = 'NOTES:'
@@ -741,18 +762,18 @@ def buildNotPlayedDict(notPlayed, depth):
         for i in range(numTeams):
             for j in range(len(notPlayed[i])):
                 try:
-                    teamIndex = notPlayed[i][j]-1
+                    teamIndex = notPlayed[i][j]
                     if teamIndex != i:
                         intersectList = list(set(notPlayed[i]).intersection(notPlayed[teamIndex]))
                         if len(intersectList) > 0:
                             #
                             # first check if key exists from symmetry
                             try:
-                                keyexists = "T" + str(teamIndex+1) + "T" + str(i+1)
+                                keyexists = "T" + str(teamIndex) + "T" + str(i)
                                 if keyexists in notPlayedDict.keys():
                                     pass
                                 else:
-                                    key = "T" + str(i+1) + "T" + str(teamIndex+1)
+                                    key = "T" + str(i) + "T" + str(teamIndex)
                                     notPlayedDict[key] = intersectList
                             except:
                                 pass
@@ -768,15 +789,15 @@ def buildNotPlayedDict(notPlayed, depth):
                 try:
                     tokens = str(key).split("T")
                     tokens = list(filter(None, tokens))
-                    teamIndex = teamList[j]-1
+                    teamIndex = teamList[j]
                     intersectList = list(set(teamList).intersection(notPlayed[teamIndex]))
                     if len(intersectList) > 0:
-                        if (teamIndex+1) < int(tokens[0],10):
-                            newKey = "T" + str(teamIndex+1) + key
+                        if (teamIndex) < int(tokens[0],10):
+                            newKey = "T" + str(teamIndex) + key
                         elif teamIndex < int(tokens[1],10):
-                            newKey = "T" + str(tokens[0]) + "T" + str(teamIndex+1) + "T" + str(tokens[1])
+                            newKey = "T" + str(tokens[0]) + "T" + str(teamIndex) + "T" + str(tokens[1])
                         else:
-                            newKey = key + "T" + str(teamIndex+1)
+                            newKey = key + "T" + str(teamIndex)
                         if newKey in tempDict:
                             pass
                         else:
@@ -842,11 +863,9 @@ def main():
         teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
         teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
         notPlayedDict = buildNotPlayedDict(teamsNotPlayed, 4)
-
-        #scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
-        scheduleList = makeSchedule2(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
+        scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
         updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
-        loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
+        scheduleTable = loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
         print('##########################')
         print('      ',rKey,' Schedule   ')
         print('##########################')
