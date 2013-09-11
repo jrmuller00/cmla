@@ -8,7 +8,7 @@ from tkinter import filedialog
 from pandas.io.parsers import ExcelFile
 import pandas as pd
 from openpyxl import Workbook
-
+from openpyxl import load_workbook
 
 def getScheduleTable(numTeams):
 #
@@ -44,17 +44,70 @@ def getScheduleTable(numTeams):
     return scheduleTable
 
 def readExcelFile(filename):
-    xd = pd.ExcelFile(filename)
-    df = xd.parse('Sheet1')
-    df.fillna(0,inplace=True)
-    parishList = list(df.columns[2:])
-    gradeList = list(df.iloc[0:,0])
-    genderList = list(df.iloc[0:,1])
+    #
+    # open the file and set the active worksheet
+    wb = load_workbook(filename)
+    ws = wb.get_active_sheet()
+    #xd = pd.ExcelFile(filename)
+    #df = xd.parse('Sheet1')
+    #df.fillna(0,inplace=True)
+    #parishList = list(df.columns[2:])
+    #gradeList = list(df.iloc[0:,0])
+    #genderList = list(df.iloc[0:,1])
+    parishList = []
+    gradeList = []
+    genderList = []
+
+    #
+    # read the parish list 
+
+    cellRow = 0
+    cellCol = 2
+
+    cell = ws.cell(row = cellRow,column = cellCol)
+    while cell.value is not None:
+        parishList.append(cell.value)
+        cellCol = cellCol + 1
+        cell = ws.cell(row = cellRow,column = cellCol)
+
+    #
+    # now get the grade list
+    cellRow = 1
+    cellCol = 0
+
+    cell = ws.cell(row = cellRow,column = cellCol)
+    while cell.value is not None:
+        gradeList.append(cell.value)
+        cellRow = cellRow + 1
+        cell = ws.cell(row = cellRow,column = cellCol)
+
+    #
+    # finally get the gender list
+    cellRow = 1
+    cellCol = 1
+
+    cell = ws.cell(row = cellRow,column = cellCol)
+    while cell.value is not None:
+        genderList.append(cell.value)
+        cellRow = cellRow + 1
+        cell = ws.cell(row = cellRow,column = cellCol)
+    
     regDict = {}
+
     for index in range(len(gradeList)):
         tag = str(int(gradeList[index])) + genderList[index][0]
         regDict[tag] = []
-        numTeamsList = list(df.iloc[index,2:])
+        #numTeamsList = list(df.iloc[index,2:])
+        numTeamsList = []
+        cellRow = index + 1
+        cellCol = 2
+        for j in range(len(parishList)):
+            cell = ws.cell(row = cellRow,column = cellCol)
+            if cell.value is None:
+                numTeamsList.append(0)
+            else:
+                numTeamsList.append(cell.value)
+            cellCol = cellCol + 1
         for pIndex in range(0,len(parishList)):
             regDict[tag].append((parishList[pIndex],int(numTeamsList[pIndex])))
 
