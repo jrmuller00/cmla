@@ -454,7 +454,7 @@ def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
             elif trialNumber > 10:
                 print ("Couldn't find solution --- Stopping  --- Schedule not Correct")
                 makeList = True
-                return
+                return scheduleList, 0
             else:
                 #
                 # pick a random team from teamList
@@ -625,7 +625,7 @@ def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
 
 
 
-    return scheduleList
+    return scheduleList,1
 
 def updateCMLADict(cmlaDict, scheduleTable, teamList):
     
@@ -916,23 +916,24 @@ def main():
         teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
         teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
         notPlayedDict = buildNotPlayedDict(teamsNotPlayed, 4)
-        scheduleList = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
-        updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
-        scheduleTable = loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
-        print('##########################')
-        print('      ',rKey,' Schedule   ')
-        print('##########################')
-        tKeys = list(cmlaTeamDict.keys())
-        tKeys.sort()
-        for key in tKeys:
-            print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games')
-            print ('     ',cmlaTeamDict[key].getHomeGamesList())
-            print ('  and ',cmlaTeamDict[key].getNumAwayGames(),'away games')
-            print ('     ',cmlaTeamDict[key].getAwayGamesList())
+        (scheduleList, completed) = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
+        if completed == 1:
+            updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
+            scheduleTable = loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
+            print('##########################')
+            print('      ',rKey,' Schedule   ')
+            print('##########################')
+            tKeys = list(cmlaTeamDict.keys())
+            tKeys.sort()
+            for key in tKeys:
+                print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games')
+                print ('     ',cmlaTeamDict[key].getHomeGamesList())
+                print ('  and ',cmlaTeamDict[key].getNumAwayGames(),'away games')
+                print ('     ',cmlaTeamDict[key].getAwayGamesList())
 
-        print()
-        print()
-        masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye, len(scheduleList))
+            print()
+            print()
+            masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye, len(scheduleList))
     writeExcelInterimFile(masterSchedule)
 if __name__ == "__main__":
     main()
