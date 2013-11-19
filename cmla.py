@@ -43,7 +43,7 @@ def getScheduleTable(numTeams):
                     scheduleTable.append((team1, team2))
     return scheduleTable
 
-def readExcelFile(filename):
+def readRegistrationExcelFile(filename):
     #
     # open the file and set the active worksheet
     wb = load_workbook(filename)
@@ -484,7 +484,7 @@ def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
                 # add team to list in first available slot
                 teamIndex = emptySlots[0]
                 scheduleList[teamIndex] = team
-                teamDict[team].setListIndex(teamIndex)
+                teamDict[team].setIndex(teamIndex)
                 teamList.remove(team)
             elif numTeamsSubmitted == 2:
                 parish = team[:3]
@@ -504,11 +504,11 @@ def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
                         # pull first slot for team1
                         teamIndex = index
                         scheduleList[teamIndex] = team
-                        teamDict[team].setListIndex(teamIndex)
+                        teamDict[team].setIndex(teamIndex)
                         teamList.remove(team)
                         teamIndex = random.choice(intersect)
                         scheduleList[teamIndex] = team2
-                        teamDict[team2].setListIndex(teamIndex)
+                        teamDict[team2].setIndex(teamIndex)
                         teamList.remove(team2)
                         break
                     else:
@@ -570,7 +570,7 @@ def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
                                     pTeam = random.choice(pTeams)
                                     index = tlist[i]
                                     scheduleList[index] = pTeam
-                                    teamDict[pTeam].setListIndex(index)
+                                    teamDict[pTeam].setIndex(index)
                                     teamList.remove(pTeam)
                                     pTeams.remove(pTeam)
                                     solution.remove(index)
@@ -579,7 +579,7 @@ def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
                                 for pTeam in pTeams:
                                     index = random.choice(solution)
                                     scheduleList[index] = pTeam
-                                    teamDict[pTeam].setListIndex(index)
+                                    teamDict[pTeam].setIndex(index)
                                     teamList.remove(pTeam)
                                     pTeams.remove(pTeam)
                                     solution.remove(index)
@@ -648,8 +648,8 @@ def updateCMLADict(cmlaDict, scheduleTable, teamList):
     return
 
 def switchBookkeeping(switchHome, switchAway, cmlaDict, scheduleTable):
-    switchHomeIndex = cmlaDict[switchHome].getListIndex()
-    switchAwayIndex = cmlaDict[switchAway].getListIndex()
+    switchHomeIndex = cmlaDict[switchHome].getIndex()
+    switchAwayIndex = cmlaDict[switchAway].getIndex()
     
     switchIndex = 0
     #
@@ -866,8 +866,11 @@ def buildNotPlayedDict(notPlayed, depth):
 def main():
     teamListFilename = ""
     registrationFilename = ""
+    standingsFile = ""
+    scheduleGames = False
+    computeStandings = False
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hf:n:t:r:",["help","filename="])
+        opts, args = getopt.getopt(sys.argv[1:], "chsf:n:t:r:",["help","filename="])
     except getopt.error as msg:
         print (msg)
         print ("for help use --help")
@@ -876,65 +879,78 @@ def main():
     for o, arg in opts:
 #        print (o, arg)
         if o == "-h":
-            print ("python teammatrix.py [filename]")
+            print ("python cmla.py")
         if o == "-f":
-            filename = arg
+            standingsFile = arg
         if o == "-n":
             numTeams = int(arg,10)
         if o == "-t":
             teamListFilename = arg
         if o == "-r":
             registrationFilename = arg
+        if o == "-s":
+            scheduleGames = True
+        if o == "-c":
+            computeStandings = True
 
-    if registrationFilename == "":
-        registrationFilename = tkinter.filedialog.askopenfilename()
 
-    tokens = registrationFilename.split('.')
-    numTokens = len(tokens)
-    extension = tokens[numTokens-1]
+    if scheduleGames == True:
+        if registrationFilename == "":
+            registrationFilename = tkinter.filedialog.askopenfilename()
 
-    if extension in ('xls','xlsx'):
-        regDict = readExcelFile(registrationFilename)
+        tokens = registrationFilename.split('.')
+        numTokens = len(tokens)
+        extension = tokens[numTokens-1]
+
+        if extension in ('xls','xlsx'):
+            regDict = readRegistrationExcelFile(registrationFilename)
+        else:
+            regDict = makeRegistrationDict(registrationFilename)
+    #       print ("Team list is ", teamListFilename)
+
+        #
+        # Now loop over all grade/genders to make the schedule
+        rKeys = list(regDict.keys())
+        rKeys.sort()
+        masterSchedule = {}
+        notPlayedDict = {}
+        for rKey in rKeys:
+            notPlayedDict.clear()
+            if rKey[0] == "8":
+                print (" Starting 8's")
+            parishList = regDict[rKey]
+            cmlaTeamDict, hasBye = makeGradeGenderTeamList(parishList)
+            numTeams = len(cmlaTeamDict)
+            scheduleTable = getScheduleTable(len(cmlaTeamDict))
+            teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
+            teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
+            notPlayedDict = buildNotPlayedDict(teamsNotPlayed, 4)
+            (scheduleList, completed) = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
+            if completed == 1:
+                updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
+                scheduleTable = loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
+                print('##########################')
+                print('      ',rKey,' Schedule   ')
+                print('##########################')
+                tKeys = list(cmlaTeamDict.keys())
+                tKeys.sort()
+                for key in tKeys:
+                    print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games')
+                    print ('     ',cmlaTeamDict[key].getHomeGamesList())
+                    print ('  and ',cmlaTeamDict[key].getNumAwayGames(),'away games')
+                    print ('     ',cmlaTeamDict[key].getAwayGamesList())
+
+                print()
+                print()
+                masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye, len(scheduleList))
+        writeExcelInterimFile(masterSchedule)
+    elif computeStandings == True:
+        print ("Computing Standings")
+        if standingsFilename == "":
+            standingsFilename = tkinter.filedialog.askopenfilename()
     else:
-        regDict = makeRegistrationDict(registrationFilename)
-#       print ("Team list is ", teamListFilename)
+        print ('No task specified -- stopping')
 
-    #
-    # Now loop over all grade/genders to make the schedule
-    rKeys = list(regDict.keys())
-    rKeys.sort()
-    masterSchedule = {}
-    notPlayedDict = {}
-    for rKey in rKeys:
-        notPlayedDict.clear()
-        if rKey[0] == "8":
-            print (" Starting 8's")
-        parishList = regDict[rKey]
-        cmlaTeamDict, hasBye = makeGradeGenderTeamList(parishList)
-        numTeams = len(cmlaTeamDict)
-        scheduleTable = getScheduleTable(len(cmlaTeamDict))
-        teamsPlayed = getTeamsPlayed(numTeams, scheduleTable)
-        teamsNotPlayed = getTeamsNotPlayed(numTeams, teamsPlayed)
-        notPlayedDict = buildNotPlayedDict(teamsNotPlayed, 4)
-        (scheduleList, completed) = makeSchedule(cmlaTeamDict, teamsNotPlayed, notPlayedDict)
-        if completed == 1:
-            updateCMLADict(cmlaTeamDict, scheduleTable, scheduleList)
-            scheduleTable = loadBalanceSchedule(cmlaTeamDict, scheduleTable, scheduleList)
-            print('##########################')
-            print('      ',rKey,' Schedule   ')
-            print('##########################')
-            tKeys = list(cmlaTeamDict.keys())
-            tKeys.sort()
-            for key in tKeys:
-                print ('Team ', key, ' has ',cmlaTeamDict[key].getNumHomeGames(),'home games')
-                print ('     ',cmlaTeamDict[key].getHomeGamesList())
-                print ('  and ',cmlaTeamDict[key].getNumAwayGames(),'away games')
-                print ('     ',cmlaTeamDict[key].getAwayGamesList())
-
-            print()
-            print()
-            masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye, len(scheduleList))
-    writeExcelInterimFile(masterSchedule)
 if __name__ == "__main__":
     main()
 

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2d3903e4-304e-4d2f-a620-880a4ed889c1}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>teammatrix.py</StartupFile>
+    <StartupFile>cmla.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -13,7 +13,7 @@
     <Name>cmla</Name>
     <RootNamespace>cmla</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>-t 2012-4B</CommandLineArguments>
+    <CommandLineArguments>-t 2012-4B -s</CommandLineArguments>
     <InterpreterPath />
     <InterpreterArguments />
     <IsWindowsApplication>False</IsWindowsApplication>
@@ -30,7 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="cmlaTeam.py" />
-    <Compile Include="teammatrix.py" />
+    <Compile Include="cmla.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
