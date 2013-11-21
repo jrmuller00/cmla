@@ -13,7 +13,7 @@
     <Name>cmla</Name>
     <RootNamespace>cmla</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>-t 2012-4B -s</CommandLineArguments>
+    <CommandLineArguments>-t 2012-4B -c</CommandLineArguments>
     <InterpreterPath />
     <InterpreterArguments />
     <IsWindowsApplication>False</IsWindowsApplication>

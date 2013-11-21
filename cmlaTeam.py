@@ -267,7 +267,7 @@ class cmlaTeam(object):
         return awayList
 
     #
-    # setGameScore - will set the scores for teh bject team and the opponent
+    # setGameScore - will set the scores for the object team and the opponent
     def setGameScore(self,team, opp):
         """
         setGameScore will set the final game scores for the object team
@@ -284,9 +284,13 @@ class cmlaTeam(object):
         if self.Grade < 5:
             if diff > 12:
                 diff = 12
+            elif diff < -12:
+                diff = -12
         else:
             if diff > 15:
                 diff = 15
+            elif diff < -15:
+                diff = -15
         self.addPlusMinus(diff)
         if team > opp:
             self.Wins = self.Wins + 1

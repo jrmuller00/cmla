@@ -113,6 +113,94 @@ def readRegistrationExcelFile(filename):
 
     return regDict
 
+def readStandingsExcelFile(filename):
+    #
+    # open the file and set the active worksheet
+    wb = load_workbook(filename)
+    #
+    # get list of active worksheets (should be 8B, 8G, 7B, 7G, etc.)
+
+    listSheets = wb.get_sheet_names()
+
+    dictAllGrades = {}
+
+
+    for sheetName in listSheets:
+        if len(listSheets) > 0:
+            ws = wb.get_sheet_by_name(sheetName)
+
+            #
+            # initialize the standings dicitonary and set the grade
+
+            dictStandings = {}
+            currentGrade = int(sheetName[0])
+            cellRow = 1
+            cellCol = 0
+            
+            #
+            # get the first row
+            homeTeamCell = ws.cell(row = cellRow,column = cellCol)
+            homeScoreCell = ws.cell(row = cellRow,column = cellCol+1)
+            awayTeamCell = ws.cell(row = cellRow,column = cellCol+2)
+            awayScoreCell = ws.cell(row = cellRow,column = cellCol+3)
+
+            #
+            # loop over all rows
+            while homeTeamCell.value is not None:
+                homeTeam = homeTeamCell.value
+                homeScore = homeScoreCell.value
+                awayTeam = awayTeamCell.value
+                awayScore = awayScoreCell.value
+                #
+                # see if the keys exist 
+                try:
+                    if homeTeam in dictStandings.keys():
+                        #
+                        # team exists so just add info
+                        dictStandings[homeTeam].addGame(awayTeam,'h')
+                        dictStandings[homeTeam].setGameScore(homeScore, awayScore)
+                    else:
+                        #
+                        # team does not exist, so create new object and add to dict
+                        homeTeamObj = cmla.cmlaTeam()
+                        homeTeamObj.setName(homeTeam)
+                        homeTeamObj.setParish(homeTeam[0:3])
+                        homeTeamObj.setGrade(currentGrade)
+                        homeTeamObj.addGame(awayTeam,'h')
+                        homeTeamObj.setGameScore(homeScore, awayScore)
+                        dictStandings[homeTeam] = homeTeamObj
+
+                    if awayTeam in dictStandings.keys():
+                        #
+                        # team exists so just add info
+                        dictStandings[awayTeam].addGame(homeTeam,'a')
+                        dictStandings[awayTeam].setGameScore(awayScore, homeScore)
+                    else:
+                        #
+                        # team does not exist, so create new object and add to dict
+                        awayTeamObj = cmla.cmlaTeam()
+                        awayTeamObj.setName(awayTeam)
+                        awayTeamObj.setParish(awayTeam[0:3])
+                        awayTeamObj.setGrade(currentGrade)
+                        awayTeamObj.addGame(homeTeam,'a')
+                        awayTeamObj.setGameScore(awayScore, homeScore)
+                        dictStandings[awayTeam] = awayTeamObj
+                except Exception:
+                    pass
+
+                cellRow = cellRow + 1
+                #
+                # get the next row of values
+                homeTeamCell = ws.cell(row = cellRow,column = cellCol)
+                homeScoreCell = ws.cell(row = cellRow,column = cellCol+1)
+                awayTeamCell = ws.cell(row = cellRow,column = cellCol+2)
+                awayScoreCell = ws.cell(row = cellRow,column = cellCol+3)
+
+            dictAllgrades[sheetName] = dictStandings
+
+
+    return dictAllgrades
+
 
 def getTeamMatrix(scheduleTable):
 #
@@ -262,147 +350,6 @@ def makeGradeGenderTeamList(parishList):
         hasBye = True
 
     return teamDict, hasBye
-
-#def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
-
-#    #
-#    # get a list of teams and the number of teams
-#    teamList = list(teamDict.keys())
-#    numTeams = len(teamList)
-
-#    #
-#    # now make a random list of the teams to use for scheduling
-#    scheduleList = []
-#    for i in range(numTeams):
-#        scheduleList.append("empty")
-
-    
-#    #
-#    # make a list of parishes
-
-#    parishDict = {}
-
-#    for team in teamList:
-#        if team[:3] in parishDict:
-#            parishDict[team[:3]] = parishDict[team[:3]] + 1
-#        else:
-#            parishDict[team[:3]] = 1
-        
-        
-#    trialNumber = 1
-#    currentIndex = 0
-#    makeList = True
-    
-#    while (makeList == True):
-#        try:
-#            if trialNumber > 15:
-#                #
-#                # reset the schedule list and team list
-#                scheduleList = []
-#                for i in range(numTeams):
-#                    scheduleList.append("empty")
-#                teamList.clear()
-#                teamList = list(teamDict.keys())
-#                currentIndex = 0
-
-#                #
-#                # sort teams into buckets according to how many each parish submitted
-#                maxParish = teamList[0][:3]
-#                maxTeams = parishDict[maxParish]
-#                for teamCount in teamList:
-#                    parish = teamCount[:3]
-#                    if parishDict[parish] > maxTeams:
-#                        maxParish = parish
-#                        maxTeams = parishDict[parish]
-
-
-#                #
-#                # now with the maxTeams parish add these teams to a list and choose one
-
-#                maxTeamsList = []
-#                for teams in teamList:
-#                    if teams[:3] == maxParish:
-#                        maxTeamsList.append(teams)
-
-#                team = random.choice(maxTeamsList)
-#            elif trialNumber > 25:
-#                print ("Couldn't find solution --- Stopping  --- Schedule not Correct")
-#                makeList = True
-#                return
-#            else:
-#                team = random.choice(teamList)
-#            # 
-#            # add the team to the schedule list
-#            while scheduleList[currentIndex] != "empty":
-#                currentIndex = currentIndex + 1
-#            scheduleList[currentIndex] = team
-#            teamDict[team].setListIndex(currentIndex)
-#            teamList.remove(team)
-#            #
-#            # now need to find any other teams from that parish
-#            # and add them to the schedule list
-
-#            noPlayIndicies = []
-#            noPlayIndicies.append(currentIndex)
-
-#            sameParish = []
-#            for otherTeam in teamList:
-#                if team[:3] == otherTeam[:3]:
-#    #                print ('Found same parish ',team, otherTeam)
-#                    #
-#                    # need to pull them from the team list
-#                    # and add them to the schedule list in a slot that 
-#                    # does not play "team"
-#                    sameParish.append(otherTeam)
-
-#            notPlayed = teamsNotPlayed[currentIndex]
-#            sameParishIndex = []
-#            for j in range(len(sameParish)):
-#                undoTeam = False
-#                try:
-#                    if len(notPlayed) == 0: 
-#                        print ("Error can't find solution to multiple parish teams")
-#                    else:
-#                        emptySlot = False
-#                        k = 0
-#                        intersectNotPlayed = []
-#                        while emptySlot == False:
-#                            spi = notPlayed[k] - 1
-#                            if scheduleList[spi] == 'empty':
-#                                sameParishIndex.append(spi)
-#                                intersectNotPlayed = set(notPlayed).intersection(teamsNotPlayed[spi])
-#                                notPlayed = list(intersectNotPlayed)
-#                                emptySlot = True
-#                            else:
-#                                k = k + 1
-#                except Exception:
-#                    undoTeam = True
-
-#            if (len(sameParish) == len(sameParishIndex)):
-#                for j in range(len(sameParish)):
-#                    otherTeam = sameParish[j]
-#                    spi = random.choice(sameParishIndex)
-#                    scheduleList[spi] = otherTeam
-#                    teamDict[otherTeam].setListIndex(spi)
-#                    teamList.remove(otherTeam)
-#                    sameParishIndex.remove(spi)
-#            else:
-#                undoTeam = True
-#                raise Exception("Error not enough indicies for same parish teams")
-        
-#            if len(teamList) == 0:
-#                makeList = False
-
-#        except Exception:
-#            trialNumber = trialNumber + 1
-#            #
-#            if undoTeam == True:
-#                scheduleList[currentIndex] = 'empty'
-#                teamDict[team].setListIndex(-1)
-#                teamList.append(team)
-#            print ("    Raised exception --- trial # ",trialNumber)
-
-#    return scheduleList
 
 
 def makeSchedule(teamDict, teamsNotPlayed, teamsNotPlayedDict):
@@ -866,7 +813,7 @@ def buildNotPlayedDict(notPlayed, depth):
 def main():
     teamListFilename = ""
     registrationFilename = ""
-    standingsFile = ""
+    standingsFilename = ""
     scheduleGames = False
     computeStandings = False
     try:
@@ -948,6 +895,13 @@ def main():
         print ("Computing Standings")
         if standingsFilename == "":
             standingsFilename = tkinter.filedialog.askopenfilename()
+        tokens = standingsFilename.split('.')
+        numTokens = len(tokens)
+        extension = tokens[numTokens-1]
+        if extension in ('xls','xlsx'):
+            standingsDict = readStandingsExcelFile(standingsFilename)
+        else:
+            pass
     else:
         print ('No task specified -- stopping')
 
