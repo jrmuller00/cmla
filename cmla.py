@@ -174,7 +174,10 @@ def readStandingsExcelFile(filename):
                         #
                         # team exists so just add info
                         dictStandings[awayTeam].addGame(homeTeam,'a')
-                        dictStandings[awayTeam].setGameScore(awayScore, homeScore)
+                        if homeTeam.lower() == "bye":
+                            dictStandings[awayTeam].setGameScore(awayScore,homeScore)
+                        else:
+                            dictStandings[awayTeam].setGameScore(awayScore,homeScore, True)
                     else:
                         #
                         # team does not exist, so create new object and add to dict
@@ -183,7 +186,11 @@ def readStandingsExcelFile(filename):
                         awayTeamObj.setParish(awayTeam[0:3])
                         awayTeamObj.setGrade(currentGrade)
                         awayTeamObj.addGame(homeTeam,'a')
-                        awayTeamObj.setGameScore(awayScore, homeScore)
+                        if homeTeam.lower() == "bye":
+                            awayTeamObj.setGameScore(awayScore, homeScore, True)
+                        else:
+                            awayTeamObj.setGameScore(awayScore, homeScore)
+                        
                         dictStandings[awayTeam] = awayTeamObj
                 except Exception:
                     pass
@@ -196,10 +203,10 @@ def readStandingsExcelFile(filename):
                 awayTeamCell = ws.cell(row = cellRow,column = cellCol+2)
                 awayScoreCell = ws.cell(row = cellRow,column = cellCol+3)
 
-            dictAllgrades[sheetName] = dictStandings
+            dictAllGrades[sheetName] = dictStandings
 
 
-    return dictAllgrades
+    return dictAllGrades
 
 
 def getTeamMatrix(scheduleTable):
@@ -900,6 +907,7 @@ def main():
         extension = tokens[numTokens-1]
         if extension in ('xls','xlsx'):
             standingsDict = readStandingsExcelFile(standingsFilename)
+            print ('Completed reading standings file')
         else:
             pass
     else:

@@ -268,14 +268,20 @@ class cmlaTeam(object):
 
     #
     # setGameScore - will set the scores for the object team and the opponent
-    def setGameScore(self,team, opp):
+    def setGameScore(self,team, opp, byeGame=False):
         """
         setGameScore will set the final game scores for the object team
         and the opponent.  It will also update the +/- for the team and 
-        the total number of wins, losses or ties depending on the score
+        the total number of wins, losses or ties depending on the score.
+        The boolean flag is set to true if the game was a bye week for 
+        the team and false if it was a regular game.  If it was a bye 
+        the score is registered (0 to 0) but the game is not listed as a 
+        tie.
 
-            int team    - object team score for game
-            int opp     - opponents team score for the game
+            int     team    - object team score for game
+            int     opp     - opponents team score for the game
+            bool    byeGame - Boolean to determine if the opponent is 'BYE'
+                                (default is False)
 
             return value: Null
         """
@@ -292,12 +298,14 @@ class cmlaTeam(object):
             elif diff < -15:
                 diff = -15
         self.addPlusMinus(diff)
+        
         if team > opp:
             self.Wins = self.Wins + 1
         elif team < opp:
             self.Losses = self.Losses + 1
         else:
-            self.Ties = self.Ties + 1
+            if byeGame:
+                self.Ties = self.Ties + 1
         return
 
     #
