@@ -229,6 +229,17 @@ class cmlaTeam(object):
             else:
                 index = index + 1
         return
+
+    #
+    # getOpponentList - will return a list of opponent team names
+    def getOpponentList(self):
+        """
+        getOpponentList lreturns a list of all opponents
+
+        return: list    self.listOpponents
+        """
+       
+        return self.listOpponents
         
     #
     # getHomeGamesList - will return a list of home game opponent team names

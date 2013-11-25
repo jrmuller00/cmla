@@ -816,6 +816,37 @@ def buildNotPlayedDict(notPlayed, depth):
 
     return notPlayedDict
 
+#
+# This function sorts a dictionary based on winning percentage
+def sortWinningPercentage(teamDict):
+    """
+    sortWinningPercentage will create list of keys and winning percentages
+    from the information in the dictionary and then sort it according to 
+    highest winning percentage. The function will return this sorted list
+
+    dict    teamDict    dictionary of team data
+
+    return value:   list    sortedList  sorted list of tuples continaing the team name and the winning percentage
+
+    """
+    sortList = []
+
+    #
+    # loop over all keys and create a tuple
+    # of team name (key) and the winning
+    # percentage
+
+    for key in teamDict.keys():
+        if key.lower() != 'bye':
+            sortList.append((key,teamDict[key].getWinPercentage()))
+
+    return sorted(sortList, key=lambda team: team[1],reverse=True)
+
+
+
+
+
+
 
 def main():
     teamListFilename = ""
@@ -908,6 +939,9 @@ def main():
         if extension in ('xls','xlsx'):
             standingsDict = readStandingsExcelFile(standingsFilename)
             print ('Completed reading standings file')
+            for key in standingsDict.keys():
+                teamSorted = sortWinningPercentage(standingsDict[key])
+                print ('Completed Phase 1: sorted ',key, ' by winning percentage ')
         else:
             pass
     else:
