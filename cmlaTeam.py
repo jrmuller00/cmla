@@ -409,6 +409,36 @@ class cmlaTeam(object):
         else:
             return 0.0
 
+    #
+    # getOpponentInfo will get game location 'h' or 'a' and the score
+    def getOpponentInfo(self, team):
+        """
+        getOpponentInfo will take a team name and search if the team is listed 
+        in listOpponents.  If yes, the function will return the location (home or away)
+        and the score (if it exists).  If the game exists but no score, the score tuple
+        will be (-1, -1)
+
+        string  team
+
+        Return value: tuple (Boolean, location, tuple (team score, opponent score))
+
+        """
+        index = 0
+        exists = False
+        location = 'na'
+        score = (-1,-1)
+        for index in len(self.listOpponents):
+            if team.lower() == self.listOpponents[index]:
+                #
+                # team exists, get game location
+                exists = True
+                location = self.listLocation[index]
+                if len(self.listScore) > index:
+                    score = self.listScore[index]
+                break
+
+        return (exists, location, score)
+
         
                         
 
