@@ -842,6 +842,58 @@ def sortWinningPercentage(teamDict):
 
     return sorted(sortList, key=lambda team: team[1],reverse=True)
 
+#
+# calcSoS will calculate the SoS for all the teams in a dictionary
+
+def calcSoS(teamDict):
+    """
+    calcSoS will calculate the strength of schedule for 
+    all the teams in teamDict.  The SoS is calucated as 
+    a weighted average of the following values:
+
+        * Opponents winning percentage
+        * SUM {[Opponents PF / [Max PF for all teams]} / [Total Games Played]
+        * SUM {[Opponents PA / [Max PA for all teams]} / [Total Games Played]
+    """
+
+    #
+    # First find the max PH and min PA 
+    # for all teams
+
+    maxPF = 0.0
+    minPA = 1e4
+    for team in teamDict.keys():
+        if team.lower() != 'bye':
+            if teamDict[team].getPFSeasonAvg() > maxPF: 
+                maxPF = teamDict[team].getPFSeasonAvg()
+
+            if teamDict[team].getPASeasonAvg() < minPA:
+                minPA = teamDict[team].getPASeasonAvg()
+
+    #
+    # now loop over all teams and calcualte the SoS
+
+    for team in teamDict.keys():
+        if team.lower() != 'bye':
+            oppList = teamDict[team].getOpponentList()
+            sumWinPercent = 0.0
+            sumPF = 0.0
+            sumPA = 0.0
+            for opponent in oppList:
+                if opponent.lower() != 'bye':
+                    sumWinPercent = teamDict[opponent].getWinPercentage()
+                    sumPF = (teamDict[opponent].getPFSeasonAvg() / maxPF)
+                    try:
+                        sumPA = (minPA / teamDict[opponent].getPASeasonAvg())
+                    except :
+                        sumPA = 0.0
+            totGames = teamDict[team].getTotalGamesPlayed()
+            SoS = 6 * (sumWinPercent / totGames) + 2 * ((sumPF + sumPA)/totGames)
+            teamDict[team].setSoS(SoS)
+
+    return
+
+
 
 
 
@@ -940,6 +992,7 @@ def main():
             standingsDict = readStandingsExcelFile(standingsFilename)
             print ('Completed reading standings file')
             for key in standingsDict.keys():
+                calcSoS(standingsDict[key])
                 teamSorted = sortWinningPercentage(standingsDict[key])
                 print ('Completed Phase 1: sorted ',key, ' by winning percentage ')
         else:

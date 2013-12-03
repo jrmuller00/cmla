@@ -16,6 +16,12 @@ class cmlaTeam(object):
     listPlusMinus - this is a list of the +/- for the games played max 12 pts for grades 3-4 and max 15 pts for grades 5-8
     listScore - this is list of tuples for the game scores (team's score, opponents score).  This is the actual score and teh +/- is adjusted for in the PlusMinus list
     Grade - This is the team grade
+    Wins  - number of team wins
+    Losses - number of team losses
+    Ties - number of team ties
+    PF - total points for over the course of the season
+    PA- total PA over the course of the season
+    SoS  - team strength of schedule
 
     """
     
@@ -31,6 +37,9 @@ class cmlaTeam(object):
         self.Wins = 0
         self.Losses = 0
         self.Ties = 0
+        self.PF = 0
+        self.PA = 0
+        self.SoS = 0.0
         return
     #
     # set the object team name
@@ -297,6 +306,8 @@ class cmlaTeam(object):
             return value: Null
         """
         self.listScore.append((team,opp))
+        self.PF = self.PF + team
+        self.PA = self.PA + opp
         diff = team - opp
         if self.Grade < 5:
             if diff > 12:
@@ -438,6 +449,66 @@ class cmlaTeam(object):
                 break
 
         return (exists, location, score)
+
+    #
+    # getPFSeasonAvg will return the average PF for the team over the course of the season
+
+    def getPFSeasonAvg(self):
+        """
+        getPFSeasonAvg will return the average "Points For" for the team, i.e.,
+
+        [Total Points Scored]/[Number of Games Played]
+
+        Return Value: float avgPF
+
+        """
+        totalGames = 0
+        totalGames = self.Wins + self.Losses + self.Ties
+
+        if totalGames > 0:
+            return self.PF / totalGames
+        else:
+            return 0.0
+
+
+    #
+    # getPASeasonAvg will return the average PA for the team over the course of the season
+
+    def getPASeasonAvg(self):
+        """
+        getPASeasonAvg will return the average "Points Against" for the team, i.e.,
+
+        [Total Points Scored by Opponents]/[Number of Games Played]
+
+        Return Value: float avgPA
+
+        """
+        totalGames = 0
+        totalGames = self.Wins + self.Losses + self.Ties
+
+        if totalGames > 0:
+            return self.PA / totalGames
+        else:
+            return 0.0
+
+    #
+    # getTotalGamesPlayed will return the total number of games played (does not include Bye's)
+
+    def getTotalGamesPlayed(self):
+        """
+        getTotalGamesPlayed will return the total number
+        of games played by the team.  This does not include
+        bye games
+
+        Return value: total games played
+
+        """
+        return self.Wins + self.Losses + self.Ties
+
+    def setSoS(self, SoS):
+        self.SoS = SoS
+        return
+       
 
         
                         
