@@ -10,14 +10,33 @@ import pandas as pd
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
-def getScheduleTable(numTeams):
+
 #
 #   make a table of teams
 #   initialized to all zeroes
 #   Note that team numbers are indexed
 #   to zero 
 
+def getScheduleTable(numTeams):
+    """
+    getScheduleTable will read in the scheduling table from 
+    a text file.  The scheduling table determines which teams 
+    play each other in a 10 game season (the standard CMLA season)
+
+        int numTeams    the number of teams in the division
+
+        Return value:   list    scheduleTable   a list of tuples determining which 
+                                                teams play each other, e.g., (1,2)
+                                                Team 1 plays Team 2
+    """
+    
+    #
+    # Note the file name is set as [numTeams]teams
+    # e.g. if numTeams is 20, then the filename is
+    # 20teams
+
     Filename = str(numTeams) + "teams"
+
     try:
         if len(scheduleTable) > 0:
             scheduleTable.clear()
@@ -42,6 +61,7 @@ def getScheduleTable(numTeams):
                     team2 = int(tokens[2]) - 1
                     scheduleTable.append((team1, team2))
     return scheduleTable
+
 
 def readRegistrationExcelFile(filename):
     #
@@ -881,26 +901,65 @@ def calcSoS(teamDict):
             sumPA = 0.0
             for opponent in oppList:
                 if opponent.lower() != 'bye':
-                    sumWinPercent = teamDict[opponent].getWinPercentage()
-                    sumPF = (teamDict[opponent].getPFSeasonAvg() / maxPF)
+                    sumWinPercent = sumWinPercent + teamDict[opponent].getWinPercentage()
+                    sumPF = sumPF + (teamDict[opponent].getPFSeasonAvg() / maxPF)
                     try:
-                        sumPA = (minPA / teamDict[opponent].getPASeasonAvg())
+                        sumPA = sumPA + (minPA / teamDict[opponent].getPASeasonAvg())
                     except :
                         sumPA = 0.0
             totGames = teamDict[team].getTotalGamesPlayed()
-            SoS = 6 * (sumWinPercent / totGames) + 2 * ((sumPF + sumPA)/totGames)
+            SoS = 60.0 * (sumWinPercent / totGames) + 20.0 * ((sumPF + sumPA)/totGames)
             teamDict[team].setSoS(SoS)
 
     return
 
+#
+# resolveTies will loop over the current standings 
+# to find and resolve ties based on CMLA rules
+
+def resolveTies(divDict, currentStandings):
+    """
+    resolveTies will loop over the current standings 
+    to find and resolve ties based on CMLA rules:
+
+        Tournament Seeding & Regular Season Final Standings: Teams will be
+        seeded for tournament play based on their regular season won-loss record. Teams who
+        are tied at the end of the regular season will use the following tiebreaker:
+        1. Head to Head record
+        2. Head to Head point-differential (if more than 2 teams)
+        3. Common Opponent(s) record
+        4. Common Opponent(s) point-differential
+        5. Season point differential (15 point or 12 point max. per game depending on grade)
+        6. Coin Flip, or if more than two teams draw names out of a hat
+
+    """
 
 
 
 
+
+#
+# --------------------------------------------------------------------------
+#
 
 
 
 def main():
+    """
+    main is the main function for the cmla program.  it will take several 
+    command line arguments to either build a season schedule or compute the
+    season ending standings for a division
+
+    arguments:
+        -h              :   help on running the code
+        -c              :   compute season ending standings
+        -s              :   compute season schedule
+        -f [filename]   :   standings filename
+        -n [# teams]    :   number of teams
+        -t [filename]   :   team list filename
+        -r [filename]   :   registration filename
+
+    """
     teamListFilename = ""
     registrationFilename = ""
     standingsFilename = ""
@@ -989,8 +1048,18 @@ def main():
         numTokens = len(tokens)
         extension = tokens[numTokens-1]
         if extension in ('xls','xlsx'):
+            #
+            # read the season ending data into the standings
+            # dictionary.  Each division is a key, i.e., 8B, 8G, etc..
+
             standingsDict = readStandingsExcelFile(standingsFilename)
             print ('Completed reading standings file')
+
+            #
+            # loop over all divisions and:
+            #   1) calcuate the Stength of schedule
+            #   2) Sort by winning percentages
+            #   3) resolve ties based on CMLA rules
             for key in standingsDict.keys():
                 calcSoS(standingsDict[key])
                 teamSorted = sortWinningPercentage(standingsDict[key])
