@@ -508,6 +508,61 @@ class cmlaTeam(object):
     def setSoS(self, SoS):
         self.SoS = SoS
         return
+    #
+    # get the opponent index if it exists
+    def getOpponentIndex(self, opp):
+        """
+        getOpponentIndex will return the list index
+        for the specified opponent if it exists.
+        If it's not found it will return -1
+
+        string  opp - opponent team name
+
+        Return value: int   list index (-1 if not found)
+        """
+        oppIndex = -1
+        for index in len(self.listOpponents):
+            if opp == self.listOpponents[index]:
+                oppIndex = index
+        return oppIndex
+
+    #
+    # get the opponent info if it exists
+    def getOpponentInfo(self, opp):
+        """
+        getOpponentInfo will return the opponent
+        information in the form of a tuple if it exists.
+        (list index, location, (team score, opp score))
+
+        If any or all info is not found it will return 
+
+        (-1, "", (-1,-1))
+
+        string  opp - opponent team name
+
+        Return value: tuple (int: list index (-1 if not found), string: game location (empty if not found),tuple: (teamscore, opp score) (-1,-1) if not found)
+        """
+        
+        oppIndex = -1
+        gameLocation = ""
+        gameScore = (-1,-1)
+        #
+        # search opponent list to find index
+        for index in len(self.listOpponents):
+            if opp == self.listOpponents[index]:
+                oppIndex = index
+
+        if oppIndex > 0:
+            #
+            # found index, check for additional info
+            if len(self.listLocation) > oppIndex:
+                gameLocation = self.listLocation[oppIndex]
+
+            if len(self.listScore) > oppIndex:
+                gameScore = self.listScore[oppIndex]
+
+        return (oppIndex, gameLocation, gameScore)
+
        
 
         

@@ -934,6 +934,62 @@ def resolveTies(divDict, currentStandings):
 
     """
 
+    pass
+    return
+
+#
+# head to head tie resolution
+def head2Head(teamDict, tiedTeams):
+    """
+    head2Head will try to resolve the teams that 
+    are tied (listed in tiedTeams list) by comparing
+    head to head records.  The function will
+    return a tuple containing a boolean value if 
+    successful, the sorted list, and any notes about 
+    the resolution
+
+        dict    teamDict    - dictionary of all teams results
+        list    tiedTeams   - list of teams that are tied
+
+        Return value:
+            tuple   (True | False, list: sorted teams, string: Notes)
+
+    """
+
+    succeed = True
+    tiedDict = {}
+    played = []
+    numTied = len(tiedTeams)
+    notes = ""
+    tiedSort = []
+
+    for team in tiedTeams:
+        listOpp = teamDict[team].getOpponentList()
+        played.clear()
+
+        played = set(listOpp).intersection(tiedTeams)
+
+        if len(played) == numTied - 1:
+            newTeam = cmla.cmlaTeam()
+            newTeam.setName(team)
+            for addTeam in played:
+                (index, location, (teamScore, oppScore)) = teamDict[team].getOpponentInfo(addTeam)
+                if index > 0:
+                    newTeam.addGame(addTeam, location)
+                    newTeam.setGameScore(teamScore, oppScore)
+            tiedDict[team] = newTeam
+        else:
+            succeed = False
+            notes = ', '.join(tiedTeams) + " did not play H2H"
+
+    if succeed:
+        #
+        # sort list based on winning percentage
+
+        tiedSort = sortWinningPercentage(tiedDict)
+
+
+    return (succeed, tiedSort, notes)
 
 
 
