@@ -451,6 +451,43 @@ class cmlaTeam(object):
         return (exists, location, score)
 
     #
+    # getActualPointDifferential will return the total point differential for the team
+
+    def getActualPointDifferential(self):
+        """
+        getPointDifferential will return the total point differential 
+        for the team over the course of the season
+
+            Return value:   int pointDifferential [PF - PA]
+
+
+        """
+
+        return self.PF - self.PA
+
+    #
+    # getAdjustedPointDifferential will return the adjusted point differential (max 15 or 12)
+
+    def getAdjustedPointDifferential(self):
+        """
+        getAdjustedPointDifferential will return the adjusted total point differential 
+        for the team over the course of the season.  According to CMLA rules
+        the max DP per game is 15 pts for grades 5-8 and 12 pts for grades 3-4
+
+            Return value:   int adjustedDP = SUM (self.listPlusMinus)
+
+
+        """
+
+        sumDP = 0
+        for dp in self.listPlusMinus:
+            sumDP = sumDP + dp
+
+        return sumDP
+
+
+
+    #
     # getPFSeasonAvg will return the average PF for the team over the course of the season
 
     def getPFSeasonAvg(self):

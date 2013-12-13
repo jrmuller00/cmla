@@ -862,6 +862,33 @@ def sortWinningPercentage(teamDict):
 
     return sorted(sortList, key=lambda team: team[1],reverse=True)
 
+
+#
+# This function sorts a dictionary based on total point difference
+def sortPointDifference(teamDict):
+    """
+    sortWinningPercentage will create list of keys and winning percentages
+    from the information in the dictionary and then sort it according to 
+    highest winning percentage. The function will return this sorted list
+
+    dict    teamDict    dictionary of team data
+
+    return value:   list    sortedList  sorted list of tuples continaing the team name and the point differential
+
+    """
+    sortList = []
+
+    #
+    # loop over all keys and create a tuple
+    # of team name (key) and the winning
+    # percentage
+
+    for key in teamDict.keys():
+        if key.lower() != 'bye':
+            sortList.append((key,teamDict[key].getAdjustedPointDifferential()))
+
+    return sorted(sortList, key=lambda team: team[1],reverse=True)
+
 #
 # calcSoS will calculate the SoS for all the teams in a dictionary
 
