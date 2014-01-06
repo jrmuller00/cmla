@@ -3,6 +3,8 @@ import getopt
 import cmlaTeam as cmla
 import random
 import tkinter
+import math
+from types import *
 from tkinter import messagebox
 from tkinter import filedialog
 from pandas.io.parsers import ExcelFile
@@ -867,7 +869,7 @@ def sortWinningPercentage(teamDict):
 # This function sorts a dictionary based on total point difference
 def sortPointDifference(teamDict):
     """
-    sortWinningPercentage will create list of keys and winning percentages
+    sortPointDifference will create list of keys and winning percentages
     from the information in the dictionary and then sort it according to 
     highest winning percentage. The function will return this sorted list
 
@@ -941,10 +943,9 @@ def calcSoS(teamDict):
     return
 
 #
-# resolveTies will loop over the current standings 
-# to find and resolve ties based on CMLA rules
+# resolveTies will resolve ties based on CMLA rules
 
-def resolveTies(divDict, currentStandings):
+def resolveTies(tieDict, tieList):
     """
     resolveTies will loop over the current standings 
     to find and resolve ties based on CMLA rules:
@@ -961,8 +962,72 @@ def resolveTies(divDict, currentStandings):
 
     """
 
-    pass
+    #
+    # start with Head to Head
+
+    resolvedList = []
+    notes = ""
+    suceed = False
+    (succeed, resolvedList, notes) = head2Head(tieDict,tieList)
+    if succeed == False:
+        (succeed, resolvedList, notes) = head2HeadPDiff(tieDict,tieList)
+
+
+    
     return
+
+#
+# coallateList will find ties within a sorted list
+# and place them into a sub list
+
+def coallateList(sortedList):
+    """
+    coallateList will find ties within a sorted list
+    and place them into a sub list in the apporpriate
+    position within the list.  For example, if teams
+    1,2 and 3 are tied the list will look like:
+    [[1,2,3], 'empty', 'empty' ,...] 
+
+        list    sortedList
+
+        Return:     list    tiedList
+
+    """
+
+    newList = []
+
+    #
+    # initialize new list with "empty"
+
+    numItems = len(sortedList)
+
+    for index in range(numItems):
+        newList.append('empty')
+
+    tIndex = 0
+    while tIndex < numItems:
+        tVal  = sortedList[tIndex][1]
+        tieList = []
+        tieList.append(sortedList[tIndex])
+        cIndex = tIndex + 1
+        #
+        # find the tied values
+        while (cIndex < numItems) and (math.fabs(sortedList[cIndex][1] - tVal) < 0.001):
+            tieList.append(sortedList[cIndex])
+            cIndex = cIndex + 1
+
+        #
+        # done with ties
+        if len(tieList) == 1:
+            newList[tIndex] = sortedList[tIndex]
+        else:
+            newList[tIndex] = tieList
+        tIndex = cIndex
+
+    #
+    # done looping over list
+    return newList
+
 
 #
 # head to head tie resolution
@@ -984,7 +1049,6 @@ def head2Head(teamDict, tiedTeams):
     """
 
     succeed = True
-    tiedDict = {}
     played = []
     numTied = len(tiedTeams)
     notes = ""
@@ -1008,6 +1072,7 @@ def head2Head(teamDict, tiedTeams):
         else:
             succeed = False
             notes = ', '.join(tiedTeams) + " did not play H2H"
+            break
 
     if succeed:
         #
@@ -1015,6 +1080,64 @@ def head2Head(teamDict, tiedTeams):
 
         tiedSort = sortWinningPercentage(tiedDict)
 
+
+    return (succeed, tiedSort, notes)
+
+#
+# head to head point differential tie resolution
+def head2HeadPDiff(teamDict, tiedTeams):
+    """
+    head2Head will try to resolve the teams that 
+    are tied (listed in tiedTeams list) by comparing
+    head to head point differentials.  The function will
+    return a tuple containing a boolean value if 
+    successful, the sorted list, and any notes about 
+    the resolution
+
+        dict    teamDict    - dictionary of all teams results
+        list    tiedTeams   - list of teams that are tied
+
+        Return value:
+            tuple   (True | False, list: sorted teams, string: Notes)
+
+    """
+
+    succeed = True
+    played = []
+    numTied = len(tiedTeams)
+    notes = ""
+    tiedSort = []
+
+    for team in tiedTeams:
+        listOpp = teamDict[team].getOpponentList()
+        played.clear()
+
+        played = set(listOpp).intersection(tiedTeams)
+
+        if len(played) == numTied - 1:
+            newTeam = cmla.cmlaTeam()
+            newTeam.setName(team)
+            for addTeam in played:
+                (index, location, (teamScore, oppScore)) = teamDict[team].getOpponentInfo(addTeam)
+                if index > 0:
+                    newTeam.addGame(addTeam, location)
+                    newTeam.setGameScore(teamScore, oppScore)
+            tiedDict[team] = newTeam
+        else:
+            succeed = False
+            notes = ', '.join(tiedTeams) + " did not play H2H"
+            break
+
+    if succeed:
+        #
+        # sort list based on winning percentage
+
+        tiedSort = sortPointDifference(tiedDict)
+        h2HCoallate = coallateList(tiedSorted)
+        for item in h2HCoallate:
+            if isinstance(item, list):
+                succeed = False
+                break
 
     return (succeed, tiedSort, notes)
 
@@ -1143,10 +1266,35 @@ def main():
             #   1) calcuate the Stength of schedule
             #   2) Sort by winning percentages
             #   3) resolve ties based on CMLA rules
+            divDict = {}
             for key in standingsDict.keys():
-                calcSoS(standingsDict[key])
-                teamSorted = sortWinningPercentage(standingsDict[key])
+                divDict.clear()
+                divDict = standingsDict[key]
+                calcSoS(divDict)
+                teamSorted = sortWinningPercentage(divDict)
+                tieSorted = coallateList(teamSorted)
                 print ('Completed Phase 1: sorted ',key, ' by winning percentage ')
+
+                #
+                # Now loop thru the tiedSorted list to find any tied teams 
+                # and pass them to the resolveTies function
+
+                teamIndex = 1
+                tiedDict = {}
+                tiedTeamList = []
+                for item in tieSorted:
+                    if isinstance(item, list):
+                        #
+                        # found a tie, make a tiedDict and then call
+                        # resolveTies
+
+                        tiedDict.clear()
+                        tiedTeamList.clear()
+                        for teamTuple in item:
+                            tiedDict[teamTuple[0]] = divDict[teamTuple[0]]
+                            tiedTeamList.append(teamTuple[0])
+                        resolveTies(tiedDict,tiedTeamList)
+                        
         else:
             pass
     else:
@@ -1154,7 +1302,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
