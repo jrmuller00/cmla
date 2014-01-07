@@ -945,7 +945,7 @@ def calcSoS(teamDict):
 #
 # resolveTies will resolve ties based on CMLA rules
 
-def resolveTies(tieDict, tieList):
+def resolveTies(tieDict):
     """
     resolveTies will loop over the current standings 
     to find and resolve ties based on CMLA rules:
@@ -968,9 +968,9 @@ def resolveTies(tieDict, tieList):
     resolvedList = []
     notes = ""
     suceed = False
-    (succeed, resolvedList, notes) = head2Head(tieDict,tieList)
+    (succeed, resolvedList, notes) = head2Head(tieDict)
     if succeed == False:
-        (succeed, resolvedList, notes) = head2HeadPDiff(tieDict,tieList)
+        (succeed, resolvedList, notes) = head2HeadPDiff(tieDict)
 
 
     
@@ -1031,7 +1031,7 @@ def coallateList(sortedList):
 
 #
 # head to head tie resolution
-def head2Head(teamDict, tiedTeams):
+def head2Head(teamDict):
     """
     head2Head will try to resolve the teams that 
     are tied (listed in tiedTeams list) by comparing
@@ -1040,8 +1040,7 @@ def head2Head(teamDict, tiedTeams):
     successful, the sorted list, and any notes about 
     the resolution
 
-        dict    teamDict    - dictionary of all teams results
-        list    tiedTeams   - list of teams that are tied
+        dict    teamDict    - dictionary of tied teams
 
         Return value:
             tuple   (True | False, list: sorted teams, string: Notes)
@@ -1050,10 +1049,11 @@ def head2Head(teamDict, tiedTeams):
 
     succeed = True
     played = []
+    tiedTeams = teamDict.keys()
     numTied = len(tiedTeams)
     notes = ""
     tiedSort = []
-
+    
     for team in tiedTeams:
         listOpp = teamDict[team].getOpponentList()
         played.clear()
@@ -1061,14 +1061,15 @@ def head2Head(teamDict, tiedTeams):
         played = set(listOpp).intersection(tiedTeams)
 
         if len(played) == numTied - 1:
-            newTeam = cmla.cmlaTeam()
-            newTeam.setName(team)
-            for addTeam in played:
-                (index, location, (teamScore, oppScore)) = teamDict[team].getOpponentInfo(addTeam)
-                if index > 0:
-                    newTeam.addGame(addTeam, location)
-                    newTeam.setGameScore(teamScore, oppScore)
-            tiedDict[team] = newTeam
+            tiedDict = createCommonDict(teamDict, played)
+            #newTeam = cmla.cmlaTeam()
+            #newTeam.setName(team)
+            #for addTeam in played:
+            #    (index, location, (teamScore, oppScore)) = teamDict[team].getOpponentInfo(addTeam)
+            #    if index > 0:
+            #        newTeam.addGame(addTeam, location)
+            #        newTeam.setGameScore(teamScore, oppScore)
+            #tiedDict[team] = newTeam
         else:
             succeed = False
             notes = ', '.join(tiedTeams) + " did not play H2H"
@@ -1115,17 +1116,18 @@ def head2HeadPDiff(teamDict, tiedTeams):
         played = set(listOpp).intersection(tiedTeams)
 
         if len(played) == numTied - 1:
-            newTeam = cmla.cmlaTeam()
-            newTeam.setName(team)
-            for addTeam in played:
-                (index, location, (teamScore, oppScore)) = teamDict[team].getOpponentInfo(addTeam)
-                if index > 0:
-                    newTeam.addGame(addTeam, location)
-                    newTeam.setGameScore(teamScore, oppScore)
-            tiedDict[team] = newTeam
+            tiedDict = createCommonDict(teamDict, played)
+            #newTeam = cmla.cmlaTeam()
+            #newTeam.setName(team)
+            #for addTeam in played:
+            #    (index, location, (teamScore, oppScore)) = teamDict[team].getOpponentInfo(addTeam)
+            #    if index > 0:
+            #        newTeam.addGame(addTeam, location)
+            #        newTeam.setGameScore(teamScore, oppScore)
+            #tiedDict[team] = newTeam
         else:
             succeed = False
-            notes = ', '.join(tiedTeams) + " did not play H2H"
+            notes = ', '.join(tiedTeams) + " did not play H2H, no PD available"
             break
 
     if succeed:
@@ -1141,6 +1143,37 @@ def head2HeadPDiff(teamDict, tiedTeams):
 
     return (succeed, tiedSort, notes)
 
+#
+# createCommonDict will create a new season dictionary 
+# based on the parameter commonList
+
+def createCommonDict(tiedDict, commonList):
+    """
+    createCommonDict will create a new 'season' dictionary
+    that includes only the opponents listed in commonList.
+    this function will be used to resolve ties for 
+    season records and point differentials against common opponents
+
+        dict    tiedDict    contains the tied teams and their season info
+        list    commonList  contains the common opponents for the tied teams
+        
+        Return value:   dict    commonDict  dictionary of common opponets 
+    """
+
+    commonDict = {}
+    for key in tiedDict.keys():
+
+        for team in commonList:
+
+            (index, location, (teamScore, oppScore)) = tiedDict[key].getOpponentInfo(team)
+            if index > 0:
+                newTeam = cmla.cmlaTeam()
+                newTeam.setName(team)
+                newTeam.addGame(team, location)
+                newTeam.setGameScore(teamScore, oppScore)
+                tiedDict[key] = newTeam 
+
+    return commonDict
 
 
 
@@ -1289,11 +1322,9 @@ def main():
                         # resolveTies
 
                         tiedDict.clear()
-                        tiedTeamList.clear()
                         for teamTuple in item:
                             tiedDict[teamTuple[0]] = divDict[teamTuple[0]]
-                            tiedTeamList.append(teamTuple[0])
-                        resolveTies(tiedDict,tiedTeamList)
+                        resolveTies(tiedDict)
                         
         else:
             pass
