@@ -441,7 +441,7 @@ class cmlaTeam(object):
         exists = False
         location = 'na'
         score = (-1,-1)
-        for index in len(self.listOpponents):
+        for index in range(len(self.listOpponents)):
             if team.lower() == self.listOpponents[index]:
                 #
                 # team exists, get game location
@@ -561,7 +561,7 @@ class cmlaTeam(object):
         Return value: int   list index (-1 if not found)
         """
         oppIndex = -1
-        for index in len(self.listOpponents):
+        for index in range(len(self.listOpponents)):
             if opp == self.listOpponents[index]:
                 oppIndex = index
         return oppIndex
@@ -588,11 +588,11 @@ class cmlaTeam(object):
         gameScore = (-1,-1)
         #
         # search opponent list to find index
-        for index in len(self.listOpponents):
+        for index in range(len(self.listOpponents)):
             if opp == self.listOpponents[index]:
                 oppIndex = index
 
-        if oppIndex > 0:
+        if oppIndex >= 0:
             #
             # found index, check for additional info
             if len(self.listLocation) > oppIndex:

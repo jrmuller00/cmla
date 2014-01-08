@@ -966,11 +966,24 @@ def resolveTies(tieDict):
     # start with Head to Head
 
     resolvedList = []
-    notes = ""
+    overallNotes = ""
+    tieNotes = ""
     suceed = False
-    (succeed, resolvedList, notes) = head2Head(tieDict)
+    (succeed, resolvedList, tieNotes) = head2Head(tieDict)
+    overallNotes = overallNotes + tieNotes
+
     if succeed == False:
         (succeed, resolvedList, notes) = head2HeadPDiff(tieDict)
+        overallNotes = overallNotes + tieNotes
+        if succeed == False:
+            (succeed, resolvedList, notes) = commonOpponents(tieDict)
+            overallNotes = overallNotes + tieNotes
+            if succeed == False:
+                (succeed, resolvedList, notes) = commonOpponentsPDiff(tieDict)
+                overallNotes = overallNotes + tieNotes
+                if succeed == False:
+                    (succeed, resolvedList, notes) = overallPDiff(tieDict)
+                    overallNotes = overallNotes + tieNotes
 
 
     
@@ -1061,7 +1074,8 @@ def head2Head(teamDict):
         played = set(listOpp).intersection(tiedTeams)
 
         if len(played) == numTied - 1:
-            tiedDict = createCommonDict(teamDict, played)
+            # current team played h2h with other tied teams
+            pass
             #newTeam = cmla.cmlaTeam()
             #newTeam.setName(team)
             #for addTeam in played:
@@ -1078,15 +1092,21 @@ def head2Head(teamDict):
     if succeed:
         #
         # sort list based on winning percentage
+        tiedDict = createCommonDict(teamDict, tiedTeams)
 
         tiedSort = sortWinningPercentage(tiedDict)
+        h2HCoallate = coallateList(tiedSort)
+        for item in h2HCoallate:
+            if isinstance(item, list):
+                succeed = False
+                break
 
 
     return (succeed, tiedSort, notes)
 
 #
 # head to head point differential tie resolution
-def head2HeadPDiff(teamDict, tiedTeams):
+def head2HeadPDiff(teamDict):
     """
     head2Head will try to resolve the teams that 
     are tied (listed in tiedTeams list) by comparing
@@ -1105,6 +1125,7 @@ def head2HeadPDiff(teamDict, tiedTeams):
 
     succeed = True
     played = []
+    tiedTeams = list(teamDict.keys())
     numTied = len(tiedTeams)
     notes = ""
     tiedSort = []
@@ -1116,7 +1137,8 @@ def head2HeadPDiff(teamDict, tiedTeams):
         played = set(listOpp).intersection(tiedTeams)
 
         if len(played) == numTied - 1:
-            tiedDict = createCommonDict(teamDict, played)
+            pass
+            #tiedDict = createCommonDict(teamDict, played)
             #newTeam = cmla.cmlaTeam()
             #newTeam.setName(team)
             #for addTeam in played:
@@ -1133,9 +1155,9 @@ def head2HeadPDiff(teamDict, tiedTeams):
     if succeed:
         #
         # sort list based on winning percentage
-
+        tiedDict = createCommonDict(teamDict, tiedTeams)
         tiedSort = sortPointDifference(tiedDict)
-        h2HCoallate = coallateList(tiedSorted)
+        h2HCoallate = coallateList(tiedSort)
         for item in h2HCoallate:
             if isinstance(item, list):
                 succeed = False
@@ -1146,7 +1168,7 @@ def head2HeadPDiff(teamDict, tiedTeams):
 #
 # createCommonDict will create a new season dictionary 
 # based on the parameter commonList
-
+ 
 def createCommonDict(tiedDict, commonList):
     """
     createCommonDict will create a new 'season' dictionary
@@ -1162,20 +1184,153 @@ def createCommonDict(tiedDict, commonList):
 
     commonDict = {}
     for key in tiedDict.keys():
+        newTeam = cmla.cmlaTeam()
+        newTeam.setName(key)
+        newTeam.setGrade(int(key[3]))
 
         for team in commonList:
-
             (index, location, (teamScore, oppScore)) = tiedDict[key].getOpponentInfo(team)
-            if index > 0:
-                newTeam = cmla.cmlaTeam()
-                newTeam.setName(team)
+            if index >= 0:
                 newTeam.addGame(team, location)
                 newTeam.setGameScore(teamScore, oppScore)
-                tiedDict[key] = newTeam 
+                
+        commonDict[key] = newTeam 
 
     return commonDict
 
+#
+# commonOpponents will resolve ties based on winning %
+# against common opponents
 
+def commonOpponents(tiedDict):
+    """
+    commonOpponent will resolve a tie based on the winning percentage
+    of tied teams versus common opponents
+
+        dict    tiedDict    dictionary of tied teams
+        
+        Return:
+        Return value:
+            tuple   (True | False, list: sorted teams, string: Notes)            
+
+
+    """
+    succeed = True
+    played = []
+
+    tiedTeams = list(tiedDict.keys())
+    numTied = len(tiedTeams)
+    notes = ""
+    tiedSort = []
+    played = tiedDict[tiedTeams[0]].getOpponentList()
+        
+    for index in range(1,len(tiedTeams)):
+        listOpp = tiedDict[tiedTeams[index]].getOpponentList()
+        played = set(listOpp).intersection(played)
+
+        if len(played) == 0:
+            succeed = False
+            notes = ', '.join(tiedTeams) + " have no common opponents"
+            break
+
+    if succeed:
+        #
+        # sort list based on winning percentage
+        tiedCommonDict = createCommonDict(tiedDict, played)
+        tiedSort = sortWinningPercentage(tiedCommonDict)
+        h2HCoallate = coallateList(tiedSort)
+        for item in h2HCoallate:
+            if isinstance(item, list):
+                succeed = False
+                break
+
+    return (succeed, tiedSort, notes)
+
+
+#
+# commonOpponentsPDiff will resolve ties based on point differential
+# against common opponents
+
+def commonOpponentsPDiff(tiedDict):
+    """
+    commonOpponent will resolve a tie based on the point differential
+    of tied teams versus common opponents
+
+        dict    tiedDict    dictionary of tied teams
+        
+        Return:
+        Return value:
+            tuple   (True | False, list: sorted teams, string: Notes)            
+
+
+    """
+    succeed = True
+    played = []
+
+    tiedTeams = list(tiedDict.keys())
+    numTied = len(tiedTeams)
+    notes = ""
+    tiedSort = []
+    played = tiedDict[tiedTeams[0]].getOpponentList()
+        
+    for index in range(1,len(tiedTeams)):
+        listOpp = tiedDict[tiedTeams[index]].getOpponentList()
+        played = set(listOpp).intersection(played)
+
+        if len(played) == 0:
+            succeed = False
+            notes = ', '.join(tiedTeams) + " have no common opponents"
+            break
+
+    if succeed:
+        #
+        # sort list based on winning percentage
+        tiedCommonDict = createCommonDict(tiedDict, played)
+        tiedSort = sortPointDifference(tiedCommonDict)
+        h2HCoallate = coallateList(tiedSort)
+        for item in h2HCoallate:
+            if isinstance(item, list):
+                succeed = False
+                break
+
+    return (succeed, tiedSort, notes)
+
+#
+# overallPDiff will resolve ties based on point differential
+# for the whole season
+
+def overallPDiff(tiedDict):
+    """
+    overallPDiff will resolve a tie based on the point differential
+    over the whole season
+
+        dict    tiedDict    dictionary of tied teams
+        
+        Return:
+        Return value:
+            tuple   (True | False, list: sorted teams, string: Notes)            
+
+
+    """
+    succeed = True
+    played = []
+
+    tiedTeams = list(tiedDict.keys())
+    notes = ""
+    tiedSort = []
+        
+    #
+    # sort list based on overall point difference
+
+    tiedSort = sortPointDifference(tiedDict)
+    h2HCoallate = coallateList(tiedSort)
+    for item in h2HCoallate:
+        if isinstance(item, list):
+            succeed = False
+            notes = ', '.join(tiedTeams) + " still tied, need coin toss"
+            break
+
+    return (succeed, tiedSort, notes)
 
 #
 # --------------------------------------------------------------------------
