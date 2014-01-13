@@ -945,7 +945,7 @@ def calcSoS(teamDict):
 #
 # resolveTies will resolve ties based on CMLA rules
 
-def resolveTies(tieDict):
+def resolveTies(divDict, tieList):
     """
     resolveTies will loop over the current standings 
     to find and resolve ties based on CMLA rules:
@@ -961,33 +961,64 @@ def resolveTies(tieDict):
         6. Coin Flip, or if more than two teams draw names out of a hat
 
     """
-
     #
-    # start with Head to Head
+    # set the intial tiebreaker number
+
+    tieBreaker = 1
 
     resolvedList = []
     overallNotes = ""
     tieNotes = ""
     suceed = False
-    (succeed, resolvedList, tieNotes) = head2Head(tieDict)
-    overallNotes = overallNotes + tieNotes
 
-    if succeed == False:
-        (succeed, resolvedList, notes) = head2HeadPDiff(tieDict)
-        overallNotes = overallNotes + tieNotes
-        if succeed == False:
-            (succeed, resolvedList, notes) = commonOpponents(tieDict)
-            overallNotes = overallNotes + tieNotes
-            if succeed == False:
-                (succeed, resolvedList, notes) = commonOpponentsPDiff(tieDict)
-                overallNotes = overallNotes + tieNotes
-                if succeed == False:
+    while tieBreaker < 6:
+        #
+        # set current index for tieList
+        cIndex = 0
+
+        while cIndex < len(tieList):
+            if isinstance(tieList[cIndex], list):
+                tieDict = createTiedDict(divDict, tieList[cIndex])
+                if tieBreaker == 1:
+                    #
+                    # head to head
+            
+                    (succeed, resolvedList, tieNotes) = head2Head(tieDict)
+                    
+                elif tieBreaker == 2:
+                    #
+                    # head to head PD
+                    (succeed, resolvedList, notes) = head2HeadPDiff(tieDict)
+                    
+                elif tieBreaker == 3:
+                    #
+                    # common opponents record
+                    (succeed, resolvedList, notes) = commonOpponents(tieDict)
+                elif tieBreaker == 4:
+                    #
+                    # common opponents PD
+                    (succeed, resolvedList, notes) = commonOpponentsPDiff(tieDict)
+                elif tieBreaker == 5:
+                    #
+                    # overall PD
                     (succeed, resolvedList, notes) = overallPDiff(tieDict)
-                    overallNotes = overallNotes + tieNotes
+
+                overallNotes = overallNotes + tieNotes
+                
+                if succeed == True:
+                    for item in resolvedList:
+                        tieList[cIndex] = item
+                        cIndex = cIndex + 1
+                else:
+                    cIndex = cIndex + len(tieList)
+            else:
+                cIndex = cIndex + 1
+
+        tieBreaker = tieBreaker + 1
 
 
     
-    return
+    return (tieList, overallNotes)
 
 #
 # coallateList will find ties within a sorted list
@@ -1062,10 +1093,11 @@ def head2Head(teamDict):
 
     succeed = True
     played = []
-    tiedTeams = teamDict.keys()
+    tiedTeams = list(teamDict.keys())
     numTied = len(tiedTeams)
     notes = ""
     tiedSort = []
+    h2HCoallate = []
     
     for team in tiedTeams:
         listOpp = teamDict[team].getOpponentList()
@@ -1096,13 +1128,9 @@ def head2Head(teamDict):
 
         tiedSort = sortWinningPercentage(tiedDict)
         h2HCoallate = coallateList(tiedSort)
-        for item in h2HCoallate:
-            if isinstance(item, list):
-                succeed = False
-                break
 
 
-    return (succeed, tiedSort, notes)
+    return (succeed, h2HCoallate, notes)
 
 #
 # head to head point differential tie resolution
@@ -1129,6 +1157,7 @@ def head2HeadPDiff(teamDict):
     numTied = len(tiedTeams)
     notes = ""
     tiedSort = []
+    h2HCoallate = []
 
     for team in tiedTeams:
         listOpp = teamDict[team].getOpponentList()
@@ -1158,12 +1187,9 @@ def head2HeadPDiff(teamDict):
         tiedDict = createCommonDict(teamDict, tiedTeams)
         tiedSort = sortPointDifference(tiedDict)
         h2HCoallate = coallateList(tiedSort)
-        for item in h2HCoallate:
-            if isinstance(item, list):
-                succeed = False
-                break
 
-    return (succeed, tiedSort, notes)
+
+    return (succeed, h2HCoallate, notes)
 
 #
 # createCommonDict will create a new season dictionary 
@@ -1217,11 +1243,11 @@ def commonOpponents(tiedDict):
     """
     succeed = True
     played = []
-
     tiedTeams = list(tiedDict.keys())
     numTied = len(tiedTeams)
     notes = ""
     tiedSort = []
+    h2HCoallate = []
     played = tiedDict[tiedTeams[0]].getOpponentList()
         
     for index in range(1,len(tiedTeams)):
@@ -1239,12 +1265,8 @@ def commonOpponents(tiedDict):
         tiedCommonDict = createCommonDict(tiedDict, played)
         tiedSort = sortWinningPercentage(tiedCommonDict)
         h2HCoallate = coallateList(tiedSort)
-        for item in h2HCoallate:
-            if isinstance(item, list):
-                succeed = False
-                break
-
-    return (succeed, tiedSort, notes)
+    
+    return (succeed, h2HCoallate, notes)
 
 
 #
@@ -1266,11 +1288,11 @@ def commonOpponentsPDiff(tiedDict):
     """
     succeed = True
     played = []
-
     tiedTeams = list(tiedDict.keys())
     numTied = len(tiedTeams)
     notes = ""
     tiedSort = []
+    h2HCoallate = []
     played = tiedDict[tiedTeams[0]].getOpponentList()
         
     for index in range(1,len(tiedTeams)):
@@ -1288,12 +1310,7 @@ def commonOpponentsPDiff(tiedDict):
         tiedCommonDict = createCommonDict(tiedDict, played)
         tiedSort = sortPointDifference(tiedCommonDict)
         h2HCoallate = coallateList(tiedSort)
-        for item in h2HCoallate:
-            if isinstance(item, list):
-                succeed = False
-                break
-
-    return (succeed, tiedSort, notes)
+    return (succeed, h2HCoallate, notes)
 
 #
 # overallPDiff will resolve ties based on point differential
@@ -1318,6 +1335,7 @@ def overallPDiff(tiedDict):
     tiedTeams = list(tiedDict.keys())
     notes = ""
     tiedSort = []
+    h2HCoallate = []
         
     #
     # sort list based on overall point difference
@@ -1330,11 +1348,35 @@ def overallPDiff(tiedDict):
             notes = ', '.join(tiedTeams) + " still tied, need coin toss"
             break
 
-    return (succeed, tiedSort, notes)
+    return (succeed, h2HCoallate, notes)
 
 #
 # --------------------------------------------------------------------------
 #
+
+# 
+# createTiedDict will make a new dictionary 
+# for tied teams supplied in a list 
+
+def createTiedDict(divDict, tiedList):
+    """
+    createTiedDict will make a new dictionary
+    containing only the teams that are listed 
+    in the parameter tiedList.  This dictionary is 
+    then used in the tie breaker functions 
+
+    dict    divDict     entire division dictionary
+    list    tiedList    list of tied team tuples (team name, value)
+
+    Return value:
+        dict    tiedDict    dictionary containing only tied teams
+
+    """
+    tiedDict = {}
+    for teamTuple in tiedList:
+        tiedDict[teamTuple[0]] = divDict[teamTuple[0]]
+
+    return tiedDict
 
 
 
@@ -1469,17 +1511,14 @@ def main():
 
                 teamIndex = 1
                 tiedDict = {}
-                tiedTeamList = []
-                for item in tieSorted:
-                    if isinstance(item, list):
-                        #
-                        # found a tie, make a tiedDict and then call
-                        # resolveTies
 
-                        tiedDict.clear()
-                        for teamTuple in item:
-                            tiedDict[teamTuple[0]] = divDict[teamTuple[0]]
-                        resolveTies(tiedDict)
+                #for item in tieSorted:
+                #    if isinstance(item, list):
+                #        #
+                #        # found a tie, make a tiedDict and then call
+                #        # resolveTies
+                #        tiedDict = createTiedDict(divDict, item)
+                resolveTies(divDict,tieSorted)
                         
         else:
             pass
