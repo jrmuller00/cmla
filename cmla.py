@@ -189,7 +189,10 @@ def readStandingsExcelFile(filename):
                         homeTeamObj.setParish(homeTeam[0:3])
                         homeTeamObj.setGrade(currentGrade)
                         homeTeamObj.addGame(awayTeam,'h')
-                        homeTeamObj.setGameScore(homeScore, awayScore)
+                        if homeTeam.lower() == "bye":
+                            homeTeamObj.setGameScore(homeScore, awayScore, true)
+                        else:
+                            homeTeamObj.setGameScore(homeScore, awayScore)
                         dictStandings[homeTeam] = homeTeamObj
 
                     if awayTeam in dictStandings.keys():
@@ -197,9 +200,9 @@ def readStandingsExcelFile(filename):
                         # team exists so just add info
                         dictStandings[awayTeam].addGame(homeTeam,'a')
                         if homeTeam.lower() == "bye":
-                            dictStandings[awayTeam].setGameScore(awayScore,homeScore)
-                        else:
                             dictStandings[awayTeam].setGameScore(awayScore,homeScore, True)
+                        else:
+                            dictStandings[awayTeam].setGameScore(awayScore,homeScore)
                     else:
                         #
                         # team does not exist, so create new object and add to dict
@@ -970,6 +973,9 @@ def resolveTies(divDict, tieList):
     overallNotes = ""
     tieNotes = ""
     suceed = False
+    notesList = []
+    for i in range(len(tieList)):
+        notesList.append("")
 
     while tieBreaker < 6:
         #
@@ -988,29 +994,29 @@ def resolveTies(divDict, tieList):
                 elif tieBreaker == 2:
                     #
                     # head to head PD
-                    (succeed, resolvedList, notes) = head2HeadPDiff(tieDict)
+                    (succeed, resolvedList, tieNotes) = head2HeadPDiff(tieDict)
                     
                 elif tieBreaker == 3:
                     #
                     # common opponents record
-                    (succeed, resolvedList, notes) = commonOpponents(tieDict)
+                    (succeed, resolvedList, tieNotes) = commonOpponents(tieDict)
                 elif tieBreaker == 4:
                     #
                     # common opponents PD
-                    (succeed, resolvedList, notes) = commonOpponentsPDiff(tieDict)
+                    (succeed, resolvedList, tieNotes) = commonOpponentsPDiff(tieDict)
                 elif tieBreaker == 5:
                     #
                     # overall PD
-                    (succeed, resolvedList, notes) = overallPDiff(tieDict)
+                    (succeed, resolvedList, tieNotes) = overallPDiff(tieDict)
 
                 overallNotes = overallNotes + tieNotes
-                
+                notesList[cIndex] = notesList[cIndex] + " Tiebreaker " + str(tieBreaker) + ":" + tieNotes + " \n" 
                 if succeed == True:
                     for item in resolvedList:
                         tieList[cIndex] = item
                         cIndex = cIndex + 1
                 else:
-                    cIndex = cIndex + len(tieList)
+                    cIndex = cIndex + len(tieList[cIndex])
             else:
                 cIndex = cIndex + 1
 
@@ -1018,7 +1024,7 @@ def resolveTies(divDict, tieList):
 
 
     
-    return (tieList, overallNotes)
+    return (tieList, notesList)
 
 #
 # coallateList will find ties within a sorted list
@@ -1118,7 +1124,7 @@ def head2Head(teamDict):
             #tiedDict[team] = newTeam
         else:
             succeed = False
-            notes = ', '.join(tiedTeams) + " did not play H2H"
+            notes = "H2H: " + ', '.join(tiedTeams) + " did not play"
             break
 
     if succeed:
@@ -1127,6 +1133,8 @@ def head2Head(teamDict):
         tiedDict = createCommonDict(teamDict, tiedTeams)
 
         tiedSort = sortWinningPercentage(tiedDict)
+        notes = " H2H: " + str(tiedSort)
+        
         h2HCoallate = coallateList(tiedSort)
 
 
@@ -1178,7 +1186,7 @@ def head2HeadPDiff(teamDict):
             #tiedDict[team] = newTeam
         else:
             succeed = False
-            notes = ', '.join(tiedTeams) + " did not play H2H, no PD available"
+            notes = "H2H PD: " + ', '.join(tiedTeams) + " did not play H2H"
             break
 
     if succeed:
@@ -1186,6 +1194,8 @@ def head2HeadPDiff(teamDict):
         # sort list based on winning percentage
         tiedDict = createCommonDict(teamDict, tiedTeams)
         tiedSort = sortPointDifference(tiedDict)
+        notes = " H2HPD: " + str(tiedSort)
+        
         h2HCoallate = coallateList(tiedSort)
 
 
@@ -1264,6 +1274,7 @@ def commonOpponents(tiedDict):
         # sort list based on winning percentage
         tiedCommonDict = createCommonDict(tiedDict, played)
         tiedSort = sortWinningPercentage(tiedCommonDict)
+        notes = " Common Opp: " + str(tiedSort)
         h2HCoallate = coallateList(tiedSort)
     
     return (succeed, h2HCoallate, notes)
@@ -1309,6 +1320,7 @@ def commonOpponentsPDiff(tiedDict):
         # sort list based on winning percentage
         tiedCommonDict = createCommonDict(tiedDict, played)
         tiedSort = sortPointDifference(tiedCommonDict)
+        notes = " Common Opp PD: " + str(tiedSort)
         h2HCoallate = coallateList(tiedSort)
     return (succeed, h2HCoallate, notes)
 
@@ -1342,10 +1354,12 @@ def overallPDiff(tiedDict):
 
     tiedSort = sortPointDifference(tiedDict)
     h2HCoallate = coallateList(tiedSort)
+    notes = " Overall PD: " + str(tiedSort)
+    
     for item in h2HCoallate:
         if isinstance(item, list):
             succeed = False
-            notes = ', '.join(tiedTeams) + " still tied, need coin toss"
+            notes = ' Overall PD:  '.join(tiedTeams) + " still tied, need coin toss"
             break
 
     return (succeed, h2HCoallate, notes)
@@ -1497,9 +1511,11 @@ def main():
             #   2) Sort by winning percentages
             #   3) resolve ties based on CMLA rules
             divDict = {}
+            divNotes = {}
+            divStandings = {}
             for key in standingsDict.keys():
                 divDict.clear()
-                divDict = standingsDict[key]
+                divDict = dict.copy(standingsDict[key])
                 calcSoS(divDict)
                 teamSorted = sortWinningPercentage(divDict)
                 tieSorted = coallateList(teamSorted)
@@ -1518,7 +1534,7 @@ def main():
                 #        # found a tie, make a tiedDict and then call
                 #        # resolveTies
                 #        tiedDict = createTiedDict(divDict, item)
-                resolveTies(divDict,tieSorted)
+                (divStandings[key], divNotes[key]) = resolveTies(divDict, tieSorted)
                         
         else:
             pass
