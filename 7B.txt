@@ -1,0 +1,72 @@
+1. JUD7B2 10 0 0 100.00% 150 43.02%
+2. CTK7B1 10 0 0 100.00% 122 37.52%
+3. CTK7B2 10 0 0 100.00% 117 37.88%
+4. BRG7B1 9 1 0 90.00% 118 45.96%
+5. BRG7B2 9 1 0 90.00% 103 37.58%
+6. STM7B2 8 2 0 80.00% 96 42.64%
+7. NDA7B1 8 2 0 80.00% 75 42.47%
+8. STM7B1 7 3 0 70.00% 10 49.34%
+9. JUD7B3 6 4 0 60.00% 60 60.59%
+10. JUD7B1 5 5 0 50.00% 14 66.02%
+11. OLA7B3 5 5 0 50.00% -44 68.41%
+12. JOE7B1 4 6 0 40.00% -23 60.00%
+13. OLA7B2 4 6 0 40.00% -18 55.51%
+14. SPC7B3 4 6 0 40.00% -39 50.20%
+15. SPC7B1 2 8 0 20.00% -49 68.12%
+16. OLA7B1 2 8 0 20.00% -77 62.49%
+17. SJN7B2 2 8 0 20.00% -89 60.85%
+18. IHM7B1 2 8 0 20.00% -92 56.66%
+19. TRN7B1 1 9 0 10.00% -80 54.26%
+20. SPC7B2 1 9 0 10.00% -105 64.44%
+21. SCS7B1 1 9 0 10.00% -116 64.43%
+22. SJN7B1 0 10 0 0.00% -133 75.52%
+
+NOTES
+-----
+1.  Tiebreaker 1:H2H: CTK7B2, CTK7B1, JUD7B2 did not play 
+ Tiebreaker 2:H2H PD: CTK7B2, CTK7B1, JUD7B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('CTK7B2', 1.0), ('CTK7B1', 1.0), ('JUD7B2', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('JUD7B2', 45), ('CTK7B1', 43), ('CTK7B2', 37)] 
+
+2. 
+3. 
+4.  Tiebreaker 1:H2H: BRG7B2, BRG7B1 did not play 
+ Tiebreaker 2:H2H PD: BRG7B2, BRG7B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('BRG7B2', 1.0), ('BRG7B1', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('BRG7B1', 88), ('BRG7B2', 80)] 
+
+5. 
+6.  Tiebreaker 1: H2H: [('STM7B2', 1.0), ('NDA7B1', 0.0)] 
+
+7. 
+8. 
+9. 
+10.  Tiebreaker 1:H2H: JUD7B1, OLA7B3 did not play 
+ Tiebreaker 2:H2H PD: JUD7B1, OLA7B3 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JUD7B1', 0.2), ('OLA7B3', 0.2)] 
+ Tiebreaker 4: Common Opp PD: [('JUD7B1', -26), ('OLA7B3', -59)] 
+
+11. 
+12.  Tiebreaker 1: H2H: [('JOE7B1', 0.5), ('SPC7B3', 0.5), ('OLA7B2', 0.5)] 
+ Tiebreaker 2: H2HPD: [('JOE7B1', 8), ('OLA7B2', 0), ('SPC7B3', -8)] 
+
+13. 
+14. 
+15.  Tiebreaker 1:H2H: IHM7B1, OLA7B1, SJN7B2, SPC7B1 did not play 
+ Tiebreaker 2:H2H PD: IHM7B1, OLA7B1, SJN7B2, SPC7B1 did not play H2H 
+ Tiebreaker 3:IHM7B1, OLA7B1, SJN7B2, SPC7B1 have no common opponents 
+ Tiebreaker 4:IHM7B1, OLA7B1, SJN7B2, SPC7B1 have no common opponents 
+ Tiebreaker 5: Overall PD: [('SPC7B1', -49), ('OLA7B1', -77), ('SJN7B2', -89), ('IHM7B1', -92)] 
+
+16. 
+17. 
+18. 
+19.  Tiebreaker 1:H2H: SPC7B2, SCS7B1, TRN7B1 did not play 
+ Tiebreaker 2:H2H PD: SPC7B2, SCS7B1, TRN7B1 did not play H2H 
+ Tiebreaker 3:SPC7B2, SCS7B1, TRN7B1 have no common opponents 
+ Tiebreaker 4:SPC7B2, SCS7B1, TRN7B1 have no common opponents 
+ Tiebreaker 5: Overall PD: [('TRN7B1', -80), ('SPC7B2', -105), ('SCS7B1', -116)] 
+
+20. 
+21. 
+22. 

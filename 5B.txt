@@ -1,0 +1,75 @@
+1. SPC5B2 9 0 0 100.00% 127 52.93%
+2. SPC5B1 10 0 0 100.00% 121 51.72%
+3. JUD5B2 9 1 0 90.00% 97 48.48%
+4. JUD5B1 9 1 0 90.00% 84 47.13%
+5. JOE5B2 9 1 0 90.00% 85 46.19%
+6. OLA5B2 7 2 0 77.78% 74 56.10%
+7. IHM5B1 7 3 0 70.00% 36 57.52%
+8. CTK5B1 6 3 0 66.67% 47 55.17%
+9. JOE5B1 6 4 0 60.00% 34 54.38%
+10. JUD5B3 6 4 0 60.00% 32 56.19%
+11. SJN5B2 6 4 0 60.00% 7 48.22%
+12. STM5B2 6 4 0 60.00% -20 53.48%
+13. CTK5B2 5 4 0 55.56% 21 52.25%
+14. SCS5B1 4 5 0 44.44% 16 60.12%
+15. OLA5B1 4 6 0 40.00% -23 54.37%
+16. BRG5B1 4 6 0 40.00% -17 48.02%
+17. NDA5B2 3 6 0 33.33% -12 57.30%
+18. BRG5B2 3 7 0 30.00% -64 57.77%
+19. SJN5B1 3 7 0 30.00% -61 55.37%
+20. HSP5B2 2 8 0 20.00% -75 59.74%
+21. NDA5B1 1 8 0 11.11% -79 59.74%
+22. STM5B1 1 9 0 10.00% -96 63.38%
+23. HSP5B1 0 9 0 0.00% -112 62.90%
+24. OLA5B3 0 9 0 0.00% -96 51.90%
+25. STM5B3 0 9 0 0.00% -126 64.86%
+
+NOTES
+-----
+1.  Tiebreaker 1:H2H: SPC5B1, SPC5B2 did not play 
+ Tiebreaker 2:H2H PD: SPC5B1, SPC5B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SPC5B1', 1.0), ('SPC5B2', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('SPC5B2', 42), ('SPC5B1', 41)] 
+
+2. 
+3.  Tiebreaker 1:H2H: JOE5B2, JUD5B2, JUD5B1 did not play 
+ Tiebreaker 2:H2H PD: JOE5B2, JUD5B2, JUD5B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JOE5B2', 1.0), ('JUD5B2', 1.0), ('JUD5B1', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('JUD5B2', 60), ('JUD5B1', 60), ('JOE5B2', 40)] 
+ Tiebreaker 5: Overall PD: [('JUD5B2', 97), ('JUD5B1', 84)] 
+
+4. 
+5. 
+6. 
+7. 
+8. 
+9.  Tiebreaker 1:H2H: JUD5B3, JOE5B1, STM5B2, SJN5B2 did not play 
+ Tiebreaker 2:H2H PD: JUD5B3, JOE5B1, STM5B2, SJN5B2 did not play H2H 
+ Tiebreaker 3:JUD5B3, JOE5B1, STM5B2, SJN5B2 have no common opponents 
+ Tiebreaker 4:JUD5B3, JOE5B1, STM5B2, SJN5B2 have no common opponents 
+ Tiebreaker 5: Overall PD: [('JOE5B1', 34), ('JUD5B3', 32), ('SJN5B2', 7), ('STM5B2', -20)] 
+
+10. 
+11. 
+12. 
+13. 
+14. 
+15.  Tiebreaker 1: H2H: [('OLA5B1', 1.0), ('BRG5B1', 0.0)] 
+
+16. 
+17. 
+18.  Tiebreaker 1:H2H: BRG5B2, SJN5B1 did not play 
+ Tiebreaker 2:H2H PD: BRG5B2, SJN5B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('BRG5B2', 0.2857142857142857), ('SJN5B1', 0.14285714285714285)] 
+
+19. 
+20. 
+21. 
+22. 
+23.  Tiebreaker 1:H2H: HSP5B1, OLA5B3, STM5B3 did not play 
+ Tiebreaker 2:H2H PD: HSP5B1, OLA5B3, STM5B3 did not play H2H 
+ Tiebreaker 3: Common Opp: [('HSP5B1', 0.0), ('OLA5B3', 0.0), ('STM5B3', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('HSP5B1', -42), ('OLA5B3', -48), ('STM5B3', -51)] 
+
+24. 
+25. 

@@ -548,6 +548,19 @@ class cmlaTeam(object):
     def setSoS(self, SoS):
         self.SoS = SoS
         return
+
+    def getSoS(self):
+        return self.SoS
+
+    def getWins(self):
+        return self.Wins
+
+    def getLosses(self):
+        return self.Losses
+
+    def getTies(self):
+        return self.Ties
+
     #
     # get the opponent index if it exists
     def getOpponentIndex(self, opp):

@@ -1,0 +1,88 @@
+1. JUD6B3 10 0 0 100.00% 126 52.24%
+2. JUD6B1 8 1 0 88.89% 105 53.69%
+3. SCL6B1 8 1 0 88.89% 89 54.73%
+4. SPC6B1 8 2 0 80.00% 74 63.35%
+5. JOE6B1 8 2 0 80.00% 61 56.58%
+6. SCS6B1 8 2 0 80.00% 89 57.99%
+7. JUD6B2 7 3 0 70.00% 67 50.43%
+8. IHM6B1 7 3 0 70.00% 33 53.36%
+9. HSP6B1 6 4 0 60.00% 36 56.55%
+10. SJN6B1 6 4 0 60.00% 30 53.87%
+11. CTK6B1 6 4 0 60.00% 17 57.32%
+12. BRG6B2 5 4 0 55.56% -5 60.00%
+13. OLA6B1 5 4 0 55.56% -18 56.00%
+14. SCL6B2 5 5 0 50.00% 3 56.13%
+15. NDA6B2 4 5 0 44.44% 13 55.29%
+16. CTK6B2 4 5 0 44.44% 5 50.99%
+17. JOE6B2 4 5 0 44.44% -5 58.85%
+18. OLA6B2 4 5 0 44.44% -37 61.68%
+19. HSP6B2 4 6 0 40.00% -10 55.54%
+20. BRG6B1 4 6 0 40.00% 2 50.71%
+21. STM6B2 4 6 0 40.00% -27 54.57%
+22. IHM6B2 3 7 0 30.00% -38 54.77%
+23. SJN6B2 2 8 0 20.00% -90 66.65%
+24. SPC6B2 0 10 0 0.00% -123 69.10%
+25. NDA6B1 0 9 0 0.00% -130 58.17%
+26. STM6B1 0 10 0 0.00% -132 64.95%
+27. TRN6B1 0 9 0 0.00% -135 62.74%
+
+NOTES
+-----
+1. 
+2.  Tiebreaker 1:H2H: SCL6B1, JUD6B1 did not play 
+ Tiebreaker 2:H2H PD: SCL6B1, JUD6B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SCL6B1', 0.8571428571428571), ('JUD6B1', 0.8571428571428571)] 
+ Tiebreaker 4: Common Opp PD: [('JUD6B1', 84), ('SCL6B1', 80)] 
+
+3. 
+4.  Tiebreaker 1:H2H: SCS6B1, SPC6B1, JOE6B1 did not play 
+ Tiebreaker 2:H2H PD: SCS6B1, SPC6B1, JOE6B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SPC6B1', 1.0), ('JOE6B1', 1.0), ('SCS6B1', 0.75)] 
+ Tiebreaker 4: Common Opp PD: [('SPC6B1', 46), ('JOE6B1', 43)] 
+
+5. 
+6. 
+7.  Tiebreaker 1:H2H: JUD6B2, IHM6B1 did not play 
+ Tiebreaker 2:H2H PD: JUD6B2, IHM6B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('IHM6B1', 0.8333333333333334), ('JUD6B2', 0.8333333333333334)] 
+ Tiebreaker 4: Common Opp PD: [('JUD6B2', 65), ('IHM6B1', 37)] 
+
+8. 
+9.  Tiebreaker 1:H2H: SJN6B1, HSP6B1, CTK6B1 did not play 
+ Tiebreaker 2:H2H PD: SJN6B1, HSP6B1, CTK6B1 did not play H2H 
+ Tiebreaker 3:SJN6B1, HSP6B1, CTK6B1 have no common opponents 
+ Tiebreaker 4:SJN6B1, HSP6B1, CTK6B1 have no common opponents 
+ Tiebreaker 5: Overall PD: [('HSP6B1', 36), ('SJN6B1', 30), ('CTK6B1', 17)] 
+
+10. 
+11. 
+12.  Tiebreaker 1:H2H: OLA6B1, BRG6B2 did not play 
+ Tiebreaker 2:H2H PD: OLA6B1, BRG6B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('BRG6B2', 1.0), ('OLA6B1', 0.0)] 
+
+13. 
+14. 
+15.  Tiebreaker 1:H2H: NDA6B2, OLA6B2, CTK6B2, JOE6B2 did not play 
+ Tiebreaker 2:H2H PD: NDA6B2, OLA6B2, CTK6B2, JOE6B2 did not play H2H 
+ Tiebreaker 3:NDA6B2, OLA6B2, CTK6B2, JOE6B2 have no common opponents 
+ Tiebreaker 4:NDA6B2, OLA6B2, CTK6B2, JOE6B2 have no common opponents 
+ Tiebreaker 5: Overall PD: [('NDA6B2', 13), ('CTK6B2', 5), ('JOE6B2', -5), ('OLA6B2', -37)] 
+
+16. 
+17. 
+18. 
+19.  Tiebreaker 1: H2H: [('HSP6B2', 1.0), ('BRG6B1', 0.5), ('STM6B2', 0.0)] 
+
+20. 
+21. 
+22. 
+23. 
+24.  Tiebreaker 1:H2H: STM6B1, SPC6B2, TRN6B1, NDA6B1 did not play 
+ Tiebreaker 2:H2H PD: STM6B1, SPC6B2, TRN6B1, NDA6B1 did not play H2H 
+ Tiebreaker 3:STM6B1, SPC6B2, TRN6B1, NDA6B1 have no common opponents 
+ Tiebreaker 4:STM6B1, SPC6B2, TRN6B1, NDA6B1 have no common opponents 
+ Tiebreaker 5: Overall PD: [('SPC6B2', -123), ('NDA6B1', -130), ('STM6B1', -132), ('TRN6B1', -135)] 
+
+25. 
+26. 
+27. 

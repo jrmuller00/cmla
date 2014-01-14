@@ -1497,6 +1497,7 @@ def main():
         tokens = standingsFilename.split('.')
         numTokens = len(tokens)
         extension = tokens[numTokens-1]
+        standingsYear = tokens[0]
         if extension in ('xls','xlsx'):
             #
             # read the season ending data into the standings
@@ -1535,6 +1536,29 @@ def main():
                 #        # resolveTies
                 #        tiedDict = createTiedDict(divDict, item)
                 (divStandings[key], divNotes[key]) = resolveTies(divDict, tieSorted)
+
+            #
+            # now write the data back out to text files
+
+            for key in standingsDict.keys():
+                f = open(key + ".txt",'w+')
+                index = 1
+                for (team,value) in divStandings[key]:
+                    f.write(str(index) + ". " + team + " " +   str(standingsDict[key][team].getWins()) +   " "  +  str(standingsDict[key][team].getLosses()) +   " " +  str(standingsDict[key][team].getTies()) +  " ")
+                    f.write('{:.2%}'.format(standingsDict[key][team].getWinPercentage()) +   " "  +  str(standingsDict[key][team].getAdjustedPointDifferential()) +   " " +  '{:.2%}'.format(standingsDict[key][team].getSoS()/100) +  "\n")
+                    index = index + 1
+
+                f.write("\nNOTES\n")
+                f.write("-----\n")
+                index = 1
+                for note in divNotes[key]:
+                    if note != 'empty':
+                        f.write(str(index) + ". " + note + '\n')
+                        index = index + 1
+                f.close()
+
+
+
                         
         else:
             pass
