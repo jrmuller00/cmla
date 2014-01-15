@@ -904,8 +904,8 @@ def calcSoS(teamDict):
     a weighted average of the following values:
 
         * Opponents winning percentage
-        * SUM {[Opponents PF / [Max PF for all teams]} / [Total Games Played]
-        * SUM {[Opponents PA / [Max PA for all teams]} / [Total Games Played]
+        * SUM {[Opponents PF / [Total Games Played] } / [Max PF for all teams]
+        * SUM {[Opponents PA / [Total Games Played] } / [Min PA for all teams]
     """
 
     #
@@ -984,6 +984,8 @@ def resolveTies(divDict, tieList):
 
         while cIndex < len(tieList):
             if isinstance(tieList[cIndex], list):
+                if notesList[cIndex] == '':
+                    notesList[cIndex] = "Seeds " + str(list(range(cIndex+1,cIndex+1 + len(tieList[cIndex])))) + ': \n'
                 tieDict = createTiedDict(divDict, tieList[cIndex])
                 if tieBreaker == 1:
                     #
@@ -1543,17 +1545,19 @@ def main():
             for key in standingsDict.keys():
                 f = open(key + ".txt",'w+')
                 index = 1
+                f.write("Seed\tTeam\tWins\tLosses\tTies\tWP\tPD\tSOS\n")
+                f.write("----\t----\t----\t------\t----\t--\t--\t---\n")
                 for (team,value) in divStandings[key]:
-                    f.write(str(index) + ". " + team + " " +   str(standingsDict[key][team].getWins()) +   " "  +  str(standingsDict[key][team].getLosses()) +   " " +  str(standingsDict[key][team].getTies()) +  " ")
-                    f.write('{:.2%}'.format(standingsDict[key][team].getWinPercentage()) +   " "  +  str(standingsDict[key][team].getAdjustedPointDifferential()) +   " " +  '{:.2%}'.format(standingsDict[key][team].getSoS()/100) +  "\n")
+                    f.write(str(index) + "\t" + team + "\t" +   str(standingsDict[key][team].getWins()) +   "\t"  +  str(standingsDict[key][team].getLosses()) +   "\t" +  str(standingsDict[key][team].getTies()) +  "\t")
+                    f.write('{:.2%}'.format(standingsDict[key][team].getWinPercentage()) +   "\t"  +  str(standingsDict[key][team].getAdjustedPointDifferential()) +   "\t" +  '{:.2%}'.format(standingsDict[key][team].getSoS()/100) +  "\n")
                     index = index + 1
 
                 f.write("\nNOTES\n")
                 f.write("-----\n")
                 index = 1
                 for note in divNotes[key]:
-                    if note != 'empty':
-                        f.write(str(index) + ". " + note + '\n')
+                    if note != '':
+                        f.write(str(index) + ". " + note + '\n\n')
                         index = index + 1
                 f.close()
 

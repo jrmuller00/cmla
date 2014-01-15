@@ -546,19 +546,55 @@ class cmlaTeam(object):
         return self.Wins + self.Losses + self.Ties
 
     def setSoS(self, SoS):
+        """
+        setSoS will return the strentgh of schedule calculated for the team
+         
+            float   SoS     team strength of schedule
+        
+        """
+
         self.SoS = SoS
         return
 
     def getSoS(self):
+        """
+        getSoS will return the strentgh of schedule calculated for the team
+        
+            Return value:
+                float   self.Sos
+
+        """
+
         return self.SoS
 
     def getWins(self):
+        """
+        getWins returns the number of wins currently entered for the team
+
+            Return value:
+                
+                int     self.Wins   
+        """
         return self.Wins
 
     def getLosses(self):
+        """
+        getLosses returns the number of losses currently entered for the team
+
+            Return value:
+                
+                int     self.Losses
+        """
         return self.Losses
 
     def getTies(self):
+        """
+        getTies returns the number of ties currently entered for the team
+
+            Return value:
+                
+                int     self.Ties
+        """
         return self.Ties
 
     #

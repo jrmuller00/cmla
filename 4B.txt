@@ -1,96 +1,97 @@
-1. JOE4B1 10 0 0 100.00% 98 51.44%
-2. CTK4B2 10 0 0 100.00% 87 58.43%
-3. JUD4B1 9 1 0 90.00% 100 50.52%
-4. JOE4B2 8 1 0 88.89% 43 51.28%
-5. OLA4B1 8 2 0 80.00% 73 43.75%
-6. BRG4B3 8 2 0 80.00% 70 44.35%
-7. BRG4B1 8 2 0 80.00% 65 55.02%
-8. JUD4B2 8 2 0 80.00% 53 40.87%
-9. BRG4B2 7 2 0 77.78% 43 51.97%
-10. CTK4B1 7 3 0 70.00% 58 50.41%
-11. OLA4B2 7 3 0 70.00% 52 45.35%
-12. IHM4B2 6 3 0 66.67% 18 57.59%
-13. CTK4B3 6 3 0 66.67% 33 60.00%
-14. IHM4B3 4 5 0 44.44% -22 52.88%
-15. IHM4B1 4 5 0 44.44% -20 62.50%
-16. STM4B2 4 6 0 40.00% -36 54.77%
-17. STM4B1 3 7 0 30.00% -15 66.02%
-18. HSP4B2 3 7 0 30.00% -42 62.21%
-19. HSP4B1 3 7 0 30.00% -58 55.37%
-20. SJN4B1 2 7 0 22.22% -56 66.82%
-21. SCS4B1 2 7 0 22.22% -34 70.81%
-22. NDA4B1 2 8 0 20.00% -55 58.89%
-23. SJN4B2 2 8 0 20.00% -60 59.63%
-24. SPC4B1 2 8 0 20.00% -72 61.03%
-25. SCL4B1 1 9 0 10.00% -56 47.52%
-26. SPC4B2 1 9 0 10.00% -65 62.77%
-27. STM4B3 1 9 0 10.00% -101 53.84%
-28. TRN4B1 0 10 0 0.00% -101 64.69%
+Seed	Team	Wins	Losses	Ties	WP	PD	SOS
+----	----	----	------	----	--	--	---
+1	JOE4B1	10	0	0	100.00%	98	51.44%
+2	CTK4B2	10	0	0	100.00%	87	58.43%
+3	JUD4B1	9	1	0	90.00%	100	50.52%
+4	JOE4B2	8	1	0	88.89%	43	51.28%
+5	OLA4B1	8	2	0	80.00%	73	43.75%
+6	BRG4B3	8	2	0	80.00%	70	44.35%
+7	BRG4B1	8	2	0	80.00%	65	55.02%
+8	JUD4B2	8	2	0	80.00%	53	40.87%
+9	BRG4B2	7	2	0	77.78%	43	51.97%
+10	CTK4B1	7	3	0	70.00%	58	50.41%
+11	OLA4B2	7	3	0	70.00%	52	45.35%
+12	IHM4B2	6	3	0	66.67%	18	57.59%
+13	CTK4B3	6	3	0	66.67%	33	60.00%
+14	IHM4B3	4	5	0	44.44%	-22	52.88%
+15	IHM4B1	4	5	0	44.44%	-20	62.50%
+16	STM4B2	4	6	0	40.00%	-36	54.77%
+17	STM4B1	3	7	0	30.00%	-15	66.02%
+18	HSP4B2	3	7	0	30.00%	-42	62.21%
+19	HSP4B1	3	7	0	30.00%	-58	55.37%
+20	SJN4B1	2	7	0	22.22%	-56	66.82%
+21	SCS4B1	2	7	0	22.22%	-34	70.81%
+22	NDA4B1	2	8	0	20.00%	-55	58.89%
+23	SJN4B2	2	8	0	20.00%	-60	59.63%
+24	SPC4B1	2	8	0	20.00%	-72	61.03%
+25	SCL4B1	1	9	0	10.00%	-56	47.52%
+26	SPC4B2	1	9	0	10.00%	-65	62.77%
+27	STM4B3	1	9	0	10.00%	-101	53.84%
+28	TRN4B1	0	10	0	0.00%	-101	64.69%
 
 NOTES
 -----
-1.  Tiebreaker 1:H2H: JOE4B1, CTK4B2 did not play 
+1. Seeds [1, 2]: 
+ Tiebreaker 1:H2H: JOE4B1, CTK4B2 did not play 
  Tiebreaker 2:H2H PD: JOE4B1, CTK4B2 did not play H2H 
  Tiebreaker 3: Common Opp: [('JOE4B1', 1.0), ('CTK4B2', 1.0)] 
  Tiebreaker 4: Common Opp PD: [('JOE4B1', 56), ('CTK4B2', 49)] 
 
-2. 
-3. 
-4. 
-5.  Tiebreaker 1:H2H: OLA4B1, JUD4B2, BRG4B1, BRG4B3 did not play 
- Tiebreaker 2:H2H PD: OLA4B1, JUD4B2, BRG4B1, BRG4B3 did not play H2H 
- Tiebreaker 3:OLA4B1, JUD4B2, BRG4B1, BRG4B3 have no common opponents 
- Tiebreaker 4:OLA4B1, JUD4B2, BRG4B1, BRG4B3 have no common opponents 
+
+2. Seeds [5, 6, 7, 8]: 
+ Tiebreaker 1:H2H: JUD4B2, OLA4B1, BRG4B3, BRG4B1 did not play 
+ Tiebreaker 2:H2H PD: JUD4B2, OLA4B1, BRG4B3, BRG4B1 did not play H2H 
+ Tiebreaker 3:JUD4B2, OLA4B1, BRG4B3, BRG4B1 have no common opponents 
+ Tiebreaker 4:JUD4B2, OLA4B1, BRG4B3, BRG4B1 have no common opponents 
  Tiebreaker 5: Overall PD: [('OLA4B1', 73), ('BRG4B3', 70), ('BRG4B1', 65), ('JUD4B2', 53)] 
 
-6. 
-7. 
-8. 
-9. 
-10.  Tiebreaker 1:H2H: OLA4B2, CTK4B1 did not play 
- Tiebreaker 2:H2H PD: OLA4B2, CTK4B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('OLA4B2', 0.5), ('CTK4B1', 0.5)] 
+
+3. Seeds [10, 11]: 
+ Tiebreaker 1:H2H: CTK4B1, OLA4B2 did not play 
+ Tiebreaker 2:H2H PD: CTK4B1, OLA4B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('CTK4B1', 0.5), ('OLA4B2', 0.5)] 
  Tiebreaker 4: Common Opp PD: [('CTK4B1', 9), ('OLA4B2', 0)] 
 
-11. 
-12.  Tiebreaker 1:H2H: CTK4B3, IHM4B2 did not play 
+
+4. Seeds [12, 13]: 
+ Tiebreaker 1:H2H: CTK4B3, IHM4B2 did not play 
  Tiebreaker 2:H2H PD: CTK4B3, IHM4B2 did not play H2H 
  Tiebreaker 3: Common Opp: [('CTK4B3', 1.0), ('IHM4B2', 1.0)] 
  Tiebreaker 4: Common Opp PD: [('IHM4B2', 32), ('CTK4B3', 31)] 
 
-13. 
-14.  Tiebreaker 1:H2H: IHM4B1, IHM4B3 did not play 
- Tiebreaker 2:H2H PD: IHM4B1, IHM4B3 did not play H2H 
+
+5. Seeds [14, 15]: 
+ Tiebreaker 1:H2H: IHM4B3, IHM4B1 did not play 
+ Tiebreaker 2:H2H PD: IHM4B3, IHM4B1 did not play H2H 
  Tiebreaker 3: Common Opp: [('IHM4B3', 1.0), ('IHM4B1', 0.5)] 
 
-15. 
-16. 
-17.  Tiebreaker 1:H2H: STM4B1, HSP4B2, HSP4B1 did not play 
- Tiebreaker 2:H2H PD: STM4B1, HSP4B2, HSP4B1 did not play H2H 
+
+6. Seeds [17, 18, 19]: 
+ Tiebreaker 1:H2H: STM4B1, HSP4B1, HSP4B2 did not play 
+ Tiebreaker 2:H2H PD: STM4B1, HSP4B1, HSP4B2 did not play H2H 
  Tiebreaker 3: Common Opp: [('STM4B1', 0.4), ('HSP4B2', 0.4), ('HSP4B1', 0.2)] 
  Tiebreaker 4: Common Opp PD: [('STM4B1', 3), ('HSP4B2', -19)] 
 
-18. 
-19. 
-20.  Tiebreaker 1:H2H: SJN4B1, SCS4B1 did not play 
- Tiebreaker 2:H2H PD: SJN4B1, SCS4B1 did not play H2H 
+
+7. Seeds [20, 21]: 
+ Tiebreaker 1:H2H: SCS4B1, SJN4B1 did not play 
+ Tiebreaker 2:H2H PD: SCS4B1, SJN4B1 did not play H2H 
  Tiebreaker 3: Common Opp: [('SJN4B1', 0.6666666666666666), ('SCS4B1', 0.25)] 
 
-21. 
-22.  Tiebreaker 1:H2H: SPC4B1, NDA4B1, SJN4B2 did not play 
- Tiebreaker 2:H2H PD: SPC4B1, NDA4B1, SJN4B2 did not play H2H 
- Tiebreaker 3:SPC4B1, NDA4B1, SJN4B2 have no common opponents 
- Tiebreaker 4:SPC4B1, NDA4B1, SJN4B2 have no common opponents 
+
+8. Seeds [22, 23, 24]: 
+ Tiebreaker 1:H2H: SJN4B2, SPC4B1, NDA4B1 did not play 
+ Tiebreaker 2:H2H PD: SJN4B2, SPC4B1, NDA4B1 did not play H2H 
+ Tiebreaker 3:SJN4B2, SPC4B1, NDA4B1 have no common opponents 
+ Tiebreaker 4:SJN4B2, SPC4B1, NDA4B1 have no common opponents 
  Tiebreaker 5: Overall PD: [('NDA4B1', -55), ('SJN4B2', -60), ('SPC4B1', -72)] 
 
-23. 
-24. 
-25.  Tiebreaker 1:H2H: STM4B3, SCL4B1, SPC4B2 did not play 
- Tiebreaker 2:H2H PD: STM4B3, SCL4B1, SPC4B2 did not play H2H 
- Tiebreaker 3:STM4B3, SCL4B1, SPC4B2 have no common opponents 
- Tiebreaker 4:STM4B3, SCL4B1, SPC4B2 have no common opponents 
+
+9. Seeds [25, 26, 27]: 
+ Tiebreaker 1:H2H: SPC4B2, SCL4B1, STM4B3 did not play 
+ Tiebreaker 2:H2H PD: SPC4B2, SCL4B1, STM4B3 did not play H2H 
+ Tiebreaker 3:SPC4B2, SCL4B1, STM4B3 have no common opponents 
+ Tiebreaker 4:SPC4B2, SCL4B1, STM4B3 have no common opponents 
  Tiebreaker 5: Overall PD: [('SCL4B1', -56), ('SPC4B2', -65), ('STM4B3', -101)] 
 
-26. 
-27. 
-28. 
+
