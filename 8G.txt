@@ -1,27 +1,43 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	JOE8G1	9	0	0	100.00%	116	48.20%
-2	IHM8G1	8	1	0	88.89%	101	49.87%
-3	NDA8G1	7	2	0	77.78%	84	46.31%
-4	STM8G1	7	2	0	77.78%	63	46.31%
-5	JUD8G1	5	4	0	55.56%	13	53.13%
-6	BRG8G1	4	5	0	44.44%	-23	48.20%
-7	OLA8G2	3	6	0	33.33%	-59	57.09%
-8	SJN8G1	3	6	0	33.33%	-52	53.13%
-9	SPC8G1	3	6	0	33.33%	-37	49.87%
-10	OLA8G1	1	8	0	11.11%	-84	57.09%
-11	CTK8G1	0	10	0	0.00%	-122	55.81%
+1	OLA8G1	9	1	0	90.00%	107	58.20%
+2	IHM8G2	8	2	0	80.00%	65	51.38%
+3	STM8G1	7	3	0	70.00%	58	60.01%
+4	IHM8G1	7	3	0	70.00%	67	50.55%
+5	BRG8G1	7	3	0	70.00%	54	59.31%
+6	JUD8G1	7	3	0	70.00%	44	58.02%
+7	SCS8G1	6	4	0	60.00%	35	61.77%
+8	SPC8G1	6	4	0	60.00%	2	53.36%
+9	SJN8G1	4	6	0	40.00%	-28	58.12%
+10	CTK8G1	4	6	0	40.00%	3	58.25%
+11	NDA8G1	3	7	0	30.00%	-54	61.25%
+12	STM8G2	1	9	0	10.00%	-89	63.97%
+13	OLA8G2	1	9	0	10.00%	-132	63.69%
+14	JOE8G1	0	10	0	0.00%	-132	58.24%
 
 NOTES
 -----
-1. Seeds [3, 4]: 
- Tiebreaker 1:H2H: NDA8G1, STM8G1 did not play 
- Tiebreaker 2:H2H PD: NDA8G1, STM8G1 did not play H2H 
- Tiebreaker 3: Common Opp: [('NDA8G1', 0.7777777777777778), ('STM8G1', 0.7777777777777778)] 
- Tiebreaker 4: Common Opp PD: [('NDA8G1', 84), ('STM8G1', 63)] 
+1. Seeds [3, 4, 5, 6]: 
+ Tiebreaker 1:H2H: IHM8G1, BRG8G1, STM8G1, JUD8G1 did not play 
+ Tiebreaker 2:H2H PD: IHM8G1, BRG8G1, STM8G1, JUD8G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('IHM8G1', 0.75), ('BRG8G1', 0.75), ('STM8G1', 0.75), ('JUD8G1', 0.5)] 
+ Tiebreaker 4: Common Opp PD: [('STM8G1', 28), ('IHM8G1', 18), ('BRG8G1', 12)] 
 
 
-2. Seeds [7, 8, 9]: 
- Tiebreaker 1: H2H: [('OLA8G2', 1.0), ('SJN8G1', 0.5), ('SPC8G1', 0.0)] 
+2. Seeds [7, 8]: 
+ Tiebreaker 1:H2H: SPC8G1, SCS8G1 did not play 
+ Tiebreaker 2:H2H PD: SPC8G1, SCS8G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SCS8G1', 0.625), ('SPC8G1', 0.5)] 
+
+
+3. Seeds [9, 10]: 
+ Tiebreaker 1: H2H: [('SJN8G1', 1.0), ('CTK8G1', 0.0)] 
+
+
+4. Seeds [12, 13]: 
+ Tiebreaker 1:H2H: OLA8G2, STM8G2 did not play 
+ Tiebreaker 2:H2H PD: OLA8G2, STM8G2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('OLA8G2', 0.125), ('STM8G2', 0.125)] 
+ Tiebreaker 4: Common Opp PD: [('STM8G2', -66), ('OLA8G2', -102)] 
 
 

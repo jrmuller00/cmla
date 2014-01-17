@@ -1,57 +1,92 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	OLA3B2	9	0	0	100.00%	100	37.24%
-2	BRG3B1	9	1	0	90.00%	73	38.11%
-3	BRG3B2	8	1	0	88.89%	73	36.12%
-4	OLA3B1	8	2	0	80.00%	71	44.49%
-5	CTK3B2	8	2	0	80.00%	43	54.25%
-6	NDA3B1	6	2	0	75.00%	37	40.38%
-7	JUD3B1	7	3	0	70.00%	30	38.24%
-8	CTK3B1	6	3	0	66.67%	40	59.55%
-9	SJN3B1	6	3	0	66.67%	17	43.29%
-10	IHM3B2	6	3	0	66.67%	17	33.62%
-11	HSP3B1	5	4	0	55.56%	14	72.42%
-12	IHM3B1	5	5	0	50.00%	-10	55.01%
-13	NDA3B2	5	5	0	50.00%	3	36.93%
-14	JUD3B2	4	5	0	44.44%	13	51.28%
-15	SPC3B3	4	5	0	44.44%	-29	34.59%
-16	SPC3B1	4	6	0	40.00%	19	49.65%
-17	SPC3B2	3	6	0	33.33%	-60	44.31%
-18	SCS3B2	2	8	0	20.00%	-79	66.40%
-19	STM3B1	2	8	0	20.00%	-44	65.30%
-20	SCS3B1	1	8	0	11.11%	-68	55.21%
-21	TRN3B1	1	9	0	10.00%	-69	62.08%
-22	JOE3B1	0	10	0	0.00%	-89	63.82%
-23	STM3B2	0	10	0	0.00%	-102	62.76%
+1	CTK3B2	10	0	0	100.00%	107	55.03%
+2	CTK3B3	9	0	0	100.00%	91	44.91%
+3	JUD3B3	10	0	0	100.00%	90	51.62%
+4	BRG3B2	8	2	0	80.00%	58	52.79%
+5	CTK3B1	8	2	0	80.00%	54	51.54%
+6	JUD3B1	7	2	0	77.78%	50	57.90%
+7	BRG3B1	6	2	0	75.00%	55	54.49%
+8	OLA3B2	7	3	0	70.00%	42	56.31%
+9	SPC3B1	6	3	0	66.67%	26	57.04%
+10	BRG3B3	6	4	0	60.00%	14	53.34%
+11	OLA3B1	5	4	0	55.56%	23	52.24%
+12	SPC3B2	5	4	0	55.56%	4	61.10%
+13	STM3B1	5	5	0	50.00%	-4	56.81%
+14	JOE3B2	5	5	0	50.00%	25	59.80%
+15	SCS3B1	5	5	0	50.00%	-2	57.49%
+16	IHM3B1	4	5	0	44.44%	-6	61.61%
+17	IHM3B2	4	6	0	40.00%	-11	55.68%
+18	HSP3B1	4	6	0	40.00%	-31	59.86%
+19	JOE3B1	3	6	0	33.33%	-25	56.32%
+20	PIN3B1	3	6	0	33.33%	-25	55.55%
+21	STM3B2	3	6	0	33.33%	-37	52.62%
+22	NDA3B1	2	8	0	20.00%	-81	53.45%
+23	JUD3B2	1	8	0	11.11%	-73	56.20%
+24	STM3B3	1	8	0	11.11%	-64	59.76%
+25	SJN3B1	1	8	0	11.11%	-78	61.58%
+26	TRN3B1	0	10	0	0.00%	-100	57.57%
+27	PIN3B2	0	10	0	0.00%	-102	63.26%
 
 NOTES
 -----
-1. Seeds [4, 5]: 
- Tiebreaker 1: H2H: [('OLA3B1', 1.0), ('CTK3B2', 0.0)] 
+1. Seeds [1, 2, 3]: 
+ Tiebreaker 1:H2H: JUD3B3, CTK3B3, CTK3B2 did not play 
+ Tiebreaker 2:H2H PD: JUD3B3, CTK3B3, CTK3B2 did not play H2H 
+ Tiebreaker 3:JUD3B3, CTK3B3, CTK3B2 have no common opponents 
+ Tiebreaker 4:JUD3B3, CTK3B3, CTK3B2 have no common opponents 
+ Tiebreaker 5: Overall PD: [('CTK3B2', 107), ('CTK3B3', 91), ('JUD3B3', 90)] 
 
 
-2. Seeds [8, 9, 10]: 
- Tiebreaker 1: H2H: [('CTK3B1', 1.0), ('SJN3B1', 0.5), ('IHM3B2', 0.0)] 
+2. Seeds [4, 5]: 
+ Tiebreaker 1:H2H: CTK3B1, BRG3B2 did not play 
+ Tiebreaker 2:H2H PD: CTK3B1, BRG3B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('BRG3B2', 0.8333333333333334), ('CTK3B1', 0.6666666666666666)] 
 
 
-3. Seeds [12, 13]: 
- Tiebreaker 1: H2H: [('IHM3B1', 1.0), ('NDA3B2', 0.0)] 
+3. Seeds [11, 12]: 
+ Tiebreaker 1:H2H: SPC3B2, OLA3B1 did not play 
+ Tiebreaker 2:H2H PD: SPC3B2, OLA3B1 did not play H2H 
+ Tiebreaker 3:SPC3B2, OLA3B1 have no common opponents 
+ Tiebreaker 4:SPC3B2, OLA3B1 have no common opponents 
+ Tiebreaker 5: Overall PD: [('OLA3B1', 23), ('SPC3B2', 4)] 
 
 
-4. Seeds [14, 15]: 
- Tiebreaker 1: H2H: [('JUD3B2', 1.0), ('SPC3B3', 0.0)] 
+4. Seeds [13, 14, 15]: 
+ Tiebreaker 1:H2H: JOE3B2, SCS3B1, STM3B1 did not play 
+ Tiebreaker 2:H2H PD: JOE3B2, SCS3B1, STM3B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('STM3B1', 0.5714285714285714), ('JOE3B2', 0.42857142857142855), ('SCS3B1', 0.2857142857142857)] 
 
 
-5. Seeds [18, 19]: 
- Tiebreaker 1:H2H: SCS3B2, STM3B1 did not play 
- Tiebreaker 2:H2H PD: SCS3B2, STM3B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('SCS3B2', 0.2222222222222222), ('STM3B1', 0.1111111111111111)] 
+5. Seeds [17, 18]: 
+ Tiebreaker 1:H2H: HSP3B1, IHM3B2 did not play 
+ Tiebreaker 2:H2H PD: HSP3B1, IHM3B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('IHM3B2', 0.0), ('HSP3B1', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('IHM3B2', -1), ('HSP3B1', -4)] 
 
 
-6. Seeds [22, 23]: 
- Tiebreaker 1:H2H: JOE3B1, STM3B2 did not play 
- Tiebreaker 2:H2H PD: JOE3B1, STM3B2 did not play H2H 
- Tiebreaker 3: Common Opp: [('JOE3B1', 0.0), ('STM3B2', 0.0)] 
- Tiebreaker 4: Common Opp PD: [('JOE3B1', -59), ('STM3B2', -61)] 
+6. Seeds [19, 20, 21]: 
+ Tiebreaker 1:H2H: JOE3B1, PIN3B1, STM3B2 did not play 
+ Tiebreaker 2:H2H PD: JOE3B1, PIN3B1, STM3B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JOE3B1', 0.5), ('PIN3B1', 0.5), ('STM3B2', 0.5)] 
+ Tiebreaker 4: Common Opp PD: [('JOE3B1', 9), ('PIN3B1', 7), ('STM3B2', -10)] 
+
+
+7. Seeds [23, 24, 25]: 
+ Tiebreaker 1:H2H: JUD3B2, SJN3B1, STM3B3 did not play 
+ Tiebreaker 2:H2H PD: JUD3B2, SJN3B1, STM3B3 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JUD3B2', 0.0), ('SJN3B1', 0.0), ('STM3B3', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('JUD3B2', -33), ('SJN3B1', -36), ('STM3B3', -36)] 
+
+
+8. Seeds [24, 25]: 
+ Tiebreaker 5: Overall PD: [('STM3B3', -64), ('SJN3B1', -78)] 
+
+
+9. Seeds [26, 27]: 
+ Tiebreaker 1:H2H: PIN3B2, TRN3B1 did not play 
+ Tiebreaker 2:H2H PD: PIN3B2, TRN3B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('PIN3B2', 0.0), ('TRN3B1', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('TRN3B1', -47), ('PIN3B2', -53)] 
 
 

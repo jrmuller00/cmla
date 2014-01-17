@@ -1,87 +1,73 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	JUD6B3	10	0	0	100.00%	126	52.24%
-2	JUD6B1	8	1	0	88.89%	105	53.69%
-3	SCL6B1	8	1	0	88.89%	89	54.73%
-4	SPC6B1	8	2	0	80.00%	74	63.35%
-5	JOE6B1	8	2	0	80.00%	61	56.58%
-6	SCS6B1	8	2	0	80.00%	89	57.99%
-7	JUD6B2	7	3	0	70.00%	67	50.43%
-8	IHM6B1	7	3	0	70.00%	33	53.36%
-9	HSP6B1	6	4	0	60.00%	36	56.55%
-10	SJN6B1	6	4	0	60.00%	30	53.87%
-11	CTK6B1	6	4	0	60.00%	17	57.32%
-12	BRG6B2	5	4	0	55.56%	-5	60.00%
-13	OLA6B1	5	4	0	55.56%	-18	56.00%
-14	SCL6B2	5	5	0	50.00%	3	56.13%
-15	NDA6B2	4	5	0	44.44%	13	55.29%
-16	CTK6B2	4	5	0	44.44%	5	50.99%
-17	JOE6B2	4	5	0	44.44%	-5	58.85%
-18	OLA6B2	4	5	0	44.44%	-37	61.68%
-19	HSP6B2	4	6	0	40.00%	-10	55.54%
-20	BRG6B1	4	6	0	40.00%	2	50.71%
-21	STM6B2	4	6	0	40.00%	-27	54.57%
-22	IHM6B2	3	7	0	30.00%	-38	54.77%
-23	SJN6B2	2	8	0	20.00%	-90	66.65%
-24	SPC6B2	0	10	0	0.00%	-123	69.10%
-25	NDA6B1	0	9	0	0.00%	-130	58.17%
-26	STM6B1	0	10	0	0.00%	-132	64.95%
-27	TRN6B1	0	9	0	0.00%	-135	62.74%
+1	CTK6B2	9	0	0	100.00%	97	48.28%
+2	BRG6B2	9	1	0	90.00%	122	46.96%
+3	JUD6B2	9	1	0	90.00%	116	49.99%
+4	CTK6B1	9	1	0	90.00%	115	59.87%
+5	SPC6B2	8	1	0	88.89%	98	46.85%
+6	BRG6B1	8	1	0	88.89%	71	51.12%
+7	NDA6B1	7	3	0	70.00%	67	48.61%
+8	JUD6B3	7	3	0	70.00%	46	57.86%
+9	HSP6B1	6	3	0	66.67%	7	59.07%
+10	PIN6B1	6	4	0	60.00%	9	52.07%
+11	IHM6B1	5	5	0	50.00%	-6	57.78%
+12	CTK6B3	5	5	0	50.00%	11	59.25%
+13	OLA6B1	4	5	0	44.44%	-36	66.39%
+14	SJN6B1	4	6	0	40.00%	-43	52.30%
+15	STM6B1	3	6	0	33.33%	-23	63.39%
+16	JOE6B1	3	6	0	33.33%	-6	55.45%
+17	SJN6B2	3	6	0	33.33%	-37	44.65%
+18	STM6B2	3	7	0	30.00%	-39	70.44%
+19	PIN6B2	3	7	0	30.00%	-56	68.91%
+20	TRN6B1	2	7	0	22.22%	-87	65.69%
+21	SPC6B1	2	7	0	22.22%	-44	59.88%
+22	OLA6B3	2	8	0	20.00%	-65	66.22%
+23	SPC6B3	2	8	0	20.00%	-71	47.63%
+24	OLA6B2	1	9	0	10.00%	-111	64.54%
+25	SCS6B1	0	10	0	0.00%	-135	63.43%
 
 NOTES
 -----
-1. Seeds [2, 3]: 
- Tiebreaker 1:H2H: JUD6B1, SCL6B1 did not play 
- Tiebreaker 2:H2H PD: JUD6B1, SCL6B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('JUD6B1', 0.8571428571428571), ('SCL6B1', 0.8571428571428571)] 
- Tiebreaker 4: Common Opp PD: [('JUD6B1', 84), ('SCL6B1', 80)] 
+1. Seeds [2, 3, 4]: 
+ Tiebreaker 1:H2H: JUD6B2, CTK6B1, BRG6B2 did not play 
+ Tiebreaker 2:H2H PD: JUD6B2, CTK6B1, BRG6B2 did not play H2H 
+ Tiebreaker 3:JUD6B2, CTK6B1, BRG6B2 have no common opponents 
+ Tiebreaker 4:JUD6B2, CTK6B1, BRG6B2 have no common opponents 
+ Tiebreaker 5: Overall PD: [('BRG6B2', 122), ('JUD6B2', 116), ('CTK6B1', 115)] 
 
 
-2. Seeds [4, 5, 6]: 
- Tiebreaker 1:H2H: SPC6B1, JOE6B1, SCS6B1 did not play 
- Tiebreaker 2:H2H PD: SPC6B1, JOE6B1, SCS6B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('SPC6B1', 1.0), ('JOE6B1', 1.0), ('SCS6B1', 0.75)] 
- Tiebreaker 4: Common Opp PD: [('SPC6B1', 46), ('JOE6B1', 43)] 
+2. Seeds [5, 6]: 
+ Tiebreaker 1:H2H: SPC6B2, BRG6B1 did not play 
+ Tiebreaker 2:H2H PD: SPC6B2, BRG6B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SPC6B2', 1.0), ('BRG6B1', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('SPC6B2', 64), ('BRG6B1', 44)] 
 
 
 3. Seeds [7, 8]: 
- Tiebreaker 1:H2H: JUD6B2, IHM6B1 did not play 
- Tiebreaker 2:H2H PD: JUD6B2, IHM6B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('JUD6B2', 0.8333333333333334), ('IHM6B1', 0.8333333333333334)] 
- Tiebreaker 4: Common Opp PD: [('JUD6B2', 65), ('IHM6B1', 37)] 
+ Tiebreaker 1: H2H: [('NDA6B1', 1.0), ('JUD6B3', 0.0)] 
 
 
-4. Seeds [9, 10, 11]: 
- Tiebreaker 1:H2H: SJN6B1, CTK6B1, HSP6B1 did not play 
- Tiebreaker 2:H2H PD: SJN6B1, CTK6B1, HSP6B1 did not play H2H 
- Tiebreaker 3:SJN6B1, CTK6B1, HSP6B1 have no common opponents 
- Tiebreaker 4:SJN6B1, CTK6B1, HSP6B1 have no common opponents 
- Tiebreaker 5: Overall PD: [('HSP6B1', 36), ('SJN6B1', 30), ('CTK6B1', 17)] 
+4. Seeds [11, 12]: 
+ Tiebreaker 1: H2H: [('IHM6B1', 1.0), ('CTK6B3', 0.0)] 
 
 
-5. Seeds [12, 13]: 
- Tiebreaker 1:H2H: BRG6B2, OLA6B1 did not play 
- Tiebreaker 2:H2H PD: BRG6B2, OLA6B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('BRG6B2', 1.0), ('OLA6B1', 0.0)] 
+5. Seeds [15, 16, 17]: 
+ Tiebreaker 1: H2H: [('STM6B1', 1.0), ('JOE6B1', 0.5), ('SJN6B2', 0.0)] 
 
 
-6. Seeds [15, 16, 17, 18]: 
- Tiebreaker 1:H2H: JOE6B2, OLA6B2, NDA6B2, CTK6B2 did not play 
- Tiebreaker 2:H2H PD: JOE6B2, OLA6B2, NDA6B2, CTK6B2 did not play H2H 
- Tiebreaker 3:JOE6B2, OLA6B2, NDA6B2, CTK6B2 have no common opponents 
- Tiebreaker 4:JOE6B2, OLA6B2, NDA6B2, CTK6B2 have no common opponents 
- Tiebreaker 5: Overall PD: [('NDA6B2', 13), ('CTK6B2', 5), ('JOE6B2', -5), ('OLA6B2', -37)] 
+6. Seeds [18, 19]: 
+ Tiebreaker 1:H2H: PIN6B2, STM6B2 did not play 
+ Tiebreaker 2:H2H PD: PIN6B2, STM6B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('STM6B2', 0.3333333333333333), ('PIN6B2', 0.2222222222222222)] 
 
 
-7. Seeds [19, 20, 21]: 
- Tiebreaker 1: H2H: [('HSP6B2', 1.0), ('BRG6B1', 0.5), ('STM6B2', 0.0)] 
+7. Seeds [20, 21]: 
+ Tiebreaker 1:H2H: SPC6B1, TRN6B1 did not play 
+ Tiebreaker 2:H2H PD: SPC6B1, TRN6B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('TRN6B1', 0.5), ('SPC6B1', 0.0)] 
 
 
-8. Seeds [24, 25, 26, 27]: 
- Tiebreaker 1:H2H: SPC6B2, TRN6B1, NDA6B1, STM6B1 did not play 
- Tiebreaker 2:H2H PD: SPC6B2, TRN6B1, NDA6B1, STM6B1 did not play H2H 
- Tiebreaker 3:SPC6B2, TRN6B1, NDA6B1, STM6B1 have no common opponents 
- Tiebreaker 4:SPC6B2, TRN6B1, NDA6B1, STM6B1 have no common opponents 
- Tiebreaker 5: Overall PD: [('SPC6B2', -123), ('NDA6B1', -130), ('STM6B1', -132), ('TRN6B1', -135)] 
+8. Seeds [22, 23]: 
+ Tiebreaker 1: H2H: [('OLA6B3', 1.0), ('SPC6B3', 0.0)] 
 
 

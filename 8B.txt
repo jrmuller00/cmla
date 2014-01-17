@@ -1,83 +1,62 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	JUD8B1	9	0	0	100.00%	127	55.46%
-2	SPC8B3	10	0	0	100.00%	122	48.59%
-3	SPC8B2	9	1	0	90.00%	76	48.60%
-4	SPC8B1	7	2	0	77.78%	78	61.01%
-5	SCL8B1	7	2	0	77.78%	75	54.76%
-6	IHM8B1	7	3	0	70.00%	11	56.00%
-7	SJN8B2	6	3	0	66.67%	35	53.71%
-8	CTK8B1	6	3	0	66.67%	33	64.23%
-9	JOE8B2	6	3	0	66.67%	13	56.18%
-10	BRG8B1	5	4	0	55.56%	6	64.62%
-11	IHM8B2	5	4	0	55.56%	22	56.98%
-12	SJN8B1	5	5	0	50.00%	-11	55.48%
-13	JUD8B3	4	5	0	44.44%	-7	57.90%
-14	OLA8B2	4	5	0	44.44%	-29	58.91%
-15	JOE8B1	4	6	0	40.00%	10	63.50%
-16	JUD8B2	4	6	0	40.00%	-17	54.00%
-17	STM8B2	3	7	0	30.00%	-54	61.51%
-18	OLA8B1	2	8	0	20.00%	-93	61.01%
-19	BRG8B2	2	8	0	20.00%	-56	52.79%
-20	TRN8B1	2	8	0	20.00%	-90	60.84%
-21	STM8B1	1	9	0	10.00%	-96	66.25%
-22	OLA8B3	1	9	0	10.00%	-70	54.08%
-23	SCS8B1	1	9	0	10.00%	-85	56.71%
+1	SCL8B2	9	0	0	100.00%	119	61.14%
+2	BRG8B1	9	1	0	90.00%	80	62.12%
+3	JOE8B1	9	1	0	90.00%	94	48.08%
+4	SCL8B1	8	2	0	80.00%	88	64.83%
+5	BRG8B2	8	2	0	80.00%	55	51.02%
+6	JUD8B1	7	2	0	77.78%	74	51.84%
+7	CTK8B2	7	3	0	70.00%	55	49.46%
+8	JUD8B2	6	3	0	66.67%	40	57.84%
+9	IHM8B1	6	3	0	66.67%	31	60.10%
+10	NDA8B1	6	4	0	60.00%	1	59.11%
+11	IHM8B2	6	4	0	60.00%	33	50.57%
+12	SPC8B1	5	4	0	55.56%	-1	58.57%
+13	SJN8B1	5	5	0	50.00%	11	57.78%
+14	JUD8B3	5	5	0	50.00%	20	64.09%
+15	SJN8B2	4	5	0	44.44%	-14	54.46%
+16	STM8B2	3	7	0	30.00%	-28	65.07%
+17	OLA8B2	2	7	0	22.22%	-63	62.02%
+18	SCS8B1	2	8	0	20.00%	-85	56.86%
+19	CTK8B1	1	8	0	11.11%	-55	68.27%
+20	OLA8B1	1	8	0	11.11%	-99	64.10%
+21	STM8B1	1	8	0	11.11%	-75	58.52%
+22	SPC8B3	0	10	0	0.00%	-138	64.67%
+23	SPC8B2	0	10	0	0.00%	-143	64.67%
 
 NOTES
 -----
-1. Seeds [1, 2]: 
- Tiebreaker 1:H2H: SPC8B3, JUD8B1 did not play 
- Tiebreaker 2:H2H PD: SPC8B3, JUD8B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('SPC8B3', 1.0), ('JUD8B1', 1.0)] 
- Tiebreaker 4: Common Opp PD: [('JUD8B1', 90), ('SPC8B3', 74)] 
+1. Seeds [2, 3]: 
+ Tiebreaker 1: H2H: [('BRG8B1', 1.0), ('JOE8B1', 0.0)] 
 
 
 2. Seeds [4, 5]: 
- Tiebreaker 1: H2H: [('SPC8B1', 1.0), ('SCL8B1', 0.0)] 
+ Tiebreaker 1: H2H: [('SCL8B1', 1.0), ('BRG8B2', 0.0)] 
 
 
-3. Seeds [7, 8, 9]: 
- Tiebreaker 1:H2H: CTK8B1, SJN8B2, JOE8B2 did not play 
- Tiebreaker 2:H2H PD: CTK8B1, SJN8B2, JOE8B2 did not play H2H 
- Tiebreaker 3:CTK8B1, SJN8B2, JOE8B2 have no common opponents 
- Tiebreaker 4:CTK8B1, SJN8B2, JOE8B2 have no common opponents 
- Tiebreaker 5: Overall PD: [('SJN8B2', 35), ('CTK8B1', 33), ('JOE8B2', 13)] 
+3. Seeds [8, 9]: 
+ Tiebreaker 1: H2H: [('JUD8B2', 1.0), ('IHM8B1', 0.0)] 
 
 
 4. Seeds [10, 11]: 
- Tiebreaker 1:H2H: IHM8B2, BRG8B1 did not play 
- Tiebreaker 2:H2H PD: IHM8B2, BRG8B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('BRG8B1', 1.0), ('IHM8B2', 0.0)] 
+ Tiebreaker 1: H2H: [('NDA8B1', 1.0), ('IHM8B2', 0.0)] 
 
 
 5. Seeds [13, 14]: 
- Tiebreaker 1:H2H: OLA8B2, JUD8B3 did not play 
- Tiebreaker 2:H2H PD: OLA8B2, JUD8B3 did not play H2H 
- Tiebreaker 3: Common Opp: [('OLA8B2', 1.0), ('JUD8B3', 1.0)] 
- Tiebreaker 4: Common Opp PD: [('JUD8B3', 15), ('OLA8B2', 6)] 
+ Tiebreaker 1: H2H: [('SJN8B1', 1.0), ('JUD8B3', 0.0)] 
 
 
-6. Seeds [15, 16]: 
- Tiebreaker 1:H2H: JOE8B1, JUD8B2 did not play 
- Tiebreaker 2:H2H PD: JOE8B1, JUD8B2 did not play H2H 
- Tiebreaker 3: Common Opp: [('JOE8B1', 0.5), ('JUD8B2', 0.3333333333333333)] 
+6. Seeds [19, 20, 21]: 
+ Tiebreaker 1:H2H: STM8B1, CTK8B1, OLA8B1 did not play 
+ Tiebreaker 2:H2H PD: STM8B1, CTK8B1, OLA8B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('STM8B1', 0.0), ('CTK8B1', 0.0), ('OLA8B1', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('CTK8B1', -4), ('OLA8B1', -22), ('STM8B1', -23)] 
 
 
-7. Seeds [18, 19, 20]: 
- Tiebreaker 1:H2H: OLA8B1, BRG8B2, TRN8B1 did not play 
- Tiebreaker 2:H2H PD: OLA8B1, BRG8B2, TRN8B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('OLA8B1', 0.0), ('BRG8B2', 0.0), ('TRN8B1', 0.0)] 
- Tiebreaker 4: Common Opp PD: [('OLA8B1', -5), ('BRG8B2', -9), ('TRN8B1', -15)] 
-
-
-8. Seeds [21, 22, 23]: 
- Tiebreaker 1:H2H: STM8B1, OLA8B3, SCS8B1 did not play 
- Tiebreaker 2:H2H PD: STM8B1, OLA8B3, SCS8B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('STM8B1', 1.0), ('OLA8B3', 0.0), ('SCS8B1', 0.0)] 
-
-
-9. Seeds [22, 23]: 
- Tiebreaker 4: Common Opp PD: [('OLA8B3', -39), ('SCS8B1', -41)] 
+7. Seeds [22, 23]: 
+ Tiebreaker 1:H2H: SPC8B2, SPC8B3 did not play 
+ Tiebreaker 2:H2H PD: SPC8B2, SPC8B3 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SPC8B2', 0.0), ('SPC8B3', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('SPC8B3', -80), ('SPC8B2', -83)] 
 
 

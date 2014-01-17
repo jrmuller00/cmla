@@ -169,9 +169,9 @@ def readStandingsExcelFile(filename):
             #
             # loop over all rows
             while homeTeamCell.value is not None:
-                homeTeam = homeTeamCell.value
+                homeTeam = homeTeamCell.value.strip()
                 homeScore = homeScoreCell.value
-                awayTeam = awayTeamCell.value
+                awayTeam = awayTeamCell.value.strip()
                 awayScore = awayScoreCell.value
                 #
                 # see if the keys exist 
@@ -218,7 +218,7 @@ def readStandingsExcelFile(filename):
                         
                         dictStandings[awayTeam] = awayTeamObj
                 except Exception:
-                    pass
+                    print ('Exception ', Exception, homeTeam, awayTeam)
 
                 cellRow = cellRow + 1
                 #
@@ -1410,6 +1410,7 @@ def main():
         -n [# teams]    :   number of teams
         -t [filename]   :   team list filename
         -r [filename]   :   registration filename
+        -y [year]       :   year 
 
     """
     teamListFilename = ""
@@ -1417,8 +1418,9 @@ def main():
     standingsFilename = ""
     scheduleGames = False
     computeStandings = False
+    standingsYear = 0
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "chsf:n:t:r:",["help","filename="])
+        opts, args = getopt.getopt(sys.argv[1:], "chsf:n:t:r:y:",["help","filename="])
     except getopt.error as msg:
         print (msg)
         print ("for help use --help")
@@ -1440,6 +1442,8 @@ def main():
             scheduleGames = True
         if o == "-c":
             computeStandings = True
+        if o == "-y":
+            standingsYear = int(arg,10)
 
 
     if scheduleGames == True:
