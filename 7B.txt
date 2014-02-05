@@ -1,80 +1,69 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	JUD7B3	10	0	0	100.00%	146	52.03%
-2	PIN7B1	9	0	0	100.00%	97	57.91%
-3	SPC7B2	9	1	0	90.00%	67	61.18%
-4	IHM7B1	8	1	0	88.89%	72	58.85%
-5	SPC7B1	8	2	0	80.00%	85	52.48%
-6	SPC7B3	7	3	0	70.00%	50	54.67%
-7	JUD7B1	7	3	0	70.00%	35	56.27%
-8	JUD7B2	6	3	0	66.67%	28	58.76%
-9	JOE7B3	6	3	0	66.67%	-8	63.06%
-10	PIN7B2	6	4	0	60.00%	46	57.60%
-11	BRG7B1	6	4	0	60.00%	19	58.65%
-12	JOE7B2	5	5	0	50.00%	16	58.63%
-13	SCL7B1	4	5	0	44.44%	24	59.21%
-14	IHM7B2	4	6	0	40.00%	-58	57.87%
-15	OLA7B1	3	6	0	33.33%	-31	61.78%
-16	CTK7B1	3	6	0	33.33%	-62	58.53%
-17	SJN7B2	3	7	0	30.00%	-17	57.80%
-18	CTK7B2	3	7	0	30.00%	-41	55.35%
-19	SJN7B1	3	7	0	30.00%	-46	52.09%
-20	OLA7B2	3	7	0	30.00%	-52	59.97%
-21	JOE7B1	2	7	0	22.22%	-29	59.49%
-22	STM7B1	2	7	0	22.22%	-58	60.74%
-23	BRG7B2	2	8	0	20.00%	-93	59.08%
-24	SCS7B1	1	9	0	10.00%	-95	59.09%
-25	STM7B2	0	9	0	0.00%	-95	64.57%
+1	SCS7B1	9	1	0	90.00%	113	59.12%
+2	JUD7B2	9	1	0	90.00%	103	52.44%
+3	JOE7B2	8	1	0	88.89%	70	50.42%
+4	JUD7B3	8	1	0	88.89%	109	51.50%
+5	JUD7B1	8	2	0	80.00%	52	62.55%
+6	JOE7B1	8	2	0	80.00%	64	56.58%
+7	SPC7B1	7	2	0	77.78%	70	63.67%
+8	CTK7B1	7	3	0	70.00%	27	56.35%
+9	SCL7B1	7	3	0	70.00%	43	53.59%
+10	OLA7B3	6	3	0	66.67%	19	59.31%
+11	SJN7B2	6	4	0	60.00%	41	55.39%
+12	SJN7B1	5	4	0	55.56%	31	51.53%
+13	BRG7B1	4	5	0	44.44%	-9	56.41%
+14	IHM7B1	4	5	0	44.44%	-30	56.35%
+15	BRG7B3	3	7	0	30.00%	-27	66.55%
+16	BRG7B2	2	7	0	22.22%	-66	66.02%
+17	OLA7B1	2	8	0	20.00%	-57	65.37%
+18	IHM7B2	2	8	0	20.00%	-70	63.06%
+19	STM7B1	2	8	0	20.00%	-76	61.41%
+20	OLA7B2	1	8	0	11.11%	-102	70.84%
+21	NDA7B1	1	8	0	11.11%	-83	61.03%
+22	SPC7B2	1	9	0	10.00%	-124	62.11%
+23	STM7B2	0	10	0	0.00%	-98	58.46%
 
 NOTES
 -----
 1. Seeds [1, 2]: 
- Tiebreaker 1:H2H: JUD7B3, PIN7B1 did not play 
- Tiebreaker 2:H2H PD: JUD7B3, PIN7B1 did not play H2H 
- Tiebreaker 3:JUD7B3, PIN7B1 have no common opponents 
- Tiebreaker 4:JUD7B3, PIN7B1 have no common opponents 
- Tiebreaker 5: Overall PD: [('JUD7B3', 146), ('PIN7B1', 97)] 
+ Tiebreaker 1: H2H: [('SCS7B1', 1.0), ('JUD7B2', 0.0)] 
 
 
-2. Seeds [6, 7]: 
- Tiebreaker 1:H2H: SPC7B3, JUD7B1 did not play 
- Tiebreaker 2:H2H PD: SPC7B3, JUD7B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('SPC7B3', 0.6), ('JUD7B1', 0.6)] 
- Tiebreaker 4: Common Opp PD: [('SPC7B3', 16), ('JUD7B1', 16)] 
- Tiebreaker 5: Overall PD: [('SPC7B3', 50), ('JUD7B1', 35)] 
+2. Seeds [3, 4]: 
+ Tiebreaker 1: H2H: [('JOE7B2', 1.0), ('JUD7B3', 0.0)] 
 
 
-3. Seeds [8, 9]: 
- Tiebreaker 1:H2H: JOE7B3, JUD7B2 did not play 
- Tiebreaker 2:H2H PD: JOE7B3, JUD7B2 did not play H2H 
- Tiebreaker 3: Common Opp: [('JUD7B2', 1.0), ('JOE7B3', 0.6666666666666666)] 
+3. Seeds [5, 6]: 
+ Tiebreaker 1:H2H: JOE7B1, JUD7B1 did not play 
+ Tiebreaker 2:H2H PD: JOE7B1, JUD7B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JUD7B1', 0.8333333333333334), ('JOE7B1', 0.6666666666666666)] 
 
 
-4. Seeds [10, 11]: 
- Tiebreaker 1:H2H: BRG7B1, PIN7B2 did not play 
- Tiebreaker 2:H2H PD: BRG7B1, PIN7B2 did not play H2H 
- Tiebreaker 3: Common Opp: [('BRG7B1', 1.0), ('PIN7B2', 1.0)] 
- Tiebreaker 4: Common Opp PD: [('PIN7B2', 21), ('BRG7B1', 9)] 
+4. Seeds [8, 9]: 
+ Tiebreaker 1:H2H: SCL7B1, CTK7B1 did not play 
+ Tiebreaker 2:H2H PD: SCL7B1, CTK7B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('CTK7B1', 0.8), ('SCL7B1', 0.6)] 
 
 
-5. Seeds [15, 16]: 
- Tiebreaker 1:H2H: CTK7B1, OLA7B1 did not play 
- Tiebreaker 2:H2H PD: CTK7B1, OLA7B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('CTK7B1', 0.0), ('OLA7B1', 0.0)] 
- Tiebreaker 4: Common Opp PD: [('OLA7B1', -25), ('CTK7B1', -30)] 
+5. Seeds [13, 14]: 
+ Tiebreaker 1:H2H: IHM7B1, BRG7B1 did not play 
+ Tiebreaker 2:H2H PD: IHM7B1, BRG7B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('IHM7B1', 0.3333333333333333), ('BRG7B1', 0.3333333333333333)] 
+ Tiebreaker 4: Common Opp PD: [('BRG7B1', -12), ('IHM7B1', -21)] 
 
 
-6. Seeds [17, 18, 19, 20]: 
- Tiebreaker 1:H2H: OLA7B2, CTK7B2, SJN7B1, SJN7B2 did not play 
- Tiebreaker 2:H2H PD: OLA7B2, CTK7B2, SJN7B1, SJN7B2 did not play H2H 
- Tiebreaker 3:OLA7B2, CTK7B2, SJN7B1, SJN7B2 have no common opponents 
- Tiebreaker 4:OLA7B2, CTK7B2, SJN7B1, SJN7B2 have no common opponents 
- Tiebreaker 5: Overall PD: [('SJN7B2', -17), ('CTK7B2', -41), ('SJN7B1', -46), ('OLA7B2', -52)] 
+6. Seeds [17, 18, 19]: 
+ Tiebreaker 1:H2H: STM7B1, OLA7B1, IHM7B2 did not play 
+ Tiebreaker 2:H2H PD: STM7B1, OLA7B1, IHM7B2 did not play H2H 
+ Tiebreaker 3:STM7B1, OLA7B1, IHM7B2 have no common opponents 
+ Tiebreaker 4:STM7B1, OLA7B1, IHM7B2 have no common opponents 
+ Tiebreaker 5: Overall PD: [('OLA7B1', -57), ('IHM7B2', -70), ('STM7B1', -76)] 
 
 
-7. Seeds [21, 22]: 
- Tiebreaker 1:H2H: STM7B1, JOE7B1 did not play 
- Tiebreaker 2:H2H PD: STM7B1, JOE7B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('JOE7B1', 0.3333333333333333), ('STM7B1', 0.0)] 
+7. Seeds [20, 21]: 
+ Tiebreaker 1:H2H: NDA7B1, OLA7B2 did not play 
+ Tiebreaker 2:H2H PD: NDA7B1, OLA7B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('OLA7B2', 0.5), ('NDA7B1', 0.0)] 
 
 

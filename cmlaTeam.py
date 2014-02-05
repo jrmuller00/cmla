@@ -326,7 +326,7 @@ class cmlaTeam(object):
         elif team < opp:
             self.Losses = self.Losses + 1
         else:
-            if byeGame:
+            if byeGame == False:
                 self.Ties = self.Ties + 1
         return
 

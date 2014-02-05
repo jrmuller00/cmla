@@ -1,64 +1,52 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	BRG4G1	10	0	0	100.00%	112	40.84%
-2	BRG4G2	9	1	0	90.00%	95	53.00%
-3	JUD4G2	9	1	0	90.00%	97	47.18%
-4	JUD4G1	8	2	0	80.00%	51	39.23%
-5	SPC4G1	8	2	0	80.00%	38	41.58%
-6	OLA4G2	7	3	0	70.00%	57	45.61%
-7	HSP4G1	7	3	0	70.00%	34	48.56%
-8	OLA4G1	6	3	0	66.67%	16	51.67%
-9	CTK4G1	6	4	0	60.00%	23	56.18%
-10	STM4G2	6	4	0	60.00%	15	44.72%
-11	CTK4G2	6	4	0	60.00%	11	48.01%
-12	NDA4G1	4	6	0	40.00%	-12	54.39%
-13	STM4G1	3	6	0	33.33%	-41	65.38%
-14	SCS4G2	3	7	0	30.00%	-12	55.94%
-15	JOE4G1	3	7	0	30.00%	-20	47.90%
-16	SCS4G1	3	7	0	30.00%	-24	54.39%
-17	SPC4G2	3	7	0	30.00%	-30	52.45%
-18	IHM4G1	3	7	0	30.00%	-46	56.95%
-19	CTK4G3	2	8	0	20.00%	-70	59.35%
-20	SJN4G2	2	8	0	20.00%	-84	58.31%
-21	PIN4G1	1	9	0	10.00%	-90	53.87%
-22	SJN4G1	0	10	0	0.00%	-120	64.55%
+1	NDA4G2	10	0	0	100.00%	86	43.31%
+2	STM4G2	9	1	0	90.00%	102	42.78%
+3	NDA4G1	9	1	0	90.00%	71	51.55%
+4	SPC4G1	9	1	0	90.00%	63	38.87%
+5	STM4G1	8	2	0	80.00%	63	48.54%
+6	OLA4G1	6	4	0	60.00%	22	52.98%
+7	JOE4G1	6	4	0	60.00%	35	53.12%
+8	IHM4G1	4	6	0	40.00%	-16	60.29%
+9	SCS4G1	4	5	1	40.00%	-14	52.21%
+10	CTK4G1	4	5	1	40.00%	-22	55.36%
+11	CTK4G2	3	6	1	30.00%	-17	55.04%
+12	BRG4G1	3	7	0	30.00%	-55	59.69%
+13	JUD4G1	2	8	0	20.00%	-68	57.77%
+14	HSP4G1	1	9	0	10.00%	-57	56.34%
+15	SJN4G1	0	9	1	0.00%	-85	56.59%
+16	IHM4G2	0	10	0	0.00%	-108	61.64%
 
 NOTES
 -----
-1. Seeds [2, 3]: 
- Tiebreaker 1: H2H: [('BRG4G2', 1.0), ('JUD4G2', 0.0)] 
+1. Seeds [2, 3, 4]: 
+ Tiebreaker 1:H2H: STM4G2, SPC4G1, NDA4G1 did not play 
+ Tiebreaker 2:H2H PD: STM4G2, SPC4G1, NDA4G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('NDA4G1', 1.0), ('SPC4G1', 1.0), ('STM4G2', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('STM4G2', 36), ('NDA4G1', 34), ('SPC4G1', 24)] 
 
 
-2. Seeds [4, 5]: 
- Tiebreaker 1:H2H: SPC4G1, JUD4G1 did not play 
- Tiebreaker 2:H2H PD: SPC4G1, JUD4G1 did not play H2H 
- Tiebreaker 3: Common Opp: [('SPC4G1', 0.75), ('JUD4G1', 0.75)] 
- Tiebreaker 4: Common Opp PD: [('JUD4G1', 40), ('SPC4G1', 30)] 
+2. Seeds [6, 7]: 
+ Tiebreaker 1: H2H: [('OLA4G1', 1.0), ('JOE4G1', 0.0)] 
 
 
-3. Seeds [6, 7]: 
- Tiebreaker 1: H2H: [('OLA4G2', 1.0), ('HSP4G1', 0.0)] 
+3. Seeds [8, 9, 10]: 
+ Tiebreaker 1:H2H: CTK4G1, SCS4G1, IHM4G1 did not play 
+ Tiebreaker 2:H2H PD: CTK4G1, SCS4G1, IHM4G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('IHM4G1', 0.5), ('SCS4G1', 0.25), ('CTK4G1', 0.0)] 
 
 
-4. Seeds [9, 10, 11]: 
- Tiebreaker 1:H2H: STM4G2, CTK4G1, CTK4G2 did not play 
- Tiebreaker 2:H2H PD: STM4G2, CTK4G1, CTK4G2 did not play H2H 
- Tiebreaker 3:STM4G2, CTK4G1, CTK4G2 have no common opponents 
- Tiebreaker 4:STM4G2, CTK4G1, CTK4G2 have no common opponents 
- Tiebreaker 5: Overall PD: [('CTK4G1', 23), ('STM4G2', 15), ('CTK4G2', 11)] 
+4. Seeds [11, 12]: 
+ Tiebreaker 1:H2H: CTK4G2, BRG4G1 did not play 
+ Tiebreaker 2:H2H PD: CTK4G2, BRG4G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('CTK4G2', 0.2857142857142857), ('BRG4G1', 0.2857142857142857)] 
+ Tiebreaker 4: Common Opp PD: [('CTK4G2', -24), ('BRG4G1', -37)] 
 
 
-5. Seeds [14, 15, 16, 17, 18]: 
- Tiebreaker 1:H2H: SCS4G2, SPC4G2, IHM4G1, JOE4G1, SCS4G1 did not play 
- Tiebreaker 2:H2H PD: SCS4G2, SPC4G2, IHM4G1, JOE4G1, SCS4G1 did not play H2H 
- Tiebreaker 3:SCS4G2, SPC4G2, IHM4G1, JOE4G1, SCS4G1 have no common opponents 
- Tiebreaker 4:SCS4G2, SPC4G2, IHM4G1, JOE4G1, SCS4G1 have no common opponents 
- Tiebreaker 5: Overall PD: [('SCS4G2', -12), ('JOE4G1', -20), ('SCS4G1', -24), ('SPC4G2', -30), ('IHM4G1', -46)] 
-
-
-6. Seeds [19, 20]: 
- Tiebreaker 1:H2H: CTK4G3, SJN4G2 did not play 
- Tiebreaker 2:H2H PD: CTK4G3, SJN4G2 did not play H2H 
- Tiebreaker 3: Common Opp: [('CTK4G3', 0.25), ('SJN4G2', 0.125)] 
+5. Seeds [15, 16]: 
+ Tiebreaker 1:H2H: IHM4G2, SJN4G1 did not play 
+ Tiebreaker 2:H2H PD: IHM4G2, SJN4G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('IHM4G2', 0.0), ('SJN4G1', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('SJN4G1', -58), ('IHM4G2', -63)] 
 
 

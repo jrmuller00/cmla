@@ -1,97 +1,90 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	HSP5B2	10	0	0	100.00%	117	44.19%
-2	JUD5B2	9	1	0	90.00%	111	63.95%
-3	JOE5B1	9	1	0	90.00%	75	51.17%
-4	JUD5B1	8	2	0	80.00%	91	47.96%
-5	SCS5B1	8	2	0	80.00%	60	41.59%
-6	HSP5B1	8	2	0	80.00%	53	55.51%
-7	JUD5B3	8	2	0	80.00%	50	58.31%
-8	CTK5B1	7	3	0	70.00%	58	43.84%
-9	CTK5B2	7	3	0	70.00%	53	62.87%
-10	PIN5B2	6	4	0	60.00%	56	54.94%
-11	JOE5B2	6	4	0	60.00%	49	64.72%
-12	SCL5B1	6	4	0	60.00%	14	44.47%
-13	PIN5B1	6	4	0	60.00%	11	53.85%
-14	SPC5B2	6	4	0	60.00%	-7	65.03%
-15	SJN5B1	5	5	0	50.00%	18	59.75%
-16	BRG5B1	5	5	0	50.00%	7	46.74%
-17	OLA5B2	5	5	0	50.00%	-4	57.03%
-18	JOE5B3	5	5	0	50.00%	-13	66.68%
-19	IHM5B1	4	6	0	40.00%	-9	63.73%
-20	BRG5B2	4	6	0	40.00%	-29	47.06%
-21	SCS5B2	3	7	0	30.00%	-16	65.92%
-22	OLA5B1	3	7	0	30.00%	-49	60.92%
-23	STM5B1	3	7	0	30.00%	-53	49.49%
-24	SPC5B1	3	7	0	30.00%	-61	67.20%
-25	SJN5B2	2	8	0	20.00%	-64	71.08%
-26	NDA5B2	1	9	0	10.00%	-76	70.73%
-27	STM5B2	1	9	0	10.00%	-86	63.60%
-28	NDA5B1	1	9	0	10.00%	-97	69.69%
-29	IHM5B2	1	9	0	10.00%	-112	67.87%
-30	TRN5B1	0	10	0	0.00%	-147	66.93%
+1	CTK5B1	9	0	0	100.00%	115	46.41%
+2	CTK5B2	9	0	0	100.00%	107	49.83%
+3	BRG5B2	8	1	0	88.89%	82	59.61%
+4	OLA5B2	8	2	0	80.00%	73	58.88%
+5	OLA5B1	8	2	0	80.00%	72	52.48%
+6	JUD5B3	7	3	0	70.00%	49	66.57%
+7	JOE5B1	7	3	0	70.00%	41	52.44%
+8	IHM5B2	7	3	0	70.00%	25	53.33%
+9	JUD5B1	6	3	0	66.67%	53	47.51%
+10	BRG5B1	6	3	0	66.67%	46	48.76%
+11	JOE5B2	6	4	0	60.00%	29	56.37%
+12	CTK5B3	6	4	0	60.00%	41	49.81%
+13	SPC5B1	5	4	0	55.56%	-3	50.61%
+14	JUD5B2	5	5	0	50.00%	-8	56.36%
+15	NDA5B1	5	5	0	50.00%	3	54.05%
+16	STM5B2	3	6	0	33.33%	-56	63.64%
+17	STM5B3	3	6	0	33.33%	-60	58.54%
+18	STM5B1	3	7	0	30.00%	-29	63.33%
+19	IHM5B1	3	7	0	30.00%	-23	58.61%
+20	SPC5B2	3	7	0	30.00%	-41	64.30%
+21	SJN5B1	2	7	0	22.22%	-47	55.15%
+22	SCS5B1	1	9	0	10.00%	-87	63.98%
+23	TRN5B1	0	10	0	0.00%	-112	67.60%
+24	HSP5B2	0	9	0	0.00%	-126	58.95%
+25	HSP5B1	0	10	0	0.00%	-144	66.32%
 
 NOTES
 -----
-1. Seeds [2, 3]: 
- Tiebreaker 1:H2H: JOE5B1, JUD5B2 did not play 
- Tiebreaker 2:H2H PD: JOE5B1, JUD5B2 did not play H2H 
- Tiebreaker 3:JOE5B1, JUD5B2 have no common opponents 
- Tiebreaker 4:JOE5B1, JUD5B2 have no common opponents 
- Tiebreaker 5: Overall PD: [('JUD5B2', 111), ('JOE5B1', 75)] 
+1. Seeds [1, 2]: 
+ Tiebreaker 1:H2H: CTK5B1, CTK5B2 did not play 
+ Tiebreaker 2:H2H PD: CTK5B1, CTK5B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('CTK5B1', 1.0), ('CTK5B2', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('CTK5B1', 15), ('CTK5B2', 15)] 
+ Tiebreaker 5: Overall PD: [('CTK5B1', 115), ('CTK5B2', 107)] 
 
 
-2. Seeds [4, 5, 6, 7]: 
- Tiebreaker 1:H2H: HSP5B1, JUD5B3, SCS5B1, JUD5B1 did not play 
- Tiebreaker 2:H2H PD: HSP5B1, JUD5B3, SCS5B1, JUD5B1 did not play H2H 
- Tiebreaker 3:HSP5B1, JUD5B3, SCS5B1, JUD5B1 have no common opponents 
- Tiebreaker 4:HSP5B1, JUD5B3, SCS5B1, JUD5B1 have no common opponents 
- Tiebreaker 5: Overall PD: [('JUD5B1', 91), ('SCS5B1', 60), ('HSP5B1', 53), ('JUD5B3', 50)] 
+2. Seeds [4, 5]: 
+ Tiebreaker 1:H2H: OLA5B2, OLA5B1 did not play 
+ Tiebreaker 2:H2H PD: OLA5B2, OLA5B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('OLA5B2', 1.0), ('OLA5B1', 0.0)] 
 
 
-3. Seeds [8, 9]: 
- Tiebreaker 1:H2H: CTK5B2, CTK5B1 did not play 
- Tiebreaker 2:H2H PD: CTK5B2, CTK5B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('CTK5B2', 1.0), ('CTK5B1', 1.0)] 
- Tiebreaker 4: Common Opp PD: [('CTK5B1', 15), ('CTK5B2', 12)] 
+3. Seeds [6, 7, 8]: 
+ Tiebreaker 1:H2H: JUD5B3, JOE5B1, IHM5B2 did not play 
+ Tiebreaker 2:H2H PD: JUD5B3, JOE5B1, IHM5B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JUD5B3', 1.0), ('JOE5B1', 0.0), ('IHM5B2', 0.0)] 
 
 
-4. Seeds [10, 11, 12, 13, 14]: 
- Tiebreaker 1:H2H: SCL5B1, SPC5B2, PIN5B1, PIN5B2, JOE5B2 did not play 
- Tiebreaker 2:H2H PD: SCL5B1, SPC5B2, PIN5B1, PIN5B2, JOE5B2 did not play H2H 
- Tiebreaker 3:SCL5B1, SPC5B2, PIN5B1, PIN5B2, JOE5B2 have no common opponents 
- Tiebreaker 4:SCL5B1, SPC5B2, PIN5B1, PIN5B2, JOE5B2 have no common opponents 
- Tiebreaker 5: Overall PD: [('PIN5B2', 56), ('JOE5B2', 49), ('SCL5B1', 14), ('PIN5B1', 11), ('SPC5B2', -7)] 
+4. Seeds [7, 8]: 
+ Tiebreaker 4: Common Opp PD: [('JOE5B1', 30), ('IHM5B2', -4)] 
 
 
-5. Seeds [15, 16, 17, 18]: 
- Tiebreaker 1:H2H: BRG5B1, OLA5B2, JOE5B3, SJN5B1 did not play 
- Tiebreaker 2:H2H PD: BRG5B1, OLA5B2, JOE5B3, SJN5B1 did not play H2H 
- Tiebreaker 3:BRG5B1, OLA5B2, JOE5B3, SJN5B1 have no common opponents 
- Tiebreaker 4:BRG5B1, OLA5B2, JOE5B3, SJN5B1 have no common opponents 
- Tiebreaker 5: Overall PD: [('SJN5B1', 18), ('BRG5B1', 7), ('OLA5B2', -4), ('JOE5B3', -13)] 
+5. Seeds [9, 10]: 
+ Tiebreaker 1:H2H: JUD5B1, BRG5B1 did not play 
+ Tiebreaker 2:H2H PD: JUD5B1, BRG5B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JUD5B1', 1.0), ('BRG5B1', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('JUD5B1', 54), ('BRG5B1', 36)] 
 
 
-6. Seeds [19, 20]: 
- Tiebreaker 1: H2H: [('IHM5B1', 1.0), ('BRG5B2', 0.0)] 
+6. Seeds [11, 12]: 
+ Tiebreaker 1: H2H: [('JOE5B2', 1.0), ('CTK5B3', 0.0)] 
 
 
-7. Seeds [21, 22, 23, 24]: 
- Tiebreaker 1:H2H: OLA5B1, STM5B1, SPC5B1, SCS5B2 did not play 
- Tiebreaker 2:H2H PD: OLA5B1, STM5B1, SPC5B1, SCS5B2 did not play H2H 
- Tiebreaker 3:OLA5B1, STM5B1, SPC5B1, SCS5B2 have no common opponents 
- Tiebreaker 4:OLA5B1, STM5B1, SPC5B1, SCS5B2 have no common opponents 
- Tiebreaker 5: Overall PD: [('SCS5B2', -16), ('OLA5B1', -49), ('STM5B1', -53), ('SPC5B1', -61)] 
+7. Seeds [14, 15]: 
+ Tiebreaker 1: H2H: [('JUD5B2', 1.0), ('NDA5B1', 0.0)] 
 
 
-8. Seeds [26, 27, 28, 29]: 
- Tiebreaker 1:H2H: NDA5B2, IHM5B2, STM5B2, NDA5B1 did not play 
- Tiebreaker 2:H2H PD: NDA5B2, IHM5B2, STM5B2, NDA5B1 did not play H2H 
- Tiebreaker 3: Common Opp: [('NDA5B2', 0.25), ('STM5B2', 0.25), ('IHM5B2', 0.0), ('NDA5B1', 0.0)] 
- Tiebreaker 4: Common Opp PD: [('NDA5B2', -47), ('STM5B2', -49)] 
+8. Seeds [16, 17]: 
+ Tiebreaker 1:H2H: STM5B3, STM5B2 did not play 
+ Tiebreaker 2:H2H PD: STM5B3, STM5B2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('STM5B2', 0.4), ('STM5B3', 0.0)] 
 
 
-9. Seeds [28, 29]: 
- Tiebreaker 4: Common Opp PD: [('NDA5B1', -79), ('IHM5B2', -98)] 
+9. Seeds [18, 19, 20]: 
+ Tiebreaker 1:H2H: SPC5B2, IHM5B1, STM5B1 did not play 
+ Tiebreaker 2:H2H PD: SPC5B2, IHM5B1, STM5B1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SPC5B2', 0.3333333333333333), ('IHM5B1', 0.3333333333333333), ('STM5B1', 0.3333333333333333)] 
+ Tiebreaker 4: Common Opp PD: [('STM5B1', 2), ('IHM5B1', -8), ('SPC5B2', -15)] 
+
+
+10. Seeds [23, 24, 25]: 
+ Tiebreaker 1:H2H: TRN5B1, HSP5B2, HSP5B1 did not play 
+ Tiebreaker 2:H2H PD: TRN5B1, HSP5B2, HSP5B1 did not play H2H 
+ Tiebreaker 3:TRN5B1, HSP5B2, HSP5B1 have no common opponents 
+ Tiebreaker 4:TRN5B1, HSP5B2, HSP5B1 have no common opponents 
+ Tiebreaker 5: Overall PD: [('TRN5B1', -112), ('HSP5B2', -126), ('HSP5B1', -144)] 
 
 

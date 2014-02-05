@@ -1,52 +1,48 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	STM5G2	10	0	0	100.00%	77	59.10%
-2	CTK5G1	8	2	0	80.00%	73	60.02%
-3	STM5G1	8	2	0	80.00%	58	49.24%
-4	JOE5G1	7	3	0	70.00%	14	54.24%
-5	NDA5G1	7	3	0	70.00%	58	54.57%
-6	BRG5G1	7	3	0	70.00%	15	54.15%
-7	HSP5G1	6	4	0	60.00%	28	55.09%
-8	OLA5G1	5	5	0	50.00%	36	64.35%
-9	SJN5G1	5	5	0	50.00%	18	58.04%
-10	CTK5G2	5	5	0	50.00%	-7	57.69%
-11	JUD5G1	3	7	0	30.00%	-16	60.28%
-12	PIN5G1	3	7	0	30.00%	-25	57.03%
-13	SPC5G1	3	7	0	30.00%	-53	60.11%
-14	IHM5G1	2	8	0	20.00%	-65	55.50%
-15	PIN5G2	1	9	0	10.00%	-69	61.57%
-16	TRN5G1	0	10	0	0.00%	-142	57.31%
+1	JUD5G1	10	0	0	100.00%	141	40.74%
+2	JOE5G2	7	2	0	77.78%	50	44.03%
+3	OLA5G1	7	2	0	77.78%	35	34.52%
+4	NDA5G2	6	3	0	66.67%	51	47.09%
+5	OLA5G3	6	3	0	66.67%	39	53.28%
+6	SPC5G2	6	3	0	66.67%	33	44.37%
+7	NDA5G1	6	3	0	66.67%	13	42.22%
+8	CTK5G2	6	4	0	60.00%	38	58.55%
+9	HSP5G1	6	4	0	60.00%	-10	53.23%
+10	OLA5G2	5	4	0	55.56%	19	56.97%
+11	BRG5G2	4	6	0	40.00%	-7	51.95%
+12	IHM5G1	3	6	0	33.33%	-55	57.29%
+13	CTK5G1	3	7	0	30.00%	-49	48.22%
+14	BRG5G1	2	7	0	22.22%	-43	50.80%
+15	NDA5G3	1	8	0	11.11%	-107	56.43%
+16	SPC5G1	1	9	0	10.00%	-63	54.17%
+17	JOE5G1	1	9	0	10.00%	-85	48.87%
 
 NOTES
 -----
 1. Seeds [2, 3]: 
- Tiebreaker 1: H2H: [('CTK5G1', 1.0), ('STM5G1', 0.0)] 
+ Tiebreaker 1:H2H: JOE5G2, OLA5G1 did not play 
+ Tiebreaker 2:H2H PD: JOE5G2, OLA5G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('JOE5G2', 0.8), ('OLA5G1', 0.8)] 
+ Tiebreaker 4: Common Opp PD: [('JOE5G2', 47), ('OLA5G1', 28)] 
 
 
-2. Seeds [4, 5, 6]: 
- Tiebreaker 1:H2H: BRG5G1, NDA5G1, JOE5G1 did not play 
- Tiebreaker 2:H2H PD: BRG5G1, NDA5G1, JOE5G1 did not play H2H 
- Tiebreaker 3: Common Opp: [('JOE5G1', 0.7142857142857143), ('BRG5G1', 0.5714285714285714), ('NDA5G1', 0.5714285714285714)] 
+2. Seeds [4, 5, 6, 7]: 
+ Tiebreaker 1:H2H: SPC5G2, NDA5G2, NDA5G1, OLA5G3 did not play 
+ Tiebreaker 2:H2H PD: SPC5G2, NDA5G2, NDA5G1, OLA5G3 did not play H2H 
+ Tiebreaker 3: Common Opp: [('NDA5G2', 1.0), ('OLA5G3', 1.0), ('SPC5G2', 0.0), ('NDA5G1', 0.0)] 
+ Tiebreaker 4: Common Opp PD: [('NDA5G2', 36), ('OLA5G3', 23)] 
 
 
-3. Seeds [5, 6]: 
- Tiebreaker 4: Common Opp PD: [('NDA5G1', 53), ('BRG5G1', 11)] 
+3. Seeds [6, 7]: 
+ Tiebreaker 4: Common Opp PD: [('SPC5G2', 6), ('NDA5G1', -6)] 
 
 
-4. Seeds [8, 9, 10]: 
- Tiebreaker 1:H2H: OLA5G1, SJN5G1, CTK5G2 did not play 
- Tiebreaker 2:H2H PD: OLA5G1, SJN5G1, CTK5G2 did not play H2H 
- Tiebreaker 3: Common Opp: [('OLA5G1', 0.4), ('SJN5G1', 0.2), ('CTK5G2', 0.2)] 
+4. Seeds [8, 9]: 
+ Tiebreaker 1: H2H: [('CTK5G2', 1.0), ('HSP5G1', 0.0)] 
 
 
-5. Seeds [9, 10]: 
- Tiebreaker 4: Common Opp PD: [('SJN5G1', 9), ('CTK5G2', -17)] 
-
-
-6. Seeds [11, 12, 13]: 
- Tiebreaker 1:H2H: SPC5G1, PIN5G1, JUD5G1 did not play 
- Tiebreaker 2:H2H PD: SPC5G1, PIN5G1, JUD5G1 did not play H2H 
- Tiebreaker 3: Common Opp: [('SPC5G1', 0.3333333333333333), ('PIN5G1', 0.3333333333333333), ('JUD5G1', 0.3333333333333333)] 
- Tiebreaker 4: Common Opp PD: [('JUD5G1', 3), ('PIN5G1', 0), ('SPC5G1', -8)] 
+5. Seeds [16, 17]: 
+ Tiebreaker 1: H2H: [('SPC5G1', 1.0), ('JOE5G1', 0.0)] 
 
 

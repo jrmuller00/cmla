@@ -1,36 +1,38 @@
 Seed	Team	Wins	Losses	Ties	WP	PD	SOS
 ----	----	----	------	----	--	--	---
-1	SPC3G1	9	0	0	100.00%	89	48.43%
-2	JUD3G1	9	0	0	100.00%	68	51.27%
-3	JUD3G2	10	0	0	100.00%	70	42.82%
-4	NDA3G1	6	2	0	75.00%	42	61.37%
-5	HSP3G1	6	4	0	60.00%	26	58.07%
-6	PIN3G1	4	3	0	57.14%	-7	68.52%
-7	OLA3G1	5	4	0	55.56%	30	61.90%
-8	CTK3G3	4	4	0	50.00%	12	58.18%
-9	JOE3G1	4	4	0	50.00%	-7	61.60%
-10	CTK3G1	4	5	0	44.44%	-30	57.39%
-11	IHM3G1	3	5	0	37.50%	-28	58.69%
-12	CTK3G2	3	6	0	33.33%	-22	60.93%
-13	BRG3G2	3	7	0	30.00%	-15	46.52%
-14	BRG3G1	2	5	0	28.57%	-12	70.85%
-15	SPC3G2	2	7	0	22.22%	-24	54.57%
-16	STM3G1	1	9	0	10.00%	-85	54.91%
-17	OLA3G2	0	10	0	0.00%	-107	54.91%
+1	NDA3G1	9	0	0	100.00%	94	29.24%
+2	JUD3G1	9	0	0	100.00%	62	40.41%
+3	OLA3G1	7	2	0	77.78%	59	35.05%
+4	SCS3G2	6	3	1	60.00%	26	39.34%
+5	BRG3G1	5	4	0	55.56%	17	46.18%
+6	SPC3G1	5	4	0	55.56%	12	42.27%
+7	CTK3G2	5	4	0	55.56%	20	41.16%
+8	IHM3G1	5	2	3	50.00%	-4	40.03%
+9	SCS3G1	4	5	0	44.44%	-16	41.44%
+10	HSP3G1	3	4	3	30.00%	-3	38.25%
+11	STM3G1	2	6	2	20.00%	-24	44.35%
+12	SJN3G1	1	6	2	11.11%	-41	40.08%
+13	SPC3G2	1	6	2	11.11%	-61	45.35%
+14	CTK3G1	1	8	1	10.00%	-52	41.90%
+15	JOE3G1	0	9	0	0.00%	-89	46.40%
 
 NOTES
 -----
-1. Seeds [1, 2, 3]: 
- Tiebreaker 1:H2H: JUD3G1, SPC3G1, JUD3G2 did not play 
- Tiebreaker 2:H2H PD: JUD3G1, SPC3G1, JUD3G2 did not play H2H 
- Tiebreaker 3: Common Opp: [('JUD3G1', 1.0), ('SPC3G1', 1.0), ('JUD3G2', 1.0)] 
- Tiebreaker 4: Common Opp PD: [('SPC3G1', 36), ('JUD3G1', 33), ('JUD3G2', 27)] 
+1. Seeds [1, 2]: 
+ Tiebreaker 1:H2H: NDA3G1, JUD3G1 did not play 
+ Tiebreaker 2:H2H PD: NDA3G1, JUD3G1 did not play H2H 
+ Tiebreaker 3: Common Opp: [('NDA3G1', 1.0), ('JUD3G1', 1.0)] 
+ Tiebreaker 4: Common Opp PD: [('NDA3G1', 58), ('JUD3G1', 52)] 
 
 
-2. Seeds [8, 9]: 
- Tiebreaker 1: H2H: [('JOE3G1', 0.0), ('CTK3G3', 0.0)] 
- Tiebreaker 2: H2HPD: [('JOE3G1', 0), ('CTK3G3', 0)] 
- Tiebreaker 3: Common Opp: [('JOE3G1', 0.5), ('CTK3G3', 0.5)] 
- Tiebreaker 4: Common Opp PD: [('CTK3G3', 5), ('JOE3G1', -11)] 
+2. Seeds [5, 6, 7]: 
+ Tiebreaker 1: H2H: [('BRG3G1', 1.0), ('SPC3G1', 0.5), ('CTK3G2', 0.0)] 
+
+
+3. Seeds [12, 13]: 
+ Tiebreaker 1:H2H: SJN3G1, SPC3G2 did not play 
+ Tiebreaker 2:H2H PD: SJN3G1, SPC3G2 did not play H2H 
+ Tiebreaker 3: Common Opp: [('SJN3G1', 0.14285714285714285), ('SPC3G2', 0.14285714285714285)] 
+ Tiebreaker 4: Common Opp PD: [('SJN3G1', -26), ('SPC3G2', -45)] 
 
 

@@ -977,7 +977,7 @@ def resolveTies(divDict, tieList):
     for i in range(len(tieList)):
         notesList.append("")
 
-    while tieBreaker < 6:
+    while tieBreaker < 7:
         #
         # set current index for tieList
         cIndex = 0
@@ -1010,6 +1010,10 @@ def resolveTies(divDict, tieList):
                     #
                     # overall PD
                     (succeed, resolvedList, tieNotes) = overallPDiff(tieDict)
+                elif tieBreaker == 6:
+                    #
+                    # coin toss
+                    (succeed, resolvedList, tieNotes) = coinToss(tieDict)
 
                 overallNotes = overallNotes + tieNotes
                 notesList[cIndex] = notesList[cIndex] + " Tiebreaker " + str(tieBreaker) + ":" + tieNotes + " \n" 
@@ -1365,6 +1369,51 @@ def overallPDiff(tiedDict):
             break
 
     return (succeed, h2HCoallate, notes)
+
+#
+# overallPDiff will resolve ties based on point differential
+# for the whole season
+
+def coinToss(tiedDict):
+    """
+    coinToss will randomly choose teams still tied
+
+        dict    tiedDict    dictionary of tied teams
+        
+        Return:
+        Return value:
+            tuple   (True | False, list: sorted teams, string: Notes)            
+
+
+    """
+    succeed = True
+    played = []
+
+    tiedTeams = list(tiedDict.keys())
+    notes = ""
+    tiedSort = []
+    h2HCoallate = []
+    numItems = len(tiedTeams)
+
+    index = numItems
+
+    for i in range(numItems):
+        pick = random.choice(tiedTeams)
+        tiedSort.append((pick,index))
+        index = index - 1
+        tiedTeams.remove(pick)
+        
+    h2HCoallate = coallateList(tiedSort)
+    notes = " Coin toss: " + str(tiedSort)
+    
+    for item in h2HCoallate:
+        if isinstance(item, list):
+            succeed = False
+            notes = ' Coin toss:  '.join(tiedTeams) + " error"
+            break
+
+    return (succeed, h2HCoallate, notes)
+
 
 #
 # --------------------------------------------------------------------------
