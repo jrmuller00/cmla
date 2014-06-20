@@ -7,8 +7,8 @@ import math
 from types import *
 from tkinter import messagebox
 from tkinter import filedialog
-from pandas.io.parsers import ExcelFile
-import pandas as pd
+#from pandas.io.parsers import ExcelFile
+#import pandas as pd
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
@@ -67,6 +67,13 @@ def getScheduleTable(numTeams):
 
 def readRegistrationExcelFile(filename):
     #
+    # set the offset value for the 1st row and col
+    # in earlier version of openpyxl 1st row and col were ""
+    # later version it's 1,1
+    
+    rowoffset = 1
+    coloffset = 1
+    #
     # open the file and set the active worksheet
     wb = load_workbook(filename)
     ws = wb.get_active_sheet()
@@ -81,12 +88,15 @@ def readRegistrationExcelFile(filename):
     genderList = []
 
     #
-    # read the parish list 
+    # read the parish list
+    # start at row = 1, col = 3 
 
-    cellRow = 0
-    cellCol = 2
+    cellRow = rowoffset
+    cellCol = coloffset + 2
 
     cell = ws.cell(row = cellRow,column = cellCol)
+    #
+    # loop thru all parishes until cell is empty
     while cell.value is not None:
         parishList.append(cell.value)
         cellCol = cellCol + 1
@@ -94,10 +104,13 @@ def readRegistrationExcelFile(filename):
 
     #
     # now get the grade list
-    cellRow = 1
-    cellCol = 0
+    # row = 2, col = 1
+    cellRow = rowoffset + 1
+    cellCol = coloffset
 
     cell = ws.cell(row = cellRow,column = cellCol)
+    #
+    # loop over grade col (A) to get all grades
     while cell.value is not None:
         gradeList.append(cell.value)
         cellRow = cellRow + 1
@@ -105,33 +118,38 @@ def readRegistrationExcelFile(filename):
 
     #
     # finally get the gender list
-    cellRow = 1
-    cellCol = 1
+    # row = 2, col = 2
+    cellRow = rowoffset + 1
+    cellCol = coloffset + 1
 
     cell = ws.cell(row = cellRow,column = cellCol)
+    #
+    # loop over genders col (B) 
     while cell.value is not None:
         genderList.append(cell.value)
         cellRow = cellRow + 1
         cell = ws.cell(row = cellRow,column = cellCol)
     
     regDict = {}
-
-    for index in range(len(gradeList)):
-        tag = str(int(gradeList[index])) + genderList[index][0]
+    
+    #
+    # loop over each grade gender row to get num of teams from each parish
+    for rowindex in range(len(gradeList)):
+        tag = str(int(gradeList[rowindex])) + genderList[rowindex][0]
         regDict[tag] = []
         #numTeamsList = list(df.iloc[index,2:])
         numTeamsList = []
-        cellRow = index + 1
-        cellCol = 2
-        for j in range(len(parishList)):
+        cellRow = rowindex + rowoffset + 1
+        cellCol = coloffset + 2
+        for counter in range(len(parishList)):
             cell = ws.cell(row = cellRow,column = cellCol)
             if cell.value is None:
                 numTeamsList.append(0)
             else:
                 numTeamsList.append(cell.value)
             cellCol = cellCol + 1
-        for pIndex in range(0,len(parishList)):
-            regDict[tag].append((parishList[pIndex],int(numTeamsList[pIndex])))
+        for parishIndex in range(0,len(parishList)):
+            regDict[tag].append((parishList[parishIndex],int(numTeamsList[parishIndex])))
 
     return regDict
 
@@ -712,6 +730,13 @@ def loadBalanceSchedule(cmlaDict, scheduleTable, teamList):
     return scheduleTable
 
 def writeExcelInterimFile(masterSchedule):
+    #
+    # set the offset value for the 1st row and col
+    # in earlier version of openpyxl 1st row and col were ""
+    # later version it's 1,1
+    
+    rowoffset = 1
+    coloffset = 1    
 
     excelFilename = tkinter.filedialog.asksaveasfilename()
     
@@ -735,30 +760,30 @@ def writeExcelInterimFile(masterSchedule):
         if hasBye == True:
             sortedList.append("BYE")
         
-        ws.cell(row=0,column=0).value =  key
-        cellrow = 1
-        cellcol = 0
+        ws.cell(row=rowoffset,column=coloffset).value =  key
+        cellrow = rowoffset + 1
+        cellcol = coloffset
         for team in sortedList:
             ws.cell(row=cellrow,column=cellcol).value = team
             cellrow = cellrow + 1
 
         teamSchedule = []
 
-        cellrow = 0
-        cellcol = 3
+        cellrow = rowoffset
+        cellcol = coloffset + 3
         ws.cell(row=cellrow,column=cellcol).value = 'Vis'
         ws.cell(row=cellrow,column=cellcol+1).value = 'Hm'
-        cellrow = 1
+        cellrow = rowoffset = 1
         for game in scheduleTable:
             (away,home) = game
             ws.cell(row=cellrow,column=cellcol).value = scheduleList[away]
             ws.cell(row=cellrow,column=cellcol+1).value = scheduleList[home]
             cellrow = cellrow + 1
 
-        ws.cell(row=0,column=10).value = 'NOTES:'
-        ws.cell(row=1,column=10).value = '1) COPY A WORKSHEET WITH '+ str(numTeams) + ' TEAMS AND RENAME TO ' + key
-        ws.cell(row=2,column=10).value = '2) COPY TEAM LIST [COL A] TO [COL M] ON SHEET ' + key
-        ws.cell(row=3,column=10).value = "3) COPY SCHEDULE TABLE [COL'S D & E] TO [COL'S D & E] ON SHEET " + key
+        ws.cell(row=rowoffset ,column=coloffset + 10).value = 'NOTES:'
+        ws.cell(row=rowoffset + 1,column=coloffset + 10).value = '1) COPY A WORKSHEET WITH '+ str(numTeams) + ' TEAMS AND RENAME TO ' + key
+        ws.cell(row=rowoffset + 2,column=coloffset + 10).value = '2) COPY TEAM LIST [COL A] TO [COL M] ON SHEET ' + key
+        ws.cell(row=rowoffset + 3,column=coloffset + 10).value = "3) COPY SCHEDULE TABLE [COL'S D & E] TO [COL'S D & E] ON SHEET " + key
 
     wb.save(excelFilename)
 
