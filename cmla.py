@@ -66,6 +66,12 @@ def getScheduleTable(numTeams):
 
 
 def readRegistrationExcelFile(filename):
+    """
+    readRegistrationExcelFile will read the regstration file and create
+    a dictionary of each league.  The key of the league (3B, 3G, 4B, etc.)
+    and the value is a list of tuples (parish, # teams)
+
+    """
     #
     # set the offset value for the 1st row and col
     # in earlier version of openpyxl 1st row and col were ""
@@ -301,6 +307,12 @@ def getTeamsNotPlayed(numTeams, teamsPlayed):
     return teamsNotPlayed
             
 def makeRegistrationDict(filename):
+    """
+    makeRegistrationDict will read the regstration file and create
+    a dictionary of each league.  The key of the league (3B, 3G, 4B, etc.)
+    and the value is a list of tuples (parish, # teams)
+
+    """
     regDict = {}
 
     linenum = 0
@@ -1521,6 +1533,9 @@ def main():
 
 
     if scheduleGames == True:
+        #
+        # Create an empty parish list
+        parishDict = {}
         if registrationFilename == "":
             registrationFilename = tkinter.filedialog.askopenfilename()
 
@@ -1529,6 +1544,8 @@ def main():
         extension = tokens[numTokens-1]
 
         if extension in ('xls','xlsx'):
+            #
+            # get a dictionary of the leagues andnumber of parish teams
             regDict = readRegistrationExcelFile(registrationFilename)
         else:
             regDict = makeRegistrationDict(registrationFilename)
@@ -1570,6 +1587,16 @@ def main():
                 print()
                 masterSchedule[rKey] = (scheduleTable, scheduleList, hasBye, len(scheduleList))
         writeExcelInterimFile(masterSchedule)
+
+
+
+#
+#
+#
+#
+#
+
+
     elif computeStandings == True:
         print ("Computing Standings")
         if standingsFilename == "":
