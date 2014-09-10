@@ -416,7 +416,7 @@ class cmlaTeam(object):
         """
         TotGames = self.Wins + self.Losses + self.Ties
         if TotGames > 0:
-            return self.Wins / TotGames
+            return (self.Wins + 0.05 * self.Ties) / TotGames
         else:
             return 0.0
 
